@@ -27,7 +27,7 @@ python -m venv venv
 
 4. Ative o ambiente virtual:
 ```bash
-    source bin/env/activate
+source bin/env/activate
 ```
 
 5. Instale as dependências do Python:
@@ -74,14 +74,14 @@ npm start
     - No diretório do frontend, crie um arquivo chamado ".env.local".
     - Cole as credenciais do Firebase no arquivo ".env.local".
     ```bash
-        REACT_APP_FIREBASE_API_KEY=your-api-key
-        REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-        REACT_APP_FIREBASE_DATABASE_URL=your-database-url
-        REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-        REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-        REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-        REACT_APP_FIREBASE_APP_ID=your-app-id
-        REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
+    REACT_APP_FIREBASE_API_KEY=your-api-key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+    REACT_APP_FIREBASE_DATABASE_URL=your-database-url
+    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+    REACT_APP_FIREBASE_APP_ID=your-app-id
+    REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
     ```
 
 ## Funcionalidades
