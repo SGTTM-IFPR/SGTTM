@@ -11,7 +11,7 @@ Para executar este sistema, você precisará ter o Python, o Node.js e o Firebas
 
 1. Clone este repositório em sua máquina local.
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/carlosquadros-br/ifpr-tcc-web.git
 ```
 
 ### Backend
