@@ -3,7 +3,7 @@ Este projeto é um sistema para gerar tabelas de campeonato de tênis de mesa.
 
 ## Tecnologias utilizadas
   - Python com Flask
-  - React
+  - React com Vite
   - Firebase
 
 ## Instalação
@@ -58,7 +58,7 @@ npm install
 
 10. Execute o servidor:
 ```bash
-npm start
+npm run dev
 ```
 
 ### Firebase
