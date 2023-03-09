@@ -3,8 +3,7 @@ Este projeto é um sistema para gerar tabelas de campeonato de tênis de mesa.
 
 ## Documentação do projeto
   - [TRELLO](https://trello.com/b/mU71PTrB/projeto-integrador-i)
-  - [GITHUB](https://github.com/carlosquadros-br/ifpr-tcc-web)
-  - [DOCUMENTAÇÃO](https://esperar-modelo-de-documentacao-da-prof)
+  - [DOCUMENTAÇÃO](https://docs.google.com/document/d/1k-ytTY66GrIKyVa3HLf-7Y_XAdcp1ptwC0FdG_eta2w/edit?usp=sharing)
 
 ## Tecnologias utilizadas
   - Python com Flask
