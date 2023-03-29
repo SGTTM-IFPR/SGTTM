@@ -26,12 +26,12 @@ cd backend
 
 3. Crie um ambiente virtual:
 ```bash
-python -m venv venv
+python -m venv env
 ```
 
 4. Ative o ambiente virtual:
 ```bash
-source bin/env/activate
+source env/bin/activate
 ```
 
 5. Instale as dependências do Python:
