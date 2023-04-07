@@ -1,17 +1,16 @@
 import { Component, ReactNode, useState } from 'react'
-import reactLogo from './assets/react.svg'
 import { Route, Link, BrowserRouter as Router, Routes } from 'react-router-dom'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { UserCrudPage } from  './pages/user_crud.page'
+// import './App.css'
+import { UserCrudPage } from './pages/user_crud.page'
 import { HomePage } from './pages/home.page'
+import { Login } from './pages/login/login'
 
 class App extends Component {
   render(): ReactNode {
     return (
       <Router>
-        <div>
-        <Link to="/">
+        {/* <div>
+          <Link to="/">
             <button >
               Página Inicial
             </button>
@@ -21,13 +20,13 @@ class App extends Component {
               Gerenciamento de Usuários
             </button>
           </Link>
-        </div>
+        </div> */}
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
-          <Route path="/user/" element={<UserCrudPage />} />
+          <Route path="/user" element={<UserCrudPage />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
-       </Router> 
-
+      </Router>
     )
   }
 }

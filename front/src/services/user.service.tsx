@@ -1,9 +1,5 @@
-import axios  from 'axios'
-
-
+import axios from 'axios'
 
 export const getAll = () => {
-
- return  axios.get('www.google.com.br')
-
+    return axios.get('www.google.com.br')
 }

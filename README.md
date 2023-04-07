@@ -8,20 +8,20 @@ Este projeto é um sistema para gerar tabelas de campeonato de tênis de mesa.
 ## Tecnologias utilizadas
   - Python com Flask
   - React com Vite
-  - Firebase
+  - MySQL
 
 ## Instalação
 Para executar este sistema, você precisará ter o Python, o Node.js e o Firebase instalados em sua máquina.
 
 1. Clone este repositório em sua máquina local.
 ```bash
-git clone https://github.com/carlosquadros-br/ifpr-tcc-web.git
+git clone https://github.com/SGTTM-IFPR/SGTTM.git
 ```
 
 ### Backend
 2. Acesse o diretório do backend:
 ```bash
-cd backend
+cd back
 ```
 
 3. Crie um ambiente virtual:
@@ -52,7 +52,7 @@ flask --app app run --host=0.0.0.0
 ### Frontend
 8. Acesse o diretório do frontend:
 ```bash
-cd frontend
+cd front
 ```
 
 9. Instale as dependências do Node.js:
@@ -65,29 +65,6 @@ npm install
 npm run dev
 ```
 
-### Firebase
-11. Crie um projeto no Firebase e adicione as credenciais do Firebase ao seu projeto:
-  - Clique em "Adicionar projeto" no Console do Firebase.
-  - Siga as instruções para criar um novo projeto.
-  - No console do Firebase, selecione seu projeto e clique em "Configurações do projeto".
-  - Na seção "Seus aplicativos", clique em "Adicionar app".
-  - Selecione "Web" e siga as instruções para registrar o aplicativo.
-  - Copie as credenciais do Firebase para o seu projeto.
-
-12. Atualize as configurações do Firebase no seu projeto:
-    - No diretório do frontend, crie um arquivo chamado ".env.local".
-    - Cole as credenciais do Firebase no arquivo ".env.local".
-    ```bash
-    REACT_APP_FIREBASE_API_KEY=your-api-key
-    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-    REACT_APP_FIREBASE_DATABASE_URL=your-database-url
-    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-    REACT_APP_FIREBASE_APP_ID=your-app-id
-    REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
-    ```
-
 ## Funcionalidades
 O sistema possui as seguintes funcionalidades:
   - Cadastro de usuários.
@@ -96,4 +73,4 @@ O sistema possui as seguintes funcionalidades:
   - Visualização de tabelas de classificação.
 
 ## Uso
-Este sistema permite que você crie uma tabela de campeonato de tênis de mesa e a atualize em tempo real usando o Firebase. Você pode adicionar jogadores, inserir resultados de jogos e ver a classificação atualizada da tabela em tempo real.
+Este sistema permite que você crie uma tabela de campeonato de tênis de mesa e a atualize em tempo real. Você pode adicionar jogadores, inserir resultados de jogos e ver a classificação atualizada da tabela em tempo real.
