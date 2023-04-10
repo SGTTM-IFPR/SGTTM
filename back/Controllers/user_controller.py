@@ -12,20 +12,21 @@ user_service = UserService()
 def create_user():
     user_data = request.json
     user = user_service.create_user(user_data)
-    return jsonify(user), 201
+    return jsonify(user.to_dict()), 201
 
 # get all users
 @routes.route('/', methods=['GET'])
 def get_users():
     users = user_service.get_all_users()
-    return jsonify(users), 200
+    user_dicts = [user.to_dict() for user in users]
+    return jsonify(user_dicts), 200
 
 # get a single user
 @routes.route('/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = user_service.get_user_by_id(user_id)
     if user:
-        return jsonify(user), 200
+        return jsonify(user.to_dict()), 200
     else:
         return jsonify({'message': 'User not found'}), 404
 
@@ -35,7 +36,7 @@ def update_user(user_id):
     user_data = request.json
     user = user_service.update_user(user_id, user_data)
     if user:
-        return jsonify(user), 200
+        return jsonify(user.to_dict()), 200
     else:
         return jsonify({'message': 'User not found'}), 404
 

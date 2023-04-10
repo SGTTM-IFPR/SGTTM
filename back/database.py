@@ -1,3 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+
+class Database:
+    db = SQLAlchemy()
+
+    def __init__(self, app=None):
+        if app is not None:
+            self.db.init_app(app)
