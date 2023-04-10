@@ -18,6 +18,11 @@ export const AppSidebar = () => {
             <span>Gerenciamento de Usuários</span>
           </Link>
         </Menu.Item>
+        <Menu.Item key="2">
+          <Link to="/user">
+            <span>Gerenciamento de Torneios</span>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Sider>
   );

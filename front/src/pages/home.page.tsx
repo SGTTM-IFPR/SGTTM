@@ -1,3 +1,5 @@
+import { Button } from "antd";
+
 export const HomePage = () => {
   return (
     <div
@@ -9,6 +11,8 @@ export const HomePage = () => {
       }}
     >
       Home Funcionando
+
+      <Button>Primary Button</Button>
     </div>
   );
 };
