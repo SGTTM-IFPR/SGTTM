@@ -2,6 +2,7 @@ import React from 'react';
 import './login.css';
 import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponent } from './login_component';
+import { Button } from 'antd';
 
 export const Login = () => {
     return (
@@ -28,7 +29,7 @@ export const Login = () => {
                     <LoginComponent />
                 </div>
                 <div>
-                    <a className='segundo' type='submit' href='test'>Não tem conta? Cadastre-se</a>
+                    <Button type="primary" style={{borderRadius: '15px', border: 'none', fontSize: '1.0em', textDecoration: 'none', backgroundColor: 'rgb(4, 169, 235)', color: 'white'}}>Não tem conta? Cadastre-se</Button>
                 </div>
                 <div></div>
                 <div></div>
