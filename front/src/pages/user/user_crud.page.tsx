@@ -17,7 +17,7 @@ export const UserCrudPage = () => {
   }, []);
 
   const handleDelete = async (id?: number) => {
-    if(id) {
+    if (id) {
       const deletedUser = await deleteUser(id);
       console.log(deletedUser);
       // update the state of the data to reflect the deleted user
@@ -27,7 +27,7 @@ export const UserCrudPage = () => {
 
   const handleUpdate = (id?: number): void => {
     console.log(id);
-  }
+  };
 
   return (
     <Layout>
@@ -51,7 +51,12 @@ export const UserCrudPage = () => {
           <Column align="center" title="CPF" dataIndex="cpf" key="cpf" />
           <Column title="Name" dataIndex="name" key="name" />
           <Column title="Email" dataIndex="email" key="email" />
-          <Column align="center" title="Birth Date" dataIndex="birth_date" key="birth_date" />
+          <Column
+            align="center"
+            title="Birth Date"
+            dataIndex="birth_date"
+            key="birth_date"
+          />
           <Column
             align="center"
             title="Administrator"
@@ -73,9 +78,23 @@ export const UserCrudPage = () => {
             align="center"
             title="Actions"
             render={(record: UserData) => (
-                <>
-                <Button size="small" type="primary" onClick={() => handleUpdate(record.id)} style={{ marginRight: 8, background: 'blue' }}>Update</Button>
-                <Button size="small" type="primary" onClick={() => handleDelete(record.id)} danger>Delete</Button>
+              <>
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={() => handleUpdate(record.id)}
+                  style={{ marginRight: 8, background: "blue" }}
+                >
+                  Update
+                </Button>
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={() => handleDelete(record.id)}
+                  danger
+                >
+                  Delete
+                </Button>
               </>
             )}
           />
