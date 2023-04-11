@@ -17,7 +17,7 @@ from database import Database
 
 
 class Startup:
-    def __init__(self, db_uri='mysql+mysqlconnector://root:bancodedados@localhost/tcc'):
+    def __init__(self, db_uri='mysql+mysqlconnector://root:database@localhost/tcc'):
         self.app = Flask(__name__)
         self.cors = CORS(self.app)
         self.app.config['CORS_HEADERS'] = 'application/json'

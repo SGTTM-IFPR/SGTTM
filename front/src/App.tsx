@@ -24,7 +24,7 @@ class App extends Component {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-          
+          <MainContent/>
         </Router>
       </ConfigProvider>
     );

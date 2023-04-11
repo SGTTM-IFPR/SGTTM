@@ -3,7 +3,7 @@ import { Header, Content, Footer } from "antd/es/layout/layout";
 import { Routes, Route } from "react-router";
 import { AppSidebar } from "./AppSidebar";
 import { UserCrudPage } from "./user/user_crud.page";
-import { HomePage } from "./home.page";
+import { HomePage } from "./Home.page";
 
 export const MainContent = () => {
     return (
