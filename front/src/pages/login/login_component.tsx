@@ -1,4 +1,4 @@
-import { Button, Input, Space, Tooltip } from 'antd';
+import { Alert, Button, Input, Space, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined} from '@ant-design/icons';
 
@@ -18,7 +18,8 @@ export const LoginComponent = () => {
 
     return (
         <div>
-            {error && <p>{error}</p>}
+            {error && <Alert message={error} type="error" style={{marginBottom: "10px"}}/>}
+            
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">CPF ou E-mail</label><br></br>
