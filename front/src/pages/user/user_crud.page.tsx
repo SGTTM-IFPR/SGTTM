@@ -4,6 +4,7 @@ import { UserData } from "../../datas/UserData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteUser, getAllUsers, getUserById } from "../../services/user.service";
+import { ButtonCreateUser } from "../../components/ButtonCreateUser";
 
 export const UserCrudPage = () => {
   const [data, setData] = useState<UserData[]>([]);
@@ -41,9 +42,7 @@ export const UserCrudPage = () => {
         }}
       >
         <h1 style={{ margin: 0 }}>User list</h1>
-        <Button type="primary" style={{ fontSize: "12px" }}>
-          Cadastrar usuario
-        </Button>
+        <ButtonCreateUser/>
       </Header>
       <Content>
         <Table dataSource={data} size="small">
