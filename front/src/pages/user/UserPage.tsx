@@ -5,14 +5,19 @@ import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteUser, getAllUsers, getUserById } from "../../services/user.service";
 import { ButtonCreateUser } from "../../components/ButtonCreateUser";
+import { ButtonUpdateUser } from "../../components/ButtonUpdateUser";
 
-export const UserCrudPage = () => {
+
+export const UserPage = () => {
   const [data, setData] = useState<UserData[]>([]);
+
+  const getResults = async () => {
+    await getAllUsers().then((userData) => setData(userData));
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await getAllUsers();
-      console.log(userData);
-      setData(userData);
+      getResults();
     };
     fetchData();
   }, []);
@@ -21,8 +26,7 @@ export const UserCrudPage = () => {
     if (id) {
       const deletedUser = await deleteUser(id);
       console.log(deletedUser);
-      // update the state of the data to reflect the deleted user
-      setData(data.filter((user) => user.id !== id));
+      getResults();
     }
   };
 
@@ -42,7 +46,7 @@ export const UserCrudPage = () => {
         }}
       >
         <h1 style={{ margin: 0 }}>User list</h1>
-        <ButtonCreateUser/>
+        <ButtonCreateUser setData={setData}/>
       </Header>
       <Content>
         <Table dataSource={data} size="small">
@@ -78,14 +82,7 @@ export const UserCrudPage = () => {
             title="Actions"
             render={(record: UserData) => (
               <>
-                <Button
-                  size="small"
-                  type="primary"
-                  onClick={() => handleUpdate(record.id)}
-                  style={{ marginRight: 8, background: "blue" }}
-                >
-                  Update
-                </Button>
+                <ButtonUpdateUser setData={setData} userUpdate={record}/>
                 <Button
                   size="small"
                   type="primary"

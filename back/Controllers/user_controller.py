@@ -2,17 +2,25 @@ from flask import Flask, request, jsonify
 from flask import Blueprint
 
 from Models.Enums import SexEnum
+from Models.user_model import UserModel
 from Services.user_service import UserService
 
 routes = Blueprint('UserController', __name__)
 user_service = UserService()
 
 # create a new user
-@routes.route('/', methods=['POST'])
+@routes.route('/', methods=['POST','OPTIONS'])
 def create_user():
-    user_data = request.json
-    user = user_service.create_user(user_data)
-    return jsonify(user.to_dict()), 201
+    try:
+        user_data = request.json
+        user = user_service.create_user(user_data)
+        if type(user) == UserModel:
+            return jsonify(user.to_dict()), 201
+        else:
+            return jsonify(user)
+    except Exception as e:
+        print(e)
+        return jsonify({'error': str(e)})
 
 # get all users
 @routes.route('/', methods=['GET'])

@@ -4,10 +4,14 @@ from Models.user_model import UserModel
 class UserRepository:
 
     def create_user(self, user_data):
-        user = UserModel(**user_data)
-        Database.db.session.add(user)
-        Database.db.session.commit()
-        return user
+        try:
+            user = UserModel(**user_data)
+            Database.db.session.add(user)
+            Database.db.session.commit()
+            return user
+        except Exception as e:
+            Database.db.session.rollback()
+            return {'error': str(e)}, 400
 
     def get_all_users(self):
         return UserModel.query.all()   

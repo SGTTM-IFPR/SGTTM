@@ -4,7 +4,7 @@ export class UserData {
   password?: string;
   name?: string;
   email?: string;
-  birth_date?: Date;
+  birth_date?: string;
   administrator?: boolean = true;
   athlete?: boolean;
   club?: string | null;

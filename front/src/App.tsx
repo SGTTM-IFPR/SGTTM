@@ -1,7 +1,6 @@
 import { Component, ReactNode, useState } from 'react'
 import { Route, Link, BrowserRouter as Router, Routes } from 'react-router-dom'
 // import './App.css'
-import { UserCrudPage } from './pages/user/user_crud.page'
 import { Login } from './pages/login/login'
 import { ConfigProvider, Layout, Menu, theme } from 'antd'
 import Sider from 'antd/es/layout/Sider'

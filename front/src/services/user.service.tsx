@@ -8,8 +8,8 @@ export const callApi = (baseURL: string, endpoint: string) => {
 
 export const createUser = async (userData: UserData): Promise<UserData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = "users";
-  const response = await axios.post<UserData>(
+  const endpoint = "users/";
+  const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
     userData
   );

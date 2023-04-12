@@ -2,8 +2,8 @@ import { Layout } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import { Routes, Route } from "react-router";
 import { AppSidebar } from "./AppSidebar";
-import { UserCrudPage } from "./user/user_crud.page";
-import { HomePage } from "./home.page";
+import { HomePage } from "./Home.page";
+import { UserPage } from "./user/UserPage";
 
 export const MainContent = () => {
     return (
@@ -13,8 +13,8 @@ export const MainContent = () => {
           <Header style={{ background: '#4fdf29', padding: 0, height:'40px' }} />
           <Content style={{ margin: "0 16px" }}>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/user" element={<UserCrudPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/user" element={<UserPage />} />
             </Routes>
           </Content>
           <Footer style={{ textAlign: "center" }}>
