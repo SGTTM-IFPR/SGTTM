@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import { Routes, Route } from "react-router";
 import { AppSidebar } from "./AppSidebar";
-import { HomePage } from "./Home.page";
+import { HomePage } from "./home.page";
 import { UserPage } from "./user/UserPage";
 
 export const MainContent = () => {
