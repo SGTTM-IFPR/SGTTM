@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './login.css';
 import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponent } from './login_component';
 import { Button } from 'antd';
+import { ButtonCreateUser } from '../../components/user/ButtonCreateUser';
+import { UserData } from '../../datas/UserData';
 
 export const Login = () => {
+    const [data, setData] = useState<UserData[]>([]);
     return (
         <div className="login">
             <div className="green">
@@ -29,7 +32,8 @@ export const Login = () => {
                     <LoginComponent />
                 </div>
                 <div>
-                    <Button type="primary" style={{borderRadius: '15px', border: 'none', fontSize: '1.0em', textDecoration: 'none', backgroundColor: 'rgb(4, 169, 235)', color: 'white'}}>Não tem conta? Cadastre-se</Button>
+                    {/* <Button type="primary" style={{borderRadius: '15px', border: 'none', fontSize: '1.0em', textDecoration: 'none', backgroundColor: 'rgb(4, 169, 235)', color: 'white'}}>Não tem conta? Cadastre-se</Button> */}
+                    <ButtonCreateUser setData={setData} />
                 </div>
                 <div></div>
                 <div></div>
