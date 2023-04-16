@@ -2,25 +2,20 @@ import { gray } from "@ant-design/colors";
 import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UserData } from "../datas/UserData";
-import { createUser, getAllUsers, updateUser } from "../services/user.service";
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { UserData } from "../../datas/UserData";
+import { createUser, getAllUsers } from "../../services/user.service";
+
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UserData[]>>;
-  userUpdate: UserData;
 };
 
-export const ButtonUpdateUser: React.FC<Props> = ({
-  setData: setData,
-  userUpdate: userUpdate,
-}) => {
+export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [output, setOutput] = useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-
-  const dateFormat: string = "DD-MM-YYYY";
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -30,10 +25,9 @@ export const ButtonUpdateUser: React.FC<Props> = ({
     if (data.birth_date) {
       data.birth_date = new Date(data.birth_date).toISOString().slice(0, 10);
     }
-    if (!userUpdate.id) return setOutput("Id não informado");
 
     try {
-      const response = await updateUser(userUpdate.id, data);
+      const response = await createUser(data);
       setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
     } catch (error) {
@@ -44,24 +38,19 @@ export const ButtonUpdateUser: React.FC<Props> = ({
 
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
+  }
 
   const modalStyle = {
     backgroundColor: gray[6],
-  };
+  }
 
   return (
     <>
-      <Button
-        size="small"
-        type="primary"
-        style={{ marginRight: 8, background: "blue" }}
-        onClick={showModal}
-      >
-        update
+      <Button type="primary" style={{ fontSize: "12px" }} onClick={showModal}>
+        Cadastrar usuario
       </Button>
       <Modal
-        title="Atualizar usuario"
+        title="Criar Usuario"
         open={isModalOpen}
         centered={true}
         style={modalStyle}
@@ -74,22 +63,7 @@ export const ButtonUpdateUser: React.FC<Props> = ({
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           onFinish={onSubmit}
-          initialValues={{
-            id: userUpdate.id,
-            name: userUpdate.name,
-            cpf: userUpdate.cpf,
-            password: userUpdate.password,
-            email: userUpdate.email,
-            administrator: userUpdate.administrator,
-            athlete: userUpdate.athlete,
-            club: userUpdate.club,
-            federation: userUpdate.federation,
-            sex: userUpdate.sex,
-          }}
         >
-          <Form.Item name="id" label="Id" hidden>
-            <Input />
-          </Form.Item>
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
@@ -120,7 +94,7 @@ export const ButtonUpdateUser: React.FC<Props> = ({
             <Input />
           </Form.Item>
           <Form.Item name="birth_date" label="Birth Date">
-            <DatePicker format={dateFormat} />
+            <DatePicker />
           </Form.Item>
           <Form.Item
             name="administrator"
@@ -155,7 +129,7 @@ export const ButtonUpdateUser: React.FC<Props> = ({
             </Button>
           </Form.Item>
         </Form>
-        <pre style={{ whiteSpace: "pre-line" }}>{output}</pre>
+        <pre style={{ whiteSpace: 'pre-line' }}>{output}</pre>
       </Modal>
     </>
   );

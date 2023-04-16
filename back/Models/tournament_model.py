@@ -9,7 +9,7 @@ class TournamentModel(Database.db.Model):
     date_start = Database.db.Column(Database.db.Date, nullable=False)
     date_end = Database.db.Column(Database.db.Date, nullable=False)
     local = Database.db.Column(Database.db.String(100), nullable=False)
-    type_torneio = Database.db.Column(Database.db.Enum(TournamentTypeEnum))
+    type_tournament = Database.db.Column(Database.db.Enum(TournamentTypeEnum))
 
     def to_dict(self):
         return {
@@ -18,5 +18,5 @@ class TournamentModel(Database.db.Model):
             'date_start': self.date_start.isoformat(),
             'date_end': self.date_end.isoformat(),
             'local': self.local,
-            'type_torneio': self.type_torneio,
+            'type_tournament': self.type_tournament.name,
         }

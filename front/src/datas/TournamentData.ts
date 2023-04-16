@@ -4,5 +4,5 @@ export class TournamentData {
     date_start?: string;
     date_end?: string;
     local?: string;
-    type_torneio?: string;
+    type_tournament?: string;
 }

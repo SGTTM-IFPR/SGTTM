@@ -6,6 +6,7 @@ from flask_cors import CORS
 
 from Controllers.user_controller import UserController
 from Controllers.auth_controller import AuthController
+from Controllers.tournament_controller import TournamentController
 
 from Models.Enums.ConditionEnum import ConditionEnum
 from Models.Enums.SexEnum import SexEnum
@@ -14,17 +15,19 @@ from Models.user_model import *
 from flask_sqlalchemy import SQLAlchemy
 
 from Services.user_service import UserService
+from Services.tournament_service import TournamentService
 from Utils.db_utils import DbUtils
 from database import Database
 
 
 class Startup:
-    def __init__(self, db_uri='mysql+mysqlconnector://root:bancodedados@localhost/tcc'):
+    def __init__(self, db_uri='mysql+mysqlconnector://root:Bancodedados1#@localhost/tcc'):
         self.app = Flask(__name__)
         self.cors = CORS(self.app)
         self.app.config['CORS_HEADERS'] = 'application/json'
         self.app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
         self.app.register_blueprint(UserController, url_prefix='/users')
+        self.app.register_blueprint(TournamentController, url_prefix='/tournaments')
         self.app.register_blueprint(AuthController, url_prefix='/auth')
         Database.db.init_app(self.app)
         DbUtils.test_database_connection(self.app, Database.db)
@@ -43,6 +46,16 @@ class Startup:
                 "sex": SexEnum.MALE
             }
             user_service.create_user(user_data)
+        
+            tournament_service = TournamentService()
+            tournament_data = {
+                "name": str("Ifpr-foz"),
+                "date_start": "2023-05-01",
+                "date_end": "2023-05-01",
+                "local": "Foz do Iguaçu",
+                "type_tournament": TournamentTypeEnum.COUP
+            }
+            tournament_service.create_tournament(tournament_data)    
 
 
     def run(self, debug=True):

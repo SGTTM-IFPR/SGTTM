@@ -19,7 +19,7 @@ class TournamentRepository:
     def get_tournament_by_id(self, tournament_id):
         return TournamentModel.query.filter_by(id=tournament_id).first()
 
-    def update_user(self, tournament_id, tournament_data):
+    def update_tournament(self, tournament_id, tournament_data):
         tournament = self.get_tournament_by_id(tournament_id)
         if tournament:
             for key, value in tournament_data.items():

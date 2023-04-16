@@ -5,9 +5,9 @@ const { Sider } = Layout;
 
 export const AppSidebar = () => {
   return (
-    <Sider>
+    <Sider width={300}>
       <div className="logo" />
-      <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" >
         <Menu.Item key="1">
           <Link to="/home">
             <span>Página Inicial</span>

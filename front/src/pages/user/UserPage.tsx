@@ -4,8 +4,8 @@ import { UserData } from "../../datas/UserData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteUser, getAllUsers, getUserById } from "../../services/user.service";
-import { ButtonCreateUser } from "../../components/ButtonCreateUser";
-import { ButtonUpdateUser } from "../../components/ButtonUpdateUser";
+import { ButtonCreateUser } from "../../components/user/ButtonCreateUser";
+import { ButtonUpdateUser } from "../../components/user/ButtonUpdateUser";
 
 
 export const UserPage = () => {
@@ -46,7 +46,7 @@ export const UserPage = () => {
         }}
       >
         <h1 style={{ margin: 0 }}>User list</h1>
-        <ButtonCreateUser setData={setData}/>
+        <ButtonCreateUser setData={setData} />
       </Header>
       <Content>
         <Table dataSource={data} size="small">
@@ -82,7 +82,7 @@ export const UserPage = () => {
             title="Actions"
             render={(record: UserData) => (
               <>
-                <ButtonUpdateUser setData={setData} userUpdate={record}/>
+                <ButtonUpdateUser setData={setData} userUpdate={record} />
                 <Button
                   size="small"
                   type="primary"
