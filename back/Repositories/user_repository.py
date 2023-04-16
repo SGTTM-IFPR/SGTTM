@@ -1,13 +1,17 @@
-from database import db
+from database import Database
 from Models.user_model import UserModel
 
 class UserRepository:
 
     def create_user(self, user_data):
-        user = UserModel(**user_data)
-        db.session.add(user)
-        db.session.commit()
-        return user
+        try:
+            user = UserModel(**user_data)
+            Database.db.session.add(user)
+            Database.db.session.commit()
+            return user
+        except Exception as e:
+            Database.db.session.rollback()
+            return {'error': str(e)}, 400
 
     def get_all_users(self):
         return UserModel.query.all()   
@@ -20,13 +24,13 @@ class UserRepository:
         if user:
             for key, value in user_data.items():
                 setattr(user, key, value)
-            db.session.commit()
+            Database.db.session.commit()
             return user
 
     def delete_user(self, user_id):
         user = self.get_user_by_id(user_id)
         if user:
-            db.session.delete(user)
-            db.session.commit()
+            Database.db.session.delete(user)
+            Database.db.session.commit()
             return True
         return False

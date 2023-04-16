@@ -1,34 +1,32 @@
 import { Component, ReactNode, useState } from 'react'
 import { Route, Link, BrowserRouter as Router, Routes } from 'react-router-dom'
 // import './App.css'
-import { UserCrudPage } from './pages/user_crud.page'
-import { HomePage } from './pages/home.page'
 import { Login } from './pages/login/login'
+import { ConfigProvider, Layout, Menu, theme } from 'antd'
+import Sider from 'antd/es/layout/Sider'
+import { Content, Footer, Header } from 'antd/es/layout/layout'
+import { AppSidebar } from './pages/AppSidebar'
+import { MainContent } from './pages/MainContent'
 
 class App extends Component {
   render(): ReactNode {
     return (
-      <Router>
-        {/* <div>
-          <Link to="/">
-            <button >
-              Página Inicial
-            </button>
-          </Link>
-          <Link to="/user/">
-            <button >
-              Gerenciamento de Usuários
-            </button>
-          </Link>
-        </div> */}
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/user" element={<UserCrudPage />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </Router>
-    )
+      <ConfigProvider
+        theme={{
+          algorithm: theme.defaultAlgorithm 
+        }}
+      >
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <MainContent/>
+        </Router>
+      </ConfigProvider>
+    );
   }
 }
 
 export default App
+  

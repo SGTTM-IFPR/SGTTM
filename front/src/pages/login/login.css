@@ -101,13 +101,3 @@ body {
 .white div:nth-child(5) {
     order: 5;
 }
-
-a.segundo {
-    background-color: rgb(4, 169, 235);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 10px;
-    font-size: 1.0em;
-    text-decoration: none;
-}
