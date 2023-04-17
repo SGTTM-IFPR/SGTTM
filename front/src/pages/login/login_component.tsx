@@ -1,9 +1,11 @@
 import { Alert, Button, Input, Space, Tooltip } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons';
+import { AuthContext } from '../../authentication/context/AuthContext';
 
 export const LoginComponent = () => {
+    const {login} = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -23,7 +25,8 @@ export const LoginComponent = () => {
             });
             if (response.status === 200) {
                 setError(JSON.stringify(response.data, null, 2))
-
+                login(username, password);
+                
             }
         } catch (error) {
             setError('Usuário ou senha inválidos.');

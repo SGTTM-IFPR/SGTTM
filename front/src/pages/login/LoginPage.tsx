@@ -6,7 +6,7 @@ import { Button } from 'antd';
 import { ButtonCreateUser } from '../../components/user/ButtonCreateUser';
 import { UserData } from '../../datas/UserData';
 
-export const Login = () => {
+export const LoginPage = () => {
     const [data, setData] = useState<UserData[]>([]);
     return (
         <div className="login">

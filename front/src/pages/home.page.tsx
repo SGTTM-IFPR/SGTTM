@@ -7,12 +7,11 @@ export const HomePage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "80vh",
       }}
     >
-      Home Funcionando
-
-      <Button>Primary Button</Button>
+      <h1>Home Page</h1>
+      
     </div>
   );
 };

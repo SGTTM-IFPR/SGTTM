@@ -5,21 +5,21 @@ const { Sider } = Layout;
 
 export const AppSidebar = () => {
   return (
-    <Sider width={300}>
+    <Sider width={250}>
       <div className="logo" />
-      <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" >
+      <Menu theme="dark" mode="inline" >
         <Menu.Item key="1">
-          <Link to="/home">
+          <Link to="home">
             <span>Página Inicial</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to="/user">
+          <Link to="user">
             <span>Gerenciamento de Usuários</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to="/tournament">
+          <Link to="tournament">
             <span>Gerenciamento de Torneios</span>
           </Link>
         </Menu.Item>
