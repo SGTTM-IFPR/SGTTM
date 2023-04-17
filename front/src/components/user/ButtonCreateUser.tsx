@@ -28,8 +28,10 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
 
     try {
       const response = await createUser(data);
-      setOutput(JSON.stringify(response, null, 2));
+      // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
+      setIsModalOpen(false);
+      location.reload()
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
@@ -38,6 +40,7 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    location.reload();
   }
 
   const modalStyle = {
@@ -47,7 +50,7 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
   return (
     <>
       <Button type="primary" style={{ fontSize: "12px" }} onClick={showModal}>
-        Cadastrar usuario
+        Cadastrar usuário
       </Button>
       <Modal
         title="Criar Usuario"
@@ -64,20 +67,20 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
           wrapperCol={{ span: 16 }}
           onFinish={onSubmit}
         >
-          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+          <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Input />
           </Form.Item>
           <Form.Item
             name="cpf"
             label="CPF"
-            rules={[{ required: true }, { min: 11 }, { max: 11 }]}
+            rules={[{ required: true, message: "Campo obrigatório"}, { min: 11 }, { max: 11 }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="password"
-            label="Password"
-            rules={[{ required: true }, { min: 8 }]}
+            label="Senha"
+            rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
           >
             <Input.Password
               visibilityToggle={{
@@ -89,30 +92,30 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
           <Form.Item
             name="email"
             label="E-mail"
-            rules={[{ required: true }, { type: "email" }]}
+            rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}
           >
-            <Input />
+            <Input/>
           </Form.Item>
-          <Form.Item name="birth_date" label="Birth Date">
-            <DatePicker />
+          <Form.Item name="birth_date" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório"}]}>
+            <DatePicker placeholder="Insira a data"/>
           </Form.Item>
           <Form.Item
             name="administrator"
-            label="Administrator"
+            label="Administrador"
             valuePropName="checked"
           >
             <Switch />
           </Form.Item>
-          <Form.Item name="athlete" label="Athlete" valuePropName="checked">
+          <Form.Item name="athlete" label="Atleta" valuePropName="checked">
             <Switch />
           </Form.Item>
-          <Form.Item name="club" label="Club">
+          <Form.Item name="club" label="Clube">
             <Input />
           </Form.Item>
-          <Form.Item name="federation" label="Federation">
+          <Form.Item name="federation" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sex" label="Sex">
+          <Form.Item name="sex" label="Sexo" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Radio.Group>
               <Radio value="MALE">Masculino</Radio>
               <Radio value="FEMALE">Feminino</Radio>
@@ -125,7 +128,7 @@ export const ButtonCreateUser: React.FC<Props> = ({ setData: setData }) => {
               type="primary"
               htmlType="submit"
             >
-              Submit
+              Cadastrar
             </Button>
           </Form.Item>
         </Form>

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { HomePage } from "../pages/Home.page";
+import { HomePage } from "../pages/home.page";
 import { UserPage } from "../pages/user/UserPage";
 import { TournamentPage } from "../pages/tournament/TournamentPage";
 import { AppSidebar } from "../pages/AppSidebar";

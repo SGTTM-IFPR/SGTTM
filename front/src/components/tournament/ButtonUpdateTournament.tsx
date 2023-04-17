@@ -48,6 +48,7 @@ export const ButtonUpdateTournament: React.FC<Props> = ({
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        location.reload();
     };
 
     const modalStyle = {
@@ -118,7 +119,7 @@ export const ButtonUpdateTournament: React.FC<Props> = ({
                             type="primary"
                             htmlType="submit"
                         >
-                            Atualizar
+                            Editar
                         </Button>
                     </Form.Item>
                 </Form>

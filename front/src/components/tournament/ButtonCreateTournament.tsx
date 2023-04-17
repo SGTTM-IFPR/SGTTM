@@ -41,6 +41,7 @@ export const ButtonCreateTournament: React.FC<Props> = ({ setData: setData }) =>
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        location.reload();
     }
 
     const modalStyle = {

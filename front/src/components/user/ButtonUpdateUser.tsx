@@ -1,9 +1,8 @@
 import { gray } from "@ant-design/colors";
 import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { UserData } from "../../datas/UserData";
 import { createUser, getAllUsers, updateUser } from "../../services/user.service";
 
@@ -19,8 +18,8 @@ export const ButtonUpdateUser: React.FC<Props> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [output, setOutput] = useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-
-  const dateFormat: string = "DD-MM-YYYY";
+  dayjs.extend(customParseFormat);
+  const dateFormat: string = "YYYY-MM-DD";
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -34,8 +33,10 @@ export const ButtonUpdateUser: React.FC<Props> = ({
 
     try {
       const response = await updateUser(userUpdate.id, data);
-      setOutput(JSON.stringify(response, null, 2));
+      // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
+      setIsModalOpen(false);
+      location.reload()
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
@@ -44,6 +45,7 @@ export const ButtonUpdateUser: React.FC<Props> = ({
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    location.reload();
   };
 
   const modalStyle = {
@@ -58,10 +60,10 @@ export const ButtonUpdateUser: React.FC<Props> = ({
         style={{ marginRight: 8, background: "blue" }}
         onClick={showModal}
       >
-        update
+        Editar
       </Button>
       <Modal
-        title="Atualizar usuario"
+        title="Atualizar usuário"
         open={isModalOpen}
         centered={true}
         style={modalStyle}
@@ -87,23 +89,23 @@ export const ButtonUpdateUser: React.FC<Props> = ({
             sex: userUpdate.sex,
           }}
         >
-          <Form.Item name="id" label="Id" hidden>
+          <Form.Item name="id" label="ID" hidden>
             <Input />
           </Form.Item>
-          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+          <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Input />
           </Form.Item>
           <Form.Item
             name="cpf"
             label="CPF"
-            rules={[{ required: true }, { min: 11 }, { max: 11 }]}
+            rules={[{ required: true, message: "Campo obrigatório"}, { min: 11 }, { max: 11 }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="password"
-            label="Password"
-            rules={[{ required: true }, { min: 8 }]}
+            label="Senha"
+            rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
           >
             <Input.Password
               visibilityToggle={{
@@ -115,30 +117,30 @@ export const ButtonUpdateUser: React.FC<Props> = ({
           <Form.Item
             name="email"
             label="E-mail"
-            rules={[{ required: true }, { type: "email" }]}
+            rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name="birth_date" label="Birth Date">
+          <Form.Item name="birth_date" label="Data de Nasc." rules={[{required: true, message: "Campo obrigatório"}]} initialValue={dayjs(userUpdate.birth_date, dateFormat)}>
             <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item
             name="administrator"
-            label="Administrator"
+            label="Administrador"
             valuePropName="checked"
           >
             <Switch />
           </Form.Item>
-          <Form.Item name="athlete" label="Athlete" valuePropName="checked">
+          <Form.Item name="athlete" label="Atleta" valuePropName="checked">
             <Switch />
           </Form.Item>
-          <Form.Item name="club" label="Club">
+          <Form.Item name="club" label="Clube">
             <Input />
           </Form.Item>
-          <Form.Item name="federation" label="Federation">
+          <Form.Item name="federation" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sex" label="Sex">
+          <Form.Item name="sex" label="Sexo" rules={[{required: true, message: "Campo obrigatório"}]}>
             <Radio.Group>
               <Radio value="MALE">Masculino</Radio>
               <Radio value="FEMALE">Feminino</Radio>
@@ -151,7 +153,7 @@ export const ButtonUpdateUser: React.FC<Props> = ({
               type="primary"
               htmlType="submit"
             >
-              Submit
+              Editar
             </Button>
           </Form.Item>
         </Form>

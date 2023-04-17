@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table } from "antd";
+import { Button, Layout, Table, Modal} from "antd";
 import { UserData } from "../../datas/UserData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
@@ -10,6 +10,11 @@ import { ButtonUpdateUser } from "../../components/user/ButtonUpdateUser";
 
 export const UserPage = () => {
   const [data, setData] = useState<UserData[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+      setIsModalOpen(true);
+  };
 
   const getResults = async () => {
     await getAllUsers().then((userData) => setData(userData));
@@ -22,12 +27,17 @@ export const UserPage = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id?: number) => {
+  const handleOk = async (id?: number) => {
     if (id) {
-      const deletedUser = await deleteUser(id);
-      console.log(deletedUser);
-      getResults();
+        const deletedUser = await deleteUser(id);
+        console.log(deletedUser);
+        getResults();
     }
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   const handleUpdate = (id?: number): void => {
@@ -45,52 +55,55 @@ export const UserPage = () => {
           fontSize: "20px",
         }}
       >
-        <h1 style={{ margin: 0 }}>User list</h1>
+        <h1 style={{ margin: 0 }}>Lista de Usuários</h1>
         <ButtonCreateUser setData={setData} />
       </Header>
       <Content>
         <Table dataSource={data} size="small">
-          <Column align="center" title="Id" dataIndex="id" key="id" />
+          <Column align="center" title="ID" dataIndex="id" key="id" />
           <Column align="center" title="CPF" dataIndex="cpf" key="cpf" />
-          <Column title="Name" dataIndex="name" key="name" />
-          <Column title="Email" dataIndex="email" key="email" />
+          <Column title="Nome" dataIndex="name" key="name" />
+          <Column title="E-mail" dataIndex="email" key="email" />
           <Column
             align="center"
-            title="Birth Date"
+            title="Data de Nascimento"
             dataIndex="birth_date"
             key="birth_date"
           />
           <Column
             align="center"
-            title="Administrator"
+            title="Administrador"
             dataIndex="administrator"
             key="administrator"
             render={(text, record) => <span>{text ? "Yes" : "No"}</span>}
           />
           <Column
             align="center"
-            title="Athlete"
+            title="Atleta"
             dataIndex="athlete"
             key="athlete"
             render={(text, record) => <span>{text ? "Yes" : "No"}</span>}
           />
-          <Column title="Club" dataIndex="club" key="club" />
-          <Column title="Federation" dataIndex="federation" key="federation" />
-          <Column title="Sex" dataIndex="sex" key="sex" />
+          <Column title="Clube" dataIndex="club" key="club" />
+          <Column title="Federação" dataIndex="federation" key="federation" />
+          <Column title="Sexo" dataIndex="sex" key="sex" />
           <Column
             align="center"
-            title="Actions"
+            title="Ações"
             render={(record: UserData) => (
               <>
                 <ButtonUpdateUser setData={setData} userUpdate={record} />
                 <Button
                   size="small"
                   type="primary"
-                  onClick={() => handleDelete(record.id)}
+                  onClick={showModal}
                   danger
                 >
-                  Delete
+                  Excluir
                 </Button>
+                <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
+                    <p>Deseja realmente excluir o Usuário?</p>
+                </Modal>
               </>
             )}
           />

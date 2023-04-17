@@ -40,14 +40,14 @@ export const LoginComponent = () => {
 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="username">CPF ou E-mail</label><br></br>
+                    <label htmlFor="username">E-mail</label><br></br>
                     <Input
                         value={username} onChange={event => setUsername(event.target.value)}
                         style={{ marginTop: '10px' }}
-                        placeholder="Insira seu CPF ou E-mail"
+                        placeholder="Insira seu E-mail"
                         prefix={<UserOutlined className="site-form-item-icon" />}
                         suffix={
-                            <Tooltip title="Campo destinado para inserção do CPF ou E-mail do usuário">
+                            <Tooltip title="Campo destinado para inserção do E-mail do usuário">
                                 <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                             </Tooltip>
                         }
