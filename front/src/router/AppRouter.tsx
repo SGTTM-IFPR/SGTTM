@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { UserPage } from "../pages/user/UserPage";
-import { HomePage } from "../pages/Home.page";
+import { HomePage } from "../pages/home.page";
 import { TournamentPage } from "../pages/tournament/TournamentPage";
 import { PrivateRoutes } from "./PrivateRoutes";
 import { ContentRoutes } from "./ContentRoutes";

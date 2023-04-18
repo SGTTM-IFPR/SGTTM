@@ -16,7 +16,11 @@ class UserService:
     def get_user_by_id(self, user_id):
         user = self.user_repository.get_user_by_id(user_id)
         return user
-
+    
+    def get_user_by_email(self, user_email):
+        user = self.user_repository.get_user_by_email(user_email)
+        return user
+        
     def update_user(self, user_id, user_data):
         user = self.user_repository.update_user(user_id, user_data)
         return user

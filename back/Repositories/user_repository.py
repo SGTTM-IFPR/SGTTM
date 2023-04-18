@@ -19,6 +19,9 @@ class UserRepository:
     def get_user_by_id(self, user_id):
         return UserModel.query.filter_by(id=user_id).first()
 
+    def get_user_by_email(self, email):
+        return UserModel.query.filter_by(email=email).first()
+
     def update_user(self, user_id, user_data):
         user = self.get_user_by_id(user_id)
         if user:
