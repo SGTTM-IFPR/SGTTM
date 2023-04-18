@@ -23,13 +23,18 @@ def login():
 
         if(password == user.password):
 
-            token = 'test_token'
-            response = jsonify({'message': 'Login successful'})
-            response.headers['Authorization'] = f'Bearer {token}'
-            return response, 200
-    else:
-        # se os dados do usuário não forem válidos, retornar uma mensagem de erro  
-        return jsonify({'message': 'Usuário ou senha inválidos.'}), 401
+            if(user.administrator == 1):
+                token = 'ADMIN'
+                response = jsonify({'message': 'Login successful as Admin'})
+                response.headers['Authorization'] = f'Bearer {token}'
+                return response, 200
+            else:
+                token = 'USER'
+                response = jsonify({'message': 'Login successful as Admin'})
+                response.headers['Authorization'] = f'Bearer {token}'
+                return response, 200
+            
+    return jsonify({'message': 'Usuário ou senha inválidos.'}), 401
 
 @AuthController.route('/logout', methods=['POST'])
 def logout():
