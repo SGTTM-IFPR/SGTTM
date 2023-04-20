@@ -4,7 +4,7 @@ import { TournamentData } from "../../datas/TournamentData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteTournament, getAllTournaments, getTournamentById } from "../../services/tournament.service";
-
+import { EnumModifyTypeTournament} from "../../components/tournament/EnumModifyTypeTournament"
 import { ButtonCreateTournament } from "../../components/tournament/ButtonCreateTournament";
 import { ButtonUpdateTournament } from "../../components/tournament/ButtonUpdateTournament";
 
@@ -80,7 +80,9 @@ export const TournamentPage = () => {
 
                     <Column title="Local" dataIndex="local" key="local" />
 
-                    <Column title="Tipo do torneio" dataIndex="type_tournament" key="type_tournament" />
+                    <Column title="Tipo do torneio" dataIndex="type_tournament" key="type_tournament" render={(text, record) => (
+                        <span>{EnumModifyTypeTournament(text)}</span>
+                    )}/>
 
                     <Column
                         align="center"

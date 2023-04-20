@@ -1,9 +1,10 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal} from "antd";
+import { Button, Layout, Table, Modal, Form} from "antd";
 import { UserData } from "../../datas/UserData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteUser, getAllUsers, getUserById } from "../../services/user.service";
+import { EnumModifySexUser } from "../../components/user/EnumModifySexUser";
 import { ButtonCreateUser } from "../../components/user/ButtonCreateUser";
 import { ButtonUpdateUser } from "../../components/user/ButtonUpdateUser";
 
@@ -75,18 +76,20 @@ export const UserPage = () => {
             title="Administrador"
             dataIndex="administrator"
             key="administrator"
-            render={(text, record) => <span>{text ? "Yes" : "No"}</span>}
+            render={(text, record) => <span>{text ? "Sim" : "Não"}</span>}
           />
           <Column
             align="center"
             title="Atleta"
             dataIndex="athlete"
             key="athlete"
-            render={(text, record) => <span>{text ? "Yes" : "No"}</span>}
+            render={(text, record) => <span>{text ? "Sim" : "Não"}</span>}
           />
           <Column title="Clube" dataIndex="club" key="club" />
           <Column title="Federação" dataIndex="federation" key="federation" />
-          <Column title="Sexo" dataIndex="sex" key="sex" />
+          <Column title="Sexo" dataIndex="sex" key="sex" render={(text, record) => (
+            <span>{EnumModifySexUser(text)}</span>
+          )}/>
           <Column
             align="center"
             title="Ações"

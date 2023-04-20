@@ -1,4 +1,4 @@
-import { Alert, Button, Input, Space, Tooltip } from 'antd';
+import { Alert, Button, Input, Space, Tooltip, Form } from 'antd';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons';
@@ -41,7 +41,7 @@ export const LoginComponent = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">E-mail</label><br></br>
-                    <Input
+                    {/* <Input
                         value={username} onChange={event => setUsername(event.target.value)}
                         style={{ marginTop: '10px' }}
                         placeholder="Insira seu E-mail"
@@ -51,7 +51,16 @@ export const LoginComponent = () => {
                                 <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
                             </Tooltip>
                         }
-                    />
+                    /> */}
+                    <Form>
+                    <Form.Item name={['user', 'email']} rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}>
+                        <Input style={{ marginTop: '10px' }} prefix={<UserOutlined className="site-form-item-icon" />}  placeholder='Insira seu E-mail' value={username} onChange={event => setUsername(event.target.value)} suffix={
+                            <Tooltip title="Campo destinado para inserção do E-mail do usuário">
+                                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                            </Tooltip>
+                        }/>
+                    </Form.Item>
+                    </Form>
                 </div>
 
                 <div>

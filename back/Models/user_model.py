@@ -12,7 +12,7 @@ class UserModel(Database.db.Model):
     email = Database.db.Column(Database.db.String(100), nullable=False, unique=True)
     birth_date = Database.db.Column(Database.db.Date, nullable=False)
     administrator = Database.db.Column(Database.db.Boolean, default=False)
-    athlete = Database.db.Column(Database.db.Boolean, default=True)
+    athlete = Database.db.Column(Database.db.Boolean, default=False)
     club = Database.db.Column(Database.db.String(100), nullable=True)
     federation = Database.db.Column(Database.db.String(100), nullable=True)
     sex = Database.db.Column(Database.db.Enum(SexEnum))
