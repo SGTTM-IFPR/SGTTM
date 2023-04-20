@@ -1,45 +1,52 @@
 from flask import Flask, request, jsonify, make_response
 from flask import Blueprint
+import datetime
+import jwt
 
 from Models.Enums import SexEnum
+from Models.user_model import UserModel
+from Models.user_token_model import UserTokenModel
 from Services.user_service import UserService
+from database import Database
 
 AuthController = Blueprint('AuthController', __name__)
 user_service = UserService()
 
-@AuthController.route('/register', methods=['POST'])
-def register():
-    # replace with authentication logic
-    return jsonify({'message': 'User registered successfully'}), 201
-
 @AuthController.route('/login', methods=['POST'])
 def login():
-    # replace with authentication logic
+    # Verificar credenciais do usuário
     email = request.json.get('username')
     password = request.json.get('password')
 
-    if(user_service.get_user_by_email(email) != ''):
-        user = user_service.get_user_by_email(email)
+    user = user_service.get_user_by_email(email)
+    if user and user.password == password:
+        # Gerar token de autenticação
+        token = jwt.encode({
+            'user_id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expira em 1 hora
+        }, 'secret_key', algorithm='HS256')
 
-        if(password == user.password):
+        # Armazenar token no banco de dados
+        user_token = UserTokenModel(user_id=user.id, token=token)
+        Database.db.session.add(user_token)
+        Database.db.session.commit()
 
-            if(user.administrator == 1):
-                token = 'ADMIN'
-                response = jsonify({'message': 'Login successful as Admin'})
-                response.headers['Authorization'] = f'Bearer {token}'
-                return response, 200
-            else:
-                token = 'USER'
-                response = jsonify({'message': 'Login successful as Admin'})
-                response.headers['Authorization'] = f'Bearer {token}'
-                return response, 200
-            
-    return jsonify({'message': 'Usuário ou senha inválidos.'}), 401
+        response = jsonify({'message': 'Login successful'})
+        response.headers['Authorization'] = f'Bearer {token}'
+        print(user_token)
+        return response, 200
+
+    return jsonify({'message': 'Invalid username or password.'}), 401
 
 @AuthController.route('/logout', methods=['POST'])
 def logout():
-    # replace with authentication logic
+    # Remover token do banco de dados
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        token = auth_header.split(' ')[1]
+        user_token = UserTokenModel.query.filter_by(token=token).first()
+        if user_token:
+            Database.db.session.delete(user_token)
+            Database.db.session.commit()
+    
     return jsonify({'message': 'Logout successful'}), 200
-
-
-

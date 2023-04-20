@@ -12,6 +12,7 @@ from Models.Enums.ConditionEnum import ConditionEnum
 from Models.Enums.SexEnum import SexEnum
 from Models.Enums.TournamentTypeEnum import TournamentTypeEnum
 from Models.user_model import *
+from Models.user_token_model import *
 from flask_sqlalchemy import SQLAlchemy
 
 from Services.user_service import UserService
