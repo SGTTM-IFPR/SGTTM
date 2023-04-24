@@ -49,3 +49,10 @@ export const deleteUser = async (id: number): Promise<string> => {
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;
 };
+
+export const buscarIdPorCpf = async (cpf: string): Promise<number> => {
+  const baseURL = "http://localhost:5000/";
+  const endpoint = `users/cpf/${cpf}`;
+  const response = await axios.get(`${baseURL}/${endpoint}`);
+  return response.data.id;
+}

@@ -28,3 +28,7 @@ class UserService:
     def delete_user(self, user_id):
         deleted = self.user_repository.delete_user(user_id)
         return deleted
+    
+    def get_by_cpf(self, cpf):
+        user = self.user_repository.get_by_cpf(cpf)
+        return user

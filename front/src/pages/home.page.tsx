@@ -1,17 +1,12 @@
-import { Button } from "antd";
+import { Button } from 'antd';
+import { TournamentList } from '../components/tournament/TournamentList';
 
 export const HomePage = () => {
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "80vh",
-      }}
-    >
-      <h1>Home Page</h1>
-      
-    </div>
+    // so mostrar se start for false
+    <>
+      <TournamentList />
+    </>
   );
 };

@@ -37,3 +37,6 @@ class UserRepository:
             Database.db.session.commit()
             return True
         return False
+
+    def get_by_cpf(self, cpf):
+        return UserModel.query.filter_by(cpf=cpf).first()

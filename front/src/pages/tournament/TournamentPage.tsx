@@ -1,15 +1,18 @@
 import { Content, Header } from "antd/es/layout/layout";
 import { Button, Layout, Table, Modal } from "antd";
 import { TournamentData } from "../../datas/TournamentData";
+import { InscricaoData } from "../../datas/InscricaoData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
 import { deleteTournament, getAllTournaments, getTournamentById } from "../../services/tournament.service";
-import { EnumModifyTypeTournament} from "../../components/tournament/EnumModifyTypeTournament"
+import { EnumModifyTypeTournament } from "../../components/tournament/EnumModifyTypeTournament"
 import { ButtonCreateTournament } from "../../components/tournament/ButtonCreateTournament";
 import { ButtonUpdateTournament } from "../../components/tournament/ButtonUpdateTournament";
+import { ButtonCreateInscricao } from "../../components/inscricao/ButtonCreateInscricao";
 
 export const TournamentPage = () => {
     const [data, setData] = useState<TournamentData[]>([]);
+    const [dataInscricao, setDataInscricao] = useState<InscricaoData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -82,7 +85,7 @@ export const TournamentPage = () => {
 
                     <Column title="Tipo do torneio" dataIndex="type_tournament" key="type_tournament" render={(text, record) => (
                         <span>{EnumModifyTypeTournament(text)}</span>
-                    )}/>
+                    )} />
 
                     <Column
                         align="center"
@@ -101,6 +104,8 @@ export const TournamentPage = () => {
                                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                                     <p>Deseja realmente excluir o Torneio?</p>
                                 </Modal>
+                                <ButtonCreateInscricao setData={setDataInscricao} idTournament={record.id} />
+
                             </>
                         )}
                     />

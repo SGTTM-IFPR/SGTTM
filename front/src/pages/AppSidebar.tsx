@@ -23,6 +23,11 @@ export const AppSidebar = () => {
             <span>Gerenciamento de Torneios</span>
           </Link>
         </Menu.Item>
+        <Menu.Item key="4">
+          <Link to="ranking">
+            <span>Ranking</span>
+          </Link>
+        </Menu.Item>
       </Menu>
     </Sider>
   );

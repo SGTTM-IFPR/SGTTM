@@ -27,7 +27,6 @@ def create_user():
 def get_users():
     users = user_service.get_all_users()
     user_dicts = [user.to_dict() for user in users]
-    print(user_dicts)
     return jsonify(user_dicts), 200
 
 # get a single user
@@ -55,5 +54,14 @@ def delete_user(user_id):
     deleted = user_service.delete_user(user_id)
     if deleted:
         return jsonify({'message': 'User deleted successfully'}), 200
+    else:
+        return jsonify({'message': 'User not found'}), 404
+    
+# buscar user por cpf
+@UserController.route('/cpf/<cpf>', methods=['GET'])
+def get_user_by_cpf(cpf):
+    user = user_service.get_by_cpf(cpf)
+    if user:
+        return jsonify(user.to_dict()), 200
     else:
         return jsonify({'message': 'User not found'}), 404
