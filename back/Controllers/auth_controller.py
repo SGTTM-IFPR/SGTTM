@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask import Blueprint
 import datetime
 import jwt
-
+import hashlib
 from Models.Enums import SexEnum
 from Models.user_model import UserModel
 from Models.user_token_model import UserTokenModel
@@ -26,8 +26,11 @@ def login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expira em 1 hora
         }, 'secret_key', algorithm='HS256')
 
+        expiration = datetime.datetime.now() + datetime.timedelta(hours=1)
+        token_hash = hashlib.md5(token.encode('utf-8')).hexdigest()
+
         # Armazenar token no banco de dados
-        user_token = UserTokenModel(user_id=user.id, token=token)
+        user_token = UserTokenModel(user_id=user.id, token=token_hash, expiration=expiration)
         Database.db.session.add(user_token)
         Database.db.session.commit()
 
