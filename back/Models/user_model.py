@@ -21,12 +21,12 @@ class UserModel(Database.db.Model):
         return {
             'id': self.id,
             'cpf': self.cpf,
-            'name': self.name,
+            'nome': self.name,
             'email': self.email,
-            'birth_date': self.birth_date.isoformat(),
-            'administrator': self.administrator,
-            'athlete': self.athlete,
-            'club': self.club,
-            'federation': self.federation,
-            'sex': self.sex.name
+            'data_nascimento': self.birth_date.isoformat(),
+            'administrador': self.administrator,
+            'atleta': self.athlete,
+            'clube': self.club,
+            'federacao': self.federation,
+            'sexo': self.sex.name
         }

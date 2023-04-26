@@ -14,9 +14,9 @@ class TournamentModel(Database.db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'name': self.name,
-            'date_start': self.date_start.isoformat(),
-            'date_end': self.date_end.isoformat(),
+            'nome': self.name,
+            'data_inicio': self.date_start.isoformat(),
+            'data_final': self.date_end.isoformat(),
             'local': self.local,
-            'type_tournament': self.type_tournament.name,
+            'tipo_torneio': self.type_tournament.name,
         }
