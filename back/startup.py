@@ -8,11 +8,9 @@ from Controllers.user_controller import UserController
 from Controllers.auth_controller import AuthController
 from Controllers.tournament_controller import TournamentController
 from Controllers.inscricao_controller import InscricaoController
+from Models import UsuarioModel, TorneioModel, InscricaoModel, GrupoModel, PartidaModel, PontuacaoModel, SetModel
+from Models.Enums import CondicaoEnum, EtapaEnum, SexoEnum, TipoTorneioEnum
 
-from Models.Enums.ConditionEnum import ConditionEnum
-from Models.Enums.SexEnum import SexEnum
-from Models.Enums.TournamentTypeEnum import TournamentTypeEnum
-from Models.user_model import *
 from flask_sqlalchemy import SQLAlchemy
 
 from Services.user_service import UserService
@@ -38,25 +36,25 @@ class Startup:
             Database.db.create_all()
             user_service = UserService()
             user_data = {
-                "cpf": str(random.randint(0,1000)),
-                "password": "my_password",
-                "name": "John Doe",
-                "email": str(random.randint(0,1000)),
-                "birth_date": "1990-01-01",
-                "administrator": False,
-                "club": "My Club",
-                "federation": "My Federation",
-                "sex": SexEnum.MALE
+                "cpf": str(random.randint(0, 1000)),
+                "senha": "minha_senha",
+                "nome": "Fulano de Tal",
+                "email": str(random.randint(0, 1000)),
+                "data_de_nascimento": "1990-01-01",
+                "administrador": False,
+                "clube": "Meu Clube",
+                "federacao": "Minha Federação",
+                "sexo": SexoEnum.MASCULINO
             }
             user_service.create_user(user_data)
         
             tournament_service = TournamentService()
             tournament_data = {
-                "name": str("Ifpr-foz"),
-                "date_start": "2023-05-01",
-                "date_end": "2023-05-01",
+                "nome": str("Ifpr-foz"),
+                "data_inicio": "2023-05-01",
+                "data_final": "2023-05-01",
                 "local": "Foz do Iguaçu",
-                "type_tournament": TournamentTypeEnum.COUP
+                "tipo_torneio": TipoTorneioEnum.COPA
             }
             tournament_service.create_tournament(tournament_data)
             
@@ -64,8 +62,9 @@ class Startup:
             inscricao_data = {
                 "usuario_id": 44,
                 "torneio_id": 44,
-                "condicao": ConditionEnum.STUDENT_IFPR
+                "condicao": CondicaoEnum.ESTUDANTE_IFPR
             }
+            GroupService()
             inscricao_service.create_inscricao(inscricao_data)
 
 

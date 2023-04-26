@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask import Blueprint
 
-from Models.Enums import TournamentTypeEnum
-from Models.tournament_model import TournamentModel
+from Models.Enums import tipo_torneio_enum
+from Models.torneio_model import TorneioModel
 from Services.tournament_service import TournamentService
 
 TournamentController = Blueprint('TournamentController', __name__)
@@ -14,7 +14,7 @@ def create_tournament():
     try:
         tournament_data = request.json
         tournament = tournament_service.create_tournament(tournament_data)
-        if type(tournament) == TournamentModel:
+        if type(tournament) == TorneioModel:
             return jsonify(tournament.to_dict()), 201
         else:
             return jsonify(tournament)

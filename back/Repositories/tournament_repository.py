@@ -1,11 +1,12 @@
 from database import Database
-from Models.tournament_model import TournamentModel
+from Models.torneio_model import TorneioModel
 
 class TournamentRepository:
 
     def create_tournament(self, tournament_data):
         try:
-            tournament = TournamentModel(**tournament_data)
+            print(tournament_data)
+            tournament = TorneioModel(**tournament_data)
             Database.db.session.add(tournament)
             Database.db.session.commit()
             return tournament
@@ -14,10 +15,10 @@ class TournamentRepository:
             return {'error': str(e)}, 400
     
     def get_all_tournaments(self):
-        return TournamentModel.query.all()
+        return TorneioModel.query.all()
     
     def get_tournament_by_id(self, tournament_id):
-        return TournamentModel.query.filter_by(id=tournament_id).first()
+        return TorneioModel.query.filter_by(id=tournament_id).first()
 
     def update_tournament(self, tournament_id, tournament_data):
         tournament = self.get_tournament_by_id(tournament_id)

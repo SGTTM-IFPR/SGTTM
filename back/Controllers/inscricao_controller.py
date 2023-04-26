@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from Models.Enums import ConditionEnum
+from Models.Enums import condicao_enum
 from Models.inscricao_model import InscricaoModel
 from Services.inscricao_service import InscricaoService
 
