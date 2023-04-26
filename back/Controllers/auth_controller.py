@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 from flask import Blueprint
 
-from Models.Enums import SexEnum
+from Models.Enums import sexo_enum
 from Services.user_service import UserService
 
 AuthController = Blueprint('AuthController', __name__)

@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask import Blueprint
 
-from Models.Enums import SexEnum
-from Models.user_model import UserModel
+from Models.Enums.sexo_enum import SexoEnum
+from Models.usuario_model import UsuarioModel
 from Services.user_service import UserService
 
 UserController = Blueprint('UserController', __name__)
@@ -14,7 +14,7 @@ def create_user():
     try:
         user_data = request.json
         user = user_service.create_user(user_data)
-        if type(user) == UserModel:
+        if type(user) == UsuarioModel:
             return jsonify(user.to_dict()), 201
         else:
             return jsonify(user)
