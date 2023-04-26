@@ -26,8 +26,8 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
   };
 
   async function onSubmit(data: UsuarioData) {
-    if (data.birth_date) {
-      data.birth_date = new Date(data.birth_date).toISOString().slice(0, 10);
+    if (data.data_de_nascimento) {
+      data.data_de_nascimento = new Date(data.data_de_nascimento).toISOString().slice(0, 10);
     }
     if (!userUpdate.id) return setOutput("Id não informado");
 
@@ -78,21 +78,21 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           onFinish={onSubmit}
           initialValues={{
             id: userUpdate.id,
-            name: userUpdate.name,
+            nome: userUpdate.nome,
             cpf: userUpdate.cpf,
-            password: userUpdate.password,
+            senha: userUpdate.senha,
             email: userUpdate.email,
-            administrator: userUpdate.administrator,
-            athlete: userUpdate.athlete,
-            club: userUpdate.club,
-            federation: userUpdate.federation,
-            sex: userUpdate.sex,
+            administrador: userUpdate.administrador,
+            atleta: userUpdate.atleta,
+            clube: userUpdate.clube,
+            federacao: userUpdate.federacao,
+            sexo: userUpdate.sexo,
           }}
         >
           <Form.Item name="id" label="ID" hidden>
             <Input />
           </Form.Item>
-          <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Input />
           </Form.Item>
           <Form.Item
@@ -103,7 +103,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
             <Input />
           </Form.Item>
           <Form.Item
-            name="password"
+            name="senha"
             label="Senha"
             rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
           >
@@ -121,30 +121,30 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           >
             <Input />
           </Form.Item>
-          <Form.Item name="birth_date" label="Data de Nasc." rules={[{required: true, message: "Campo obrigatório"}]} initialValue={dayjs(userUpdate.birth_date, dateFormat)}>
+          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{required: true, message: "Campo obrigatório"}]} initialValue={dayjs(userUpdate.data_de_nascimento, dateFormat)}>
             <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item
-            name="administrator"
+            name="administrador"
             label="Administrador"
             valuePropName="checked"
           >
             <Switch />
           </Form.Item>
-          <Form.Item name="athlete" label="Atleta" valuePropName="checked">
+          <Form.Item name="atleta" label="Atleta" valuePropName="checked">
             <Switch />
           </Form.Item>
-          <Form.Item name="club" label="Clube">
+          <Form.Item name="clube" label="Clube">
             <Input />
           </Form.Item>
-          <Form.Item name="federation" label="Federação">
+          <Form.Item name="federacao" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sex" label="Sexo" rules={[{required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="sexo" label="Sexo" rules={[{required: true, message: "Campo obrigatório"}]}>
             <Radio.Group>
-              <Radio value="MALE">Masculino</Radio>
-              <Radio value="FEMALE">Feminino</Radio>
-              <Radio value="OTHERS">Outro</Radio>
+              <Radio value="MASCULINO">Masculino</Radio>
+              <Radio value="FEMININO">Feminino</Radio>
+              <Radio value="OUTROS">Outro</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

@@ -22,8 +22,8 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
   };
 
   async function onSubmit(data: UsuarioData) {
-    if (data.birth_date) {
-      data.birth_date = new Date(data.birth_date).toISOString().slice(0, 10);
+    if (data.data_de_nascimento) {
+      data.data_de_nascimento = new Date(data.data_de_nascimento).toISOString().slice(0, 10);
     }
 
     try {
@@ -67,7 +67,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
           wrapperCol={{ span: 16 }}
           onFinish={onSubmit}
         >
-          <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Input />
           </Form.Item>
           <Form.Item
@@ -78,7 +78,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
             <Input />
           </Form.Item>
           <Form.Item
-            name="password"
+            name="senha"
             label="Senha"
             rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
           >
@@ -96,30 +96,30 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
           >
             <Input/>
           </Form.Item>
-          <Form.Item name="birth_date" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório"}]}>
             <DatePicker placeholder="Insira a data"/>
           </Form.Item>
           <Form.Item
-            name="administrator"
+            name="administrador"
             label="Administrador"
             valuePropName="checked"
           >
             <Switch />
           </Form.Item>
-          <Form.Item name="athlete" label="Atleta" valuePropName="checked">
+          <Form.Item name="atleta" label="Atleta" valuePropName="checked">
             <Switch />
           </Form.Item>
-          <Form.Item name="club" label="Clube">
+          <Form.Item name="clube" label="Clube">
             <Input />
           </Form.Item>
-          <Form.Item name="federation" label="Federação">
+          <Form.Item name="federacao" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sex" label="Sexo" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="sexo" label="Sexo" rules={[{ required: true, message: "Campo obrigatório"}]}>
             <Radio.Group>
-              <Radio value="MALE">Masculino</Radio>
-              <Radio value="FEMALE">Feminino</Radio>
-              <Radio value="OTHERS">Outro</Radio>
+              <Radio value="MASCULINO">Masculino</Radio>
+              <Radio value="FEMININO">Feminino</Radio>
+              <Radio value="OUTROS">Outro</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

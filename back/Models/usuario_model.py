@@ -23,6 +23,7 @@ class UsuarioModel(Database.db.Model):
             'cpf': self.cpf,
             'nome': self.nome,
             'email': self.email,
+            'senha': self.senha,
             'data_de_nascimento': self.data_de_nascimento.isoformat(),
             'administrador': self.administrador,
             'atleta': self.atleta,

@@ -39,7 +39,7 @@ class Startup:
                 "cpf": str(random.randint(0, 1000)),
                 "senha": "minha_senha",
                 "nome": "Fulano de Tal",
-                "email": str(random.randint(0, 1000)),
+                "email": "rafhael369@gmail.com",
                 "data_de_nascimento": "1990-01-01",
                 "administrador": False,
                 "clube": "Meu Clube",
@@ -64,7 +64,6 @@ class Startup:
                 "torneio_id": 44,
                 "condicao": CondicaoEnum.ESTUDANTE_IFPR
             }
-            GroupService()
             inscricao_service.create_inscricao(inscricao_data)
 
 

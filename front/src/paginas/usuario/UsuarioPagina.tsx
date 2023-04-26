@@ -68,8 +68,8 @@ export const UsuarioPagina = () => {
           <Column
             align="center"
             title="Data de Nascimento"
-            dataIndex="data_nascimento"
-            key="data_nascimento"
+            dataIndex="data_de_nascimento"
+            key="data_de_nascimento"
           />
           <Column
             align="center"

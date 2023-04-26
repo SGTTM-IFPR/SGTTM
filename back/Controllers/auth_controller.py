@@ -21,9 +21,9 @@ def login():
     if(user_service.get_user_by_email(email) != ''):
         user = user_service.get_user_by_email(email)
 
-        if(password == user.password):
+        if(password == user.senha):
 
-            if(user.administrator == 1):
+            if(user.administrador == 1):
                 token = 'ADMIN'
                 response = jsonify({'message': 'Login successful as Admin'})
                 response.headers['Authorization'] = f'Bearer {token}'

@@ -25,11 +25,11 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
     };
 
     async function onSubmit(data: TorneioData) {
-        if (data.date_start) {
-            data.date_start = new Date(data.date_start).toISOString().slice(0, 10);
+        if (data.data_inicio) {
+            data.data_inicio = new Date(data.data_inicio).toISOString().slice(0, 10);
         }
-        if (data.date_end) {
-            data.date_end = new Date(data.date_end).toISOString().slice(0, 10);
+        if (data.data_final) {
+            data.data_final = new Date(data.data_final).toISOString().slice(0, 10);
         }
 
         if (!tournamentUpdate.id) return setOutput("Id não informado");
@@ -81,35 +81,35 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
                     onFinish={onSubmit}
                     initialValues={{
                         id: tournamentUpdate.id,
-                        name: tournamentUpdate.name,
+                        nome: tournamentUpdate.nome,
                         local: tournamentUpdate.local,
-                        type_tournament: tournamentUpdate.type_tournament,
+                        tipo_torneio: tournamentUpdate.tipo_torneio,
                     }}
                 >
                     <Form.Item name="id" label="ID" hidden>
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                    <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name="date_start" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.date_start, dateFormat)}>
+                    <Form.Item name="data_inicio" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.data_inicio, dateFormat)}>
                         <DatePicker placeholder="Insira a data" />
                     </Form.Item>
 
-                    <Form.Item name="date_end" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.date_end, dateFormat)}>
+                    <Form.Item name="data_final" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.data_final, dateFormat)}>
                         <DatePicker placeholder="Insira a data" />
                     </Form.Item>
 
                     <Form.Item name="local" label="Local" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name="type_tournament" label="Tipo do torneio" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                    <Form.Item name="tipo_torneio" label="Tipo do torneio" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group value={"type_tournament"}>
-                            <Radio value="COUP">Copa</Radio>
-                            <Radio value="SINGLE_ELIMINATION">Eliminatória simples</Radio>
-                            <Radio value="ROUND_ROBIN">Rodízio Simples</Radio>
+                            <Radio value="COPA">Copa</Radio>
+                            <Radio value="ELIMINATORIA_SIMPLES">Eliminatória simples</Radio>
+                            <Radio value="RODIZIO_SIMPLES">Rodízio Simples</Radio>
                         </Radio.Group>
                     </Form.Item>
 

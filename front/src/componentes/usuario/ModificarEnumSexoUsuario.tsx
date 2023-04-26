@@ -1,10 +1,10 @@
 export function ModificarEnumSexoUsuario (tipo: string){
     switch (tipo) {
-        case "MALE":
+        case "MASCULINO":
             return "Masculino"
-        case "FEMALE":
+        case "FEMININO":
             return "Feminino"
-        case "OTHERS":
+        case "OUTROS":
             return "Outro"
     }
 }

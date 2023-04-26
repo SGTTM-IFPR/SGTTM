@@ -1,10 +1,10 @@
 export function ModificarEnumTipoTorneio (tipo: string){
     switch (tipo) {
-        case "COUP":
+        case "COPA":
             return "Copa"
-        case "SINGLE_ELIMINATION":
+        case "ELIMINATORIA_SIMPLES":
             return "Eliminatória Simples"
-        case "ROUND_ROBIN":
+        case "RODIZIO_SIMPLES":
             return "Rodízio Simples"
     }
 }

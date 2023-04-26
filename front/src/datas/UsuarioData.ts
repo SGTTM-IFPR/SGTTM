@@ -4,8 +4,8 @@ export class UsuarioData {
   senha?: string;
   nome?: string;
   email?: string;
-  data_nascimento?: string;
-  administradpr?: boolean = true;
+  data_de_nascimento?: string;
+  administrador?: boolean = true;
   atleta?: boolean;
   clube?: string | null;
   federacao?: string | null;
