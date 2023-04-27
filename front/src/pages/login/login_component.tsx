@@ -24,9 +24,9 @@ export const LoginComponent = () => {
                 password
             });
             if (response.status === 200) {
-                setError(JSON.stringify(response.data, null, 2))
+                console.log(response)
+                sessionStorage.setItem('token', response.data.token); // salva o token no localStorage
                 login(username, password);
-                
             }
         } catch (error) {
             setError('Usuário ou senha inválidos.');

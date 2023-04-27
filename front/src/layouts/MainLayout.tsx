@@ -5,23 +5,9 @@ import { Outlet } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../authentication/context/AuthContext";
 import { LogoutOutlined } from "@ant-design/icons";
-import axios from "axios"; // Importar a biblioteca Axios para fazer chamadas HTTP
 
 export const MainLayout = () => {
   const { logout } = useContext(AuthContext);
-
-  // Função para fazer logout, chamando a API em Flask
-  const handleLogout = async () => {
-    try {
-      const response = await axios.post("/logout"); // Chama a rota /logout da API Flask
-      if (response.status === 200) {
-        logout(); // Executa a função logout da AuthContext em caso de sucesso
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <AppSidebar />
@@ -47,7 +33,7 @@ export const MainLayout = () => {
                 placement="rightTop"
                 title={"Voce tem certeza que quer fazer logout?"}
                 description={"Voce sera redirecionado para a pagina de login."}
-                onConfirm={handleLogout} // Chama a função handleLogout em vez de logout
+                onConfirm={logout}
                 okText="Sim"
                 cancelText="Não"
               >

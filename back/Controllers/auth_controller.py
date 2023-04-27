@@ -12,6 +12,8 @@ from database import Database
 AuthController = Blueprint('AuthController', __name__)
 user_service = UserService()
 
+secret_key = 'SENHA_SUPER_SECRETA'
+
 @AuthController.route('/login', methods=['POST'])
 def login():
     # Verificar credenciais do usuário
@@ -24,19 +26,14 @@ def login():
         token = jwt.encode({
             'user_id': user.id,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expira em 1 hora
-        }, 'secret_key', algorithm='HS256')
-
-        expiration = datetime.datetime.now() + datetime.timedelta(hours=1)
-        token_hash = hashlib.md5(token.encode('utf-8')).hexdigest()
+        }, secret_key, algorithm='HS256')
 
         # Armazenar token no banco de dados
-        user_token = UserTokenModel(user_id=user.id, token=token_hash, expiration=expiration)
-        Database.db.session.add(user_token)
-        Database.db.session.commit()
 
-        response = jsonify({'message': 'Login successful'})
+        response = jsonify({'message': 'Login successful',
+                            'token': token})
         response.headers['Authorization'] = f'Bearer {token}'
-        print(user_token)
+        print(token)
         return response, 200
 
     return jsonify({'message': 'Invalid username or password.'}), 401
@@ -45,11 +42,5 @@ def login():
 def logout():
     # Remover token do banco de dados
     auth_header = request.headers.get('Authorization')
-    if auth_header:
-        token = auth_header.split(' ')[1]
-        user_token = UserTokenModel.query.filter_by(token=token).first()
-        if user_token:
-            Database.db.session.delete(user_token)
-            Database.db.session.commit()
     
     return jsonify({'message': 'Logout successful'}), 200
