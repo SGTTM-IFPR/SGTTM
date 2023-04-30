@@ -3,12 +3,13 @@ import { Button, Layout, Table, Modal } from "antd";
 import { TorneioData } from "../../datas/TorneioData";
 import { InscricaoData } from "../../datas/InscricaoData";
 import Column from "antd/es/table/Column";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { deleteTournament, getAllTournaments, getTournamentById } from "../../servicos/TorneioServico";
 import { ModificarEnumTipoTorneio } from "../../componentes/torneio/ModificarEnumTipoTorneio"
 import { BotaoCriarTorneio } from "../../componentes/torneio/BotaoCriarTorneio";
 import { BotaoEditarTorneio } from "../../componentes/torneio/BotaoEditarTorneio";
 import { BotaoCriarInscricao } from "../../componentes/inscricao/BotaoCriarInscricao";
+import { BotaoCriarGrupo } from "../../componentes/grupo/BotaoCriarGrupo";
 
 export const TorneioPagina = () => {
     const [data, setData] = useState<TorneioData[]>([]);
@@ -104,8 +105,8 @@ export const TorneioPagina = () => {
                                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                                     <p>Deseja realmente excluir o Torneio?</p>
                                 </Modal>
-                                <BotaoCriarInscricao setData={setDataInscricao} idTournament={record.id} />
-
+                                <BotaoCriarGrupo idTournament={record.id}
+                                ></BotaoCriarGrupo>
                             </>
                         )}
                     />

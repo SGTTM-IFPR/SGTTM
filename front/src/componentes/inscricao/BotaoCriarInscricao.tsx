@@ -18,7 +18,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [output, setOutput] = useState('');
-    const [selectedOption, setSelectedOption] = useState(MyEnum.TEACHER_IFPR);
+    const [selectedOption, setSelectedOption] = useState(MyEnum.PROFESSOR_IFPR);
     const [selectedCpf, setSelectedCpf] = useState('');
     const [selectedIdUser, setSelectedIdUser] = useState(0);
 
@@ -67,6 +67,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
             usuario_id: selectedIdUser,
             condicao: selectedOption,
         };
+        console.log(inscricao);
         onSubmit(inscricao);
     };
 
@@ -75,7 +76,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
             <Button
                 size="small"
                 type="primary"
-                style={{ marginRight: 8, marginLeft: 8, background: "green" }}
+                style={{ background: "green", height: 30 }}
                 onClick={showModal}
             >
                 Inscrever-se agora!

@@ -4,17 +4,17 @@ export interface EnumOpcao {
 }
 
 export enum MyEnum {
-    TEACHER_IFPR = 'TEACHER_IFPR',
-    STUDENT_IFPR = 'STUDENT_IFPR',
-    EGRESS_IFPR = 'EGRESS_IFPR',
-    GUEST = 'GUEST',
-    OTHERS = 'OTHERS'
+    PROFESSOR_IFPR = 'PROFESSOR_IFPR',
+    ESTUDANTE_IFPR = 'ESTUDANTE_IFPR',
+    EGRESSO_IFPR = 'EGRESSO_IFPR',
+    CONVIDADO = 'CONVIDADO',
+    OUTROS = 'OUTROS'
 }
 
 export const enumOpcoes: EnumOpcao[] = [
-    { value: MyEnum.TEACHER_IFPR, label: 'Professor IFPR' },
-    { value: MyEnum.STUDENT_IFPR, label: 'Estudante IFPR' },
-    { value: MyEnum.EGRESS_IFPR, label: 'Egresso IFPR' },
-    { value: MyEnum.GUEST, label: 'Convidado' },
-    { value: MyEnum.OTHERS, label: 'Outros' }
+    { value: MyEnum.PROFESSOR_IFPR, label: 'Professor IFPR' },
+    { value: MyEnum.ESTUDANTE_IFPR, label: 'Estudante IFPR' },
+    { value: MyEnum.EGRESSO_IFPR, label: 'Egresso IFPR' },
+    { value: MyEnum.CONVIDADO, label: 'Convidado' },
+    { value: MyEnum.OUTROS, label: 'Outros' }
 ];
