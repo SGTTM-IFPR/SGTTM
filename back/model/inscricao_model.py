@@ -12,7 +12,7 @@ class InscricaoModel(database.Model):
     usuario_id = Column(Integer, ForeignKey('usuario.id'), nullable=False)
     torneio_id = Column(Integer, ForeignKey('torneio.id'), nullable=False)
     condicao = Column(Enum(CondicaoEnum))
-    grupo_id = Column(Integer, ForeignKey('grupo.id'), nullable=False)
+    grupo_id = Column(Integer, ForeignKey('grupo.id'), nullable=True)
 
     def to_dict(self):
         return {
@@ -20,6 +20,6 @@ class InscricaoModel(database.Model):
             'usuario_id': self.usuario_id,
             'torneio_id': self.torneio_id,
             'condicao': self.condicao.name if self.condicao else None,
-            'group_id': self.grupo_id
+            'grupo_id': self.grupo_id
 
         }
