@@ -27,7 +27,7 @@ def create_user():
 def get_users():
     users = user_service.get_all_users()
     user_dicts = [user.to_dict() for user in users]
-    print(user_dicts)
+    print()
     return jsonify(user_dicts), 200
 
 # get a single user

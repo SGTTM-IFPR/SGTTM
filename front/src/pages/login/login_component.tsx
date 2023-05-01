@@ -2,10 +2,11 @@ import { Alert, Button, Input, Space, Tooltip } from 'antd';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons';
-import { AuthContext } from '../../authentication/context/AuthContext';
+import { AuthProviderContext } from "../../authentication/context/AuthProvider";
 
 export const LoginComponent = () => {
-    const {login} = useContext(AuthContext);
+    const {login} = useContext(AuthProviderContext);
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -23,6 +24,7 @@ export const LoginComponent = () => {
                 username,
                 password
             });
+
             if (response.status === 200) {
                 console.log(response)
                 sessionStorage.setItem('token', response.data.token); // salva o token no localStorage

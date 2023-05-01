@@ -1,38 +1,51 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import { AuthContext, AuthContextProps } from "./AuthContext";
+import { ReactNode, createContext, useCallback, useEffect, useState } from "react";
+
+const AUTHED_STORAGE_KEY = "authed";
+
+interface AuthContextProps {
+  authed: boolean;
+  login: (email: string, password: string) => void;
+  logout: () => void;
+}
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-const AUTHED_STORAGE_KEY = "authed";
+const AuthProviderContext = createContext<AuthContextProps>({
+  authed: false,
+  login: () => {},
+  logout: () => {},
+});
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authed, setAuthed] = useState(() => {
     const storedAuthed = localStorage.getItem(AUTHED_STORAGE_KEY);
     return storedAuthed === "true";
   });
-
+  
   useEffect(() => {
     localStorage.setItem(AUTHED_STORAGE_KEY, authed.toString());
   }, [authed]);
   
-  const login = useCallback<AuthContextProps["login"]>(
-    (email: string, password: string) => {
-      // Implement your login logic here
-      setAuthed(true);
-    },
-    []
-  );
+  const login = useCallback<AuthContextProps["login"]>((email, password) => {
+    // Implement your login logic here
+    setAuthed(true);
+  }, []);
 
   const logout = useCallback<AuthContextProps["logout"]>(() => {
     // Implement your logout logic here
     setAuthed(false);
+    sessionStorage.removeItem("token");
   }, []);
 
+  const authProviderValue = { authed, login, logout };
+
   return (
-    <AuthContext.Provider value={{ authed, login, logout }}>
+    <AuthProviderContext.Provider value={authProviderValue}>
       {children}
-    </AuthContext.Provider>
+    </AuthProviderContext.Provider>
   );
 };
+
+export { AuthProvider, AuthProviderContext };

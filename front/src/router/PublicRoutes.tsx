@@ -1,13 +1,13 @@
 import { ReactNode, useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../authentication/context/AuthContext";
+import { AuthProviderContext } from "../authentication/context/AuthProvider";
 
 interface PublicRoutesProps {
   children: ReactNode;
 }
 
 export const PublicRoutes = ({ children }: PublicRoutesProps) => {
-  const { authed } = useContext(AuthContext);
+  const { authed } = useContext(AuthProviderContext);
 
   return (
     <>

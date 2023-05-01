@@ -5,7 +5,6 @@ import jwt
 import hashlib
 from Models.Enums import SexEnum
 from Models.user_model import UserModel
-from Models.user_token_model import UserTokenModel
 from Services.user_service import UserService
 from database import Database
 
@@ -16,31 +15,37 @@ secret_key = 'SENHA_SUPER_SECRETA'
 
 @AuthController.route('/login', methods=['POST'])
 def login():
-    # Verificar credenciais do usuário
     email = request.json.get('username')
     password = request.json.get('password')
 
-    user = user_service.get_user_by_email(email)
-    if user and user.password == password:
-        # Gerar token de autenticação
-        token = jwt.encode({
-            'user_id': user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)  # Token expira em 1 hora
-        }, secret_key, algorithm='HS256')
+    if user_service.get_user_by_email(email) != '':
+        usuario = user_service.get_user_by_email(email)
 
-        # Armazenar token no banco de dados
+        if password == usuario.password:
 
-        response = jsonify({'message': 'Login successful',
-                            'token': token})
-        response.headers['Authorization'] = f'Bearer {token}'
-        print(token)
-        return response, 200
+            if usuario.administrator == 1:
+                payload = {'username': email, 'role': 'admin'}
+            else:
+                payload = {'username': email, 'role': 'user'}
 
-    return jsonify({'message': 'Invalid username or password.'}), 401
+            chave_secreta = 'minha_chave_secreta' # chave secreta para assinar o token
+            token = jwt.encode(payload, chave_secreta, algorithm='HS256')
+
+            response = jsonify({'message': 'Login successful', 'token': token})
+            response.headers['Authorization'] = f'Bearer {token}'
+            return response, 200
+    else:
+        return {'message': 'Invalid email or password'}, 401
 
 @AuthController.route('/logout', methods=['POST'])
 def logout():
     # Remover token do banco de dados
-    auth_header = request.headers.get('Authorization')
-    
+
+    return jsonify({'message': 'Logout successful'}), 200
+
+
+@AuthController.route('/token', methods=['POST'])
+def auth_token():
+    token = request.json.get('token')
+    print(token) #pega o token no back-end,  a partir daqui podemos validar toda controller
     return jsonify({'message': 'Logout successful'}), 200

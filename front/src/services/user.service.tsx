@@ -1,10 +1,30 @@
-import axios from "axios";
+import axios,{ AxiosInstance } from "axios";
 import { UserData } from "../datas/UserData";
+
+const api: AxiosInstance = axios.create({
+  baseURL: "http://localhost:5000/",
+});
+
+export const authToken = async () => {
+  const baseURL = "http://localhost:5000/";
+  const endpoint = "auth/token";
+  const token = sessionStorage.getItem("token");
+  const body = {
+    'token': token
+  }
+  const response = await axios.post<any>(
+    `${baseURL}/${endpoint}`,
+    body
+  );
+  return response.data;
+};
+
 
 export const callApi = (baseURL: string, endpoint: string) => {
   const url = `${baseURL}/${endpoint}`;
   return axios.get<UserData[]>(url);
 };
+
 
 export const createUser = async (userData: UserData): Promise<UserData> => {
   const baseURL = "http://localhost:5000/";
@@ -19,6 +39,7 @@ export const createUser = async (userData: UserData): Promise<UserData> => {
 export const getAllUsers = async (): Promise<UserData[]> => {
   const baseURL = "http://localhost:5000/";
   const endpoint = "users";
+  const auth = await authToken();
   const response = await callApi(baseURL, endpoint);
   return response.data;
 };
