@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint
 from flask_restx import Api
 
+from .authentication.authentication_namespace import authentication_namespace
 from .usuario.usuario_namespace import usuario_namespace
 from .grupo.grupo_namespace import grupo_namespace
 from .inscricao.inscricao_namespace import inscricao_namespace
@@ -19,6 +20,8 @@ api = Api(blueprint
           , default_label='Tournament API'
           , validate=True
           )
+
+
 def init_app(app: Flask):
     api.add_namespace(usuario_namespace)
     api.add_namespace(grupo_namespace)
@@ -27,5 +30,6 @@ def init_app(app: Flask):
     api.add_namespace(pontuacao_namespace)
     api.add_namespace(set_namespace)
     api.add_namespace(torneio_namespace)
+    api.add_namespace(authentication_namespace)
     app.register_blueprint(blueprint)
     pass
