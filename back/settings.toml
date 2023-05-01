@@ -1,0 +1,8 @@
+[default]
+SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:database@localhost/tcc"
+CORS_HEADERS = "application/json"
+EXTENSIONS = [
+    "extension.database",
+    "rest_controller",
+    "init_value",
+]
