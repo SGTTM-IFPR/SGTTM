@@ -84,9 +84,7 @@ export const TorneioPagina = () => {
 
                     <Column title="Local" dataIndex="local" key="local" />
 
-                    <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" render={(text, record) => (
-                        <span>{ModificarEnumTipoTorneio(text)}</span>
-                    )} />
+                    <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
                     <Column
                         align="center"

@@ -106,10 +106,10 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
                         <Input />
                     </Form.Item>
                     <Form.Item name="tipo_torneio" label="Tipo do torneio" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <Radio.Group value={"type_tournament"}>
-                            <Radio value="COPA">Copa</Radio>
-                            <Radio value="ELIMINATORIA_SIMPLES">Eliminatória simples</Radio>
-                            <Radio value="RODIZIO_SIMPLES">Rodízio Simples</Radio>
+                        <Radio.Group value={"tipo_torneio"}>
+                            <Radio value="Copa">Copa</Radio>
+                            <Radio value="Eliminatória simples">Eliminatória simples</Radio>
+                            <Radio value="Rodízio Simples">Rodízio Simples</Radio>
                         </Radio.Group>
                     </Form.Item>
 

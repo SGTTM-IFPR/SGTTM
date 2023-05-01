@@ -9,7 +9,7 @@ export const callApi = (baseURL: string, endpoint: string) => {
 export const createTournament = async (tournamentData: TorneioData): Promise<TorneioData> => {
   console.log(tournamentData);
   const baseURL = "http://localhost:5000/";
-  const endpoint = "tournaments/";
+  const endpoint = "torneio/";
   const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
     tournamentData
@@ -19,14 +19,14 @@ export const createTournament = async (tournamentData: TorneioData): Promise<Tor
 
 export const getAllTournaments = async (): Promise<TorneioData[]> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = "tournaments";
+  const endpoint = "torneio/find-all";
   const response = await callApi(baseURL, endpoint);
   return response.data;
 };
 
 export const getTournamentById = async (id: number): Promise<TorneioData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `tournaments/${id}`;
+  const endpoint = `torneio/${id}`;
   const response = await callApi(baseURL, endpoint);
   return response.data[0];
 };
@@ -36,7 +36,7 @@ export const updateTournament = async (
   tournamentData: TorneioData
 ): Promise<TorneioData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `tournaments/${id}`;
+  const endpoint = `torneio/${id}`;
   const response = await axios.put<TorneioData>(
     `${baseURL}/${endpoint}`,
     tournamentData
@@ -46,7 +46,7 @@ export const updateTournament = async (
 
 export const deleteTournament = async (id: number): Promise<string> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `tournaments/${id}`;
+  const endpoint = `torneio/${id}`;
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;
 };
