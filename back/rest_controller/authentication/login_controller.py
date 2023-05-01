@@ -25,16 +25,18 @@ class LoginController(Resource):
 
         if self.service.get_usuario_by_email(email) != '':
             usuario = self.service.get_usuario_by_email(email)
-
             if password == usuario.senha:
-
-                if usuario.administrador == 1:
+                from flask import make_response
+                import json
+                if usuario.administrador == True:
                     token = 'ADMIN'
-                    response = jsonify({'message': 'Login successful as Admin'})
+                    response = {'message': 'Login successful as Admin', 'token': token}
+                    response = make_response(json.dumps(response), 200)
                     response.headers['Authorization'] = f'Bearer {token}'
-                    return response, 200
+                    return response
                 else:
                     token = 'USER'
-                    response = jsonify({'message': 'Login successful as Admin'})
+                    response = {'message': 'Login successful as Admin', 'token': token}
+                    response = make_response(json.dumps(response), 200)
                     response.headers['Authorization'] = f'Bearer {token}'
-                    return response, 200
+                    return response

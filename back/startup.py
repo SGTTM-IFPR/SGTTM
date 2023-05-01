@@ -1,5 +1,5 @@
 from flask import Flask
-
+from flask_cors import CORS
 from container.container import Container
 from extension import configuration
 
@@ -8,6 +8,7 @@ class Startup:
 
     def __init__(self):
         self.app = Flask(__name__)
+        CORS(self.app)
         print(self.get_url_map())
         self.app = Flask(__name__)
         configuration.init_app(self.app)
@@ -35,7 +36,8 @@ class Startup:
         #         "condicao": CondicaoEnum.ESTUDANTE_IFPR
         #     }
         #     inscricao_service.create_inscricao(inscricao_data)
-
+        # Habilitar o CORS
+        # cors = CORS(self.app, resources={r"/*": {"origins": "*"}})
 
     def run(self, debug=True):
         self.app.run(debug=debug)

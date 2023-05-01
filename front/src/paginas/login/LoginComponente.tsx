@@ -5,7 +5,7 @@ import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons
 import { AutenticacaoContexto } from '../../autenticacao/contexto/AutenticacaoContexto';
 
 export const LoginComponente = () => {
-    const {login} = useContext(AutenticacaoContexto);
+    const { login } = useContext(AutenticacaoContexto);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -19,14 +19,14 @@ export const LoginComponente = () => {
         }
         setError('')
         try {
-            const response = await axios.post('http://127.0.0.1:5000/auth/login', {
+            const response = await axios.post('http://127.0.0.1:5000/autenticacao/login', {
                 username,
                 password
             });
             if (response.status === 200) {
-                setError(JSON.stringify(response.data, null, 2))
+                // setError(JSON.stringify(response.data, null, 2))
                 login(username, password);
-                
+
             }
         } catch (error) {
             setError('Usuário ou senha inválidos.');
@@ -53,13 +53,13 @@ export const LoginComponente = () => {
                         }
                     /> */}
                     <Form>
-                    <Form.Item name={['user', 'email']} rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}>
-                        <Input style={{ marginTop: '10px' }} prefix={<UserOutlined className="site-form-item-icon" />}  placeholder='Insira seu E-mail' value={username} onChange={event => setUsername(event.target.value)} suffix={
-                            <Tooltip title="Campo destinado para inserção do E-mail do usuário">
-                                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-                            </Tooltip>
-                        }/>
-                    </Form.Item>
+                        <Form.Item name={['user', 'email']} rules={[{ required: true, message: "Campo obrigatório" }, { type: "email", message: "Preencha com um e-mail válido" }]}>
+                            <Input style={{ marginTop: '10px' }} prefix={<UserOutlined className="site-form-item-icon" />} placeholder='Insira seu E-mail' value={username} onChange={event => setUsername(event.target.value)} suffix={
+                                <Tooltip title="Campo destinado para inserção do E-mail do usuário">
+                                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                                </Tooltip>
+                            } />
+                        </Form.Item>
                     </Form>
                 </div>
 
