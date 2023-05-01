@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Date
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy.model import Model
+from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy_serializer import SerializerMixin
+
 from extension.database import database
 
 
-class PartidaModel(database.Model):
+class PartidaModel(database.Model, SerializerMixin):
     __tablename__ = "partida"
 
     id = Column(Integer, primary_key=True)

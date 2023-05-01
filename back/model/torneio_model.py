@@ -1,12 +1,11 @@
-from model.Enums.tipo_torneio_enum import TipoTorneioEnum
+from sqlalchemy import Column, Integer, String, Enum, Date
+from sqlalchemy_serializer import SerializerMixin
+
 from extension.database import database
-
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Date
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy.model import Model
+from model.Enums.tipo_torneio_enum import TipoTorneioEnum
 
 
-class TorneioModel(database.Model):
+class TorneioModel(database.Model, SerializerMixin):
     __tablename__ = "torneio"
 
     id = Column(Integer, primary_key=True)
@@ -15,13 +14,3 @@ class TorneioModel(database.Model):
     data_final = Column(Date, nullable=False)
     local = Column(String(100), nullable=False)
     tipo_torneio = Column(Enum(TipoTorneioEnum))
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'nome': self.nome,
-            'data_inicio': self.data_inicio.isoformat(),
-            'data_final': self.data_final.isoformat(),
-            'local': self.local,
-            'tipo_torneio': self.tipo_torneio.name,
-        }

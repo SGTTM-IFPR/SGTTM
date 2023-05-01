@@ -1,11 +1,10 @@
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy_serializer import SerializerMixin
 
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy.model import Model
 from extension.database import database
 
 
-class PontuacaoModel(database.Model):
+class PontuacaoModel(database.Model, SerializerMixin):
     __tablename__ = "pontuacao"
 
     id = Column(Integer, primary_key=True)

@@ -1,11 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy.model import Model
-from flask_sqlalchemy.model import Model
+from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy_serializer import SerializerMixin
+
 from extension.database import database
 
 
-class SetModel(database.Model):
+class SetModel(database.Model, SerializerMixin):
     __tablename__ = "set"
 
     id = Column(Integer, primary_key=True)

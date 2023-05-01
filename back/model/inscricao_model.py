@@ -1,11 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Enum
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy.model import Model
-from model.Enums.condicao_enum import CondicaoEnum
+from sqlalchemy import Column, Integer, ForeignKey, Enum
+from sqlalchemy_serializer import SerializerMixin
+
 from extension.database import database
+from model.Enums.condicao_enum import CondicaoEnum
 
 
-class InscricaoModel(database.Model):
+class InscricaoModel(database.Model, SerializerMixin):
     __tablename__ = "inscricao"
 
     id = Column(Integer, primary_key=True)
