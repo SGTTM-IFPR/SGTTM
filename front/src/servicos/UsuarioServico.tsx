@@ -8,7 +8,7 @@ export const callApi = (baseURL: string, endpoint: string) => {
 
 export const createUser = async (userData: UsuarioData): Promise<UsuarioData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = "users/";
+  const endpoint = "usuario/create";
   const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
     userData
@@ -18,14 +18,14 @@ export const createUser = async (userData: UsuarioData): Promise<UsuarioData> =>
 
 export const getAllUsers = async (): Promise<UsuarioData[]> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = "users";
+  const endpoint = "usuario/find-all";
   const response = await callApi(baseURL, endpoint);
   return response.data;
 };
 
 export const getUserById = async (id: number): Promise<UsuarioData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `users/${id}`;
+  const endpoint = `usuario/${id}`;
   const response = await callApi(baseURL, endpoint);
   return response.data[0];
 };
@@ -35,7 +35,7 @@ export const updateUser = async (
   userData: UsuarioData
 ): Promise<UsuarioData> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `users/${id}`;
+  const endpoint = `usuario/${id}`;
   const response = await axios.put<UsuarioData>(
     `${baseURL}/${endpoint}`,
     userData
@@ -45,14 +45,14 @@ export const updateUser = async (
 
 export const deleteUser = async (id: number): Promise<string> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `users/${id}`;
+  const endpoint = `usuario/${id}`;
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;
 };
 
 export const buscarIdPorCpf = async (cpf: string): Promise<number> => {
   const baseURL = "http://localhost:5000/";
-  const endpoint = `users/cpf/${cpf}`;
+  const endpoint = `usuario/cpf/${cpf}`;
   const response = await axios.get(`${baseURL}/${endpoint}`);
   return response.data.id;
 }

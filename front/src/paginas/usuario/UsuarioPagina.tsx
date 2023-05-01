@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal, Form} from "antd";
+import { Button, Layout, Table, Modal, Form } from "antd";
 import { UsuarioData } from "../../datas/UsuarioData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ export const UsuarioPagina = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
-      setIsModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const getResults = async () => {
@@ -30,9 +30,9 @@ export const UsuarioPagina = () => {
 
   const handleOk = async (id?: number) => {
     if (id) {
-        const deletedUser = await deleteUser(id);
-        console.log(deletedUser);
-        getResults();
+      const deletedUser = await deleteUser(id);
+      console.log(deletedUser);
+      getResults();
     }
     setIsModalOpen(false);
   };
@@ -87,9 +87,7 @@ export const UsuarioPagina = () => {
           />
           <Column title="Clube" dataIndex="clube" key="clube" />
           <Column title="Federação" dataIndex="federacao" key="federacao" />
-          <Column title="Sexo" dataIndex="sexo" key="sexo" render={(text, record) => (
-            <span>{ModificarEnumSexoUsuario(text)}</span>
-          )}/>
+          <Column title="Sexo" dataIndex="sexo" key="sexo" />
           <Column
             align="center"
             title="Ações"
@@ -105,7 +103,7 @@ export const UsuarioPagina = () => {
                   Excluir
                 </Button>
                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
-                    <p>Deseja realmente excluir o Usuário?</p>
+                  <p>Deseja realmente excluir o Usuário?</p>
                 </Modal>
               </>
             )}

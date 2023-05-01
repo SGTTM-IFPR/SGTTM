@@ -92,20 +92,20 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           <Form.Item name="id" label="ID" hidden>
             <Input />
           </Form.Item>
-          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
             <Input />
           </Form.Item>
           <Form.Item
             name="cpf"
             label="CPF"
-            rules={[{ required: true, message: "Campo obrigatório"}, { min: 11 }, { max: 11 }]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { min: 11 }, { max: 11 }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="senha"
             label="Senha"
-            rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { min: 8 }]}
           >
             <Input.Password
               visibilityToggle={{
@@ -117,11 +117,11 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           <Form.Item
             name="email"
             label="E-mail"
-            rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { type: "email", message: "Preencha com um e-mail válido" }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{required: true, message: "Campo obrigatório"}]} initialValue={dayjs(userUpdate.data_de_nascimento, dateFormat)}>
+          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(userUpdate.data_de_nascimento, dateFormat)}>
             <DatePicker format={dateFormat} />
           </Form.Item>
           <Form.Item
@@ -140,11 +140,11 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           <Form.Item name="federacao" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sexo" label="Sexo" rules={[{required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="sexo" label="Sexo" rules={[{ required: true, message: "Campo obrigatório" }]}>
             <Radio.Group>
-              <Radio value="MASCULINO">Masculino</Radio>
-              <Radio value="FEMININO">Feminino</Radio>
-              <Radio value="OUTROS">Outro</Radio>
+              <Radio value="Masculino">Masculino</Radio>
+              <Radio value="Feminino">Feminino</Radio>
+              <Radio value="Outros">Outro</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
