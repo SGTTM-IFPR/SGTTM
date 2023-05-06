@@ -32,6 +32,18 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
             data.data_final = new Date(data.data_final).toISOString().slice(0, 10);
         }
 
+        switch (data.tipo_torneio) {
+            case "Copa":
+                data.tipo_torneio = "COPA";
+                break;
+            case "Eliminatória simples":
+                data.tipo_torneio = "ELIMINATORIA_SIMPLES";
+                break;
+            case "Rodízio Simples":
+                data.tipo_torneio = "RODIZIO_SIMPLES";
+                break;
+        }
+
         if (!tournamentUpdate.id) return setOutput("Id não informado");
 
         try {
@@ -108,7 +120,7 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
                     <Form.Item name="tipo_torneio" label="Tipo do torneio" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group value={"tipo_torneio"}>
                             <Radio value="Copa">Copa</Radio>
-                            <Radio value="Eliminatória simples">Eliminatória simples</Radio>
+                            <Radio value="Eliminatória simples">Eliminatória Simples</Radio>
                             <Radio value="Rodízio Simples">Rodízio Simples</Radio>
                         </Radio.Group>
                     </Form.Item>

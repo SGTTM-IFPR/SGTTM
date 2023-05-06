@@ -87,7 +87,7 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
                     <Form.Item name="tipo_torneio" label="Tipo do torneio" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group>
                             <Radio value="COPA">Copa</Radio>
-                            <Radio value="ELIMINATORIA_SIMPLES">Eliminatória simples</Radio>
+                            <Radio value="ELIMINATORIA_SIMPLES">Eliminatória Simples</Radio>
                             <Radio value="RODIZIO_SIMPLES">Rodízio Simples</Radio>
                         </Radio.Group>
                     </Form.Item>

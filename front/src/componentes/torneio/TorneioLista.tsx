@@ -46,7 +46,7 @@ export const TorneioLista = () => {
                             </p>
                             <p>
                                 <b>Tipo do torneio: </b>
-                                {ModificarEnumTipoTorneio(tournament.tipo_torneio ?? '')}
+                                {tournament.tipo_torneio}
                             </p>
                             <BotaoCriarInscricao setData={setDataInscricao} idTournament={tournament.id} />
                         </Card>

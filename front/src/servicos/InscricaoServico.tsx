@@ -8,7 +8,7 @@ export const callApi = (baseURL: string, endpoint: string) => {
 
 export const createInscricao = async (inscricaoData: InscricaoData): Promise<InscricaoData> => {
     const baseURL = "http://localhost:5000/";
-    const endpoint = "inscricoes/";
+    const endpoint = "inscricao/create";
     const response = await axios.post<any>(
         `${baseURL}/${endpoint}`,
         inscricaoData
@@ -18,14 +18,21 @@ export const createInscricao = async (inscricaoData: InscricaoData): Promise<Ins
 
 export const getAllInscricoes = async (): Promise<InscricaoData[]> => {
     const baseURL = "http://localhost:5000/";
-    const endpoint = "inscricoes";
+    const endpoint = "inscricao/find-all";
     const response = await callApi(baseURL, endpoint);
     return response.data;
 }
 
 export const deleteInscricao = async (id: number): Promise<string> => {
     const baseURL = "http://localhost:5000/";
-    const endpoint = `inscricoes/${id}`;
+    const endpoint = `inscricao/${id}`;
     const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
+    return response.data;
+}
+
+export const getInscricaoById = async (id: number): Promise<InscricaoData> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `inscricao/find-all/${id}`;
+    const response = await axios.get<InscricaoData>(`${baseURL}/${endpoint}`);
     return response.data;
 }

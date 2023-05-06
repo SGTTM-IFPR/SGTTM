@@ -22,8 +22,11 @@ export const TorneioPagina = () => {
 
     const handleOk = async (id?: number) => {
         if (id) {
-            const deletedTournament = await deleteTournament(id);
-            console.log(deletedTournament);
+            try {
+                const deletedTournament = await deleteTournament(id);
+            } catch (error) {
+                console.log(error);
+            }
             getResults();
         }
         setIsModalOpen(false);

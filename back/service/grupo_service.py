@@ -10,3 +10,9 @@ class GrupoService(GenericService[GrupoModel]):
     @inject
     def __init__(self, repository: GrupoRepository):
         super().__init__(repository)
+    
+    def create(self, data):
+        return self.repository.create(data)
+    
+    def get_by_torneio_id(self, torneio_id):
+        return self.repository.get_by_torneio_id(torneio_id)

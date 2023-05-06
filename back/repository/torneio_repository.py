@@ -1,4 +1,4 @@
-from model import TorneioModel
+from model.torneio_model import TorneioModel
 from repository.generic_repository import GenericRepository
 
 

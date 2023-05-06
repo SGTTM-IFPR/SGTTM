@@ -9,7 +9,7 @@ export const callApi = (baseURL: string, endpoint: string) => {
 export const createTournament = async (tournamentData: TorneioData): Promise<TorneioData> => {
   console.log(tournamentData);
   const baseURL = "http://localhost:5000/";
-  const endpoint = "torneio/";
+  const endpoint = "torneio/create";
   const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
     tournamentData

@@ -10,3 +10,6 @@ class InscricaoService(GenericService[InscricaoModel]):
     @inject
     def __init__(self, repository: InscricaoRepository):
         super().__init__(repository)
+    
+    def get_by_torneio_id(self, id):
+        return InscricaoModel.query.filter_by(torneio_id=id).all()
