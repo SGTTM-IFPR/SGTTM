@@ -1,11 +1,9 @@
-import { Button, Modal } from "antd";
-import { GrupoData } from "../../datas/GrupoData";
-import { getAllInscricoes, getInscricaoById } from "../../servicos/InscricaoServico";
+import { Button } from "antd";
+import { getInscricaoById } from "../../servicos/InscricaoServico";
 import { useState } from "react";
 import { InscricaoData } from "../../datas/InscricaoData";
 import { updateTournament } from "../../servicos/TorneioServico";
 import { TorneioData } from "../../datas/TorneioData";
-import { getTournamentById } from "../../servicos/TorneioServico";
 
 type Props = {
     idTournament?: Number;
@@ -29,19 +27,17 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
         }
     };
 
-    if (torneioData.status !== "Aberto") {
-        return null;
-    }
-
     return (
         <Button
-            size="small"
+            size='middle'
             type="primary"
-            style={{ background: "green", marginLeft: 8 }}
+            style={{
+                background: "green"
+            }}
             onClick={CriarGrupo}
         >
             Iniciar Torneio
-        </Button>
+        </Button >
     );
 };
 

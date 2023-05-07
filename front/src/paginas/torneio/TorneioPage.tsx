@@ -10,6 +10,7 @@ import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
 import { Collapse } from 'antd';
 import { Divider, Steps } from 'antd';
 import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscricao';
+import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
 
 const { Panel } = Collapse;
 
@@ -136,7 +137,7 @@ export const TorneioPage = () => {
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
-                <BotaoCriarInscricao idTournament={torneio?.id} />
+
                 <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
                 </div>
@@ -148,7 +149,10 @@ export const TorneioPage = () => {
                 </Descriptions>
                 <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
+                    <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
+                <BotaoCriarGrupo />
+                <BotaoCriarInscricao idTournament={torneio?.id} />
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
