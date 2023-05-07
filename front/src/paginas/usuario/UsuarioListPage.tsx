@@ -7,12 +7,13 @@ import { deleteUser, getAllUsers, getUserById } from "../../servicos/UsuarioServ
 import { ModificarEnumSexoUsuario } from "../../componentes/usuario/ModificarEnumSexoUsuario";
 import { BotaoCriarUsuario } from "../../componentes/usuario/BotaoCriarUsuario";
 import { BotaoEditarUsuario } from "../../componentes/usuario/BotaoEditarUsuario";
+import { AuthService } from "../../servicos/AutenticarTokenServico";
 
 
 export const UsuarioListPage = () => {
   const [data, setData] = useState<UsuarioData[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  AuthService.authToken();
   const showModal = () => {
     setIsModalOpen(true);
   };

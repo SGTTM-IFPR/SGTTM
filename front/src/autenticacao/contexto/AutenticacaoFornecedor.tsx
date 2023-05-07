@@ -1,11 +1,22 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
-import { AutenticacaoContexto, AutenticacaoContextoProps } from "./AutenticacaoContexto";
+import { ReactNode, createContext, useCallback, useEffect, useState } from "react";
+
+interface AutenticacaoContextoProps {
+  authed: boolean;
+  login: (email: string, password: string) => void;
+  logout: () => void;
+}
 
 interface AutenticacaoFornecedorProps {
   children: ReactNode;
 }
 
 const AUTHED_STORAGE_KEY = "authed";
+
+export const AutenticacaoContexto = createContext<AutenticacaoContextoProps>({
+  authed: false,
+  login: () => {},
+  logout: () => {},
+});
 
 export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps) => {
   const [authed, setAuthed] = useState(() => {
@@ -18,8 +29,7 @@ export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps
   }, [authed]);
   
   const login = useCallback<AutenticacaoContextoProps["login"]>(
-    (email: string, password: string) => {
-      // Implement your login logic here
+    (email: string) => {
       setAuthed(true);
     },
     []
@@ -27,6 +37,7 @@ export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps
 
   const logout = useCallback<AutenticacaoContextoProps["logout"]>(() => {
     // Implement your logout logic here
+    localStorage.removeItem('token');
     setAuthed(false);
   }, []);
 

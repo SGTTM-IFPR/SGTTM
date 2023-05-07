@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoContexto";
+import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoFornecedor";
 
 interface PrivateRoutesProps {
   children: ReactNode;

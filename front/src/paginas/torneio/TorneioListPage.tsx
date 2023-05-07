@@ -10,11 +10,13 @@ import { BotaoCriarTorneio } from "../../componentes/torneio/BotaoCriarTorneio";
 import { BotaoEditarTorneio } from "../../componentes/torneio/BotaoEditarTorneio";
 import { BotaoCriarInscricao } from "../../componentes/inscricao/BotaoCriarInscricao";
 import { BotaoCriarGrupo } from "../../componentes/grupo/BotaoCriarGrupo";
+import { AuthService } from "../../servicos/AutenticarTokenServico";
 
 export const TorneioListPage = () => {
     const [data, setData] = useState<TorneioData[]>([]);
     const [dataInscricao, setDataInscricao] = useState<InscricaoData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    AuthService.authToken();
 
     const showModal = () => {
         setIsModalOpen(true);

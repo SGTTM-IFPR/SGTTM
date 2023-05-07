@@ -3,11 +3,13 @@ import { Header, Content, Footer } from "antd/es/layout/layout";
 import { AppSidebar } from "../paginas/AppSidebar";
 import { Outlet } from "react-router";
 import { useContext } from "react";
-import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoContexto";
+import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoFornecedor";
 import { LogoutOutlined } from "@ant-design/icons";
 
 export const MainLayout = () => {
+
   const { logout } = useContext(AutenticacaoContexto);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <AppSidebar />
