@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal } from "antd";
+import { Button, Layout, Table, Modal, Space } from "antd";
 import { TorneioData } from "../../datas/TorneioData";
 import { InscricaoData } from "../../datas/InscricaoData";
 import Column from "antd/es/table/Column";
@@ -11,7 +11,7 @@ import { BotaoEditarTorneio } from "../../componentes/torneio/BotaoEditarTorneio
 import { BotaoCriarInscricao } from "../../componentes/inscricao/BotaoCriarInscricao";
 import { BotaoCriarGrupo } from "../../componentes/grupo/BotaoCriarGrupo";
 
-export const TorneioPagina = () => {
+export const TorneioListPage = () => {
     const [data, setData] = useState<TorneioData[]>([]);
     const [dataInscricao, setDataInscricao] = useState<InscricaoData[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,11 +22,8 @@ export const TorneioPagina = () => {
 
     const handleOk = async (id?: number) => {
         if (id) {
-            try {
-                const deletedTournament = await deleteTournament(id);
-            } catch (error) {
-                console.log(error);
-            }
+            const deletedTournament = await deleteTournament(id);
+            console.log(deletedTournament);
             getResults();
         }
         setIsModalOpen(false);
@@ -89,13 +86,11 @@ export const TorneioPagina = () => {
 
                     <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
-                    <Column title="Status" dataIndex="status" key="status" />
-
                     <Column
                         align="center"
                         title="Ações"
                         render={(record: TorneioData) => (
-                            <>
+                            <Space size="middle">
                                 <BotaoEditarTorneio setData={setData} tournamentUpdate={record} />
                                 <Button
                                     size="small"
@@ -108,9 +103,9 @@ export const TorneioPagina = () => {
                                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                                     <p>Deseja realmente excluir o Torneio?</p>
                                 </Modal>
-                                <BotaoCriarGrupo idTournament={record.id} torneioData={record}
+                                <BotaoCriarGrupo idTournament={record.id}
                                 ></BotaoCriarGrupo>
-                            </>
+                            </Space>
                         )}
                     />
                 </Table>

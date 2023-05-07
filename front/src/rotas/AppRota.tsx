@@ -1,7 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { UsuarioPagina } from "../paginas/usuario/UsuarioPagina";
+import { UsuarioListPage } from "../paginas/usuario/UsuarioListPage";
 import { HomePage } from "../paginas/home.page";
-import { TorneioPagina } from "../paginas/torneio/TorneioPagina";
+import { TorneioListPage } from "../paginas/torneio/TorneioListPage";
 import { PrivateRoutes } from "./PrivadoRotas";
 import { ConteudoRotas } from "./ConteudoRotas";
 import { PublicaRotas } from "./PublicaRotas";

@@ -9,7 +9,7 @@ import { BotaoCriarUsuario } from "../../componentes/usuario/BotaoCriarUsuario";
 import { BotaoEditarUsuario } from "../../componentes/usuario/BotaoEditarUsuario";
 
 
-export const UsuarioPagina = () => {
+export const UsuarioListPage = () => {
   const [data, setData] = useState<UsuarioData[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

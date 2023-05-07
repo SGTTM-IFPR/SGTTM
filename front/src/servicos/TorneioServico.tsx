@@ -1,14 +1,10 @@
 import axios from "axios";
 import { TorneioData } from "../datas/TorneioData";
 
-export const callApi = (baseURL: string, endpoint: string) => {
-  const url = `${baseURL}/${endpoint}`;
-  return axios.get<TorneioData[]>(url);
-};
+  const baseURL = "http://localhost:5000/";
 
 export const createTournament = async (tournamentData: TorneioData): Promise<TorneioData> => {
   console.log(tournamentData);
-  const baseURL = "http://localhost:5000/";
   const endpoint = "torneio/create";
   const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
@@ -18,34 +14,33 @@ export const createTournament = async (tournamentData: TorneioData): Promise<Tor
 };
 
 export const getAllTournaments = async (): Promise<TorneioData[]> => {
-  const baseURL = "http://localhost:5000/";
   const endpoint = "torneio/find-all";
-  const response = await callApi(baseURL, endpoint);
+  const url = `${baseURL}/${endpoint}`;
+  const response = await axios.get<TorneioData[]>(url);
   return response.data;
 };
 
-export const getTournamentById = async (id: number): Promise<TorneioData> => {
-  const baseURL = "http://localhost:5000/";
+export const getTorneioById = async (id: number): Promise<TorneioData> => {
   const endpoint = `torneio/${id}`;
-  const response = await callApi(baseURL, endpoint);
-  return response.data[0];
+  const url = `${baseURL}/${endpoint}`;
+  const response =  await  axios.get<TorneioData>(url);
+  return response.data;
 };
 
 export const updateTournament = async (
   id: number,
   tournamentData: TorneioData
 ): Promise<TorneioData> => {
-  const baseURL = "http://localhost:5000/";
   const endpoint = `torneio/${id}`;
   const response = await axios.put<TorneioData>(
     `${baseURL}/${endpoint}`,
     tournamentData
   );
+
   return response.data;
 };
 
-export const deleteTournament = async (id: number): Promise<string> => {
-  const baseURL = "http://localhost:5000/";
+export const deleteTournament = async (id: number): Promise<string> => {;
   const endpoint = `torneio/${id}`;
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;
