@@ -3,9 +3,14 @@ import { getTorneioById } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { TorneioData } from '../../datas/TorneioData';
 import { useState, useEffect } from 'react';
-import { Row, Descriptions  } from 'antd';
+import { Row, Descriptions } from 'antd';
 import { format } from 'date-fns';
 import { InscricaoData } from '../../datas/InscricaoData';
+import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
+import { Collapse } from 'antd';
+import { Divider, Steps } from 'antd';
+
+const { Panel } = Collapse;
 
 interface ITimeExpirated {
     dias?: number;
@@ -38,31 +43,42 @@ export const TorneioPage = () => {
             minutos: Math.floor((timeDifferenceInMilliseconds % millisecondsPerHour) / millisecondsPerMinute),
             segundos: Math.floor((timeDifferenceInMilliseconds % millisecondsPerMinute) / millisecondsPerSecond),
         };
-          return timeExpirated;
-    }   
+        return timeExpirated;
+    }
 
     const [timeExpirated, setTimeExpirated] = useState(calculateExpirated());
 
     const timeExpiratedCompost: JSX.Element[] = [];
 
-     Object.keys(timeExpirated).forEach((interval) => {
+    
+    const [current, setCurrent] = useState(0);
+
+
+    const onChange = (value: number) => {
+        console.log('onChange:', value);
+        setCurrent(value);
+    };
+
+    const description = 'This is a description.';
+
+    Object.keys(timeExpirated).forEach((interval) => {
         const key = interval as keyof ITimeExpirated;
-         if (!timeExpirated[key]) {
-         return;
-         }
-         timeExpiratedCompost.push(
-             <span key={interval}>
-               {timeExpirated[key]} {interval}{" "}
-             </span>
-           );
-       });
+        if (!timeExpirated[key]) {
+            return;
+        }
+        timeExpiratedCompost.push(
+            <span key={interval}>
+                {timeExpirated[key]} {interval}{" "}
+            </span>
+        );
+    });
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setTimeExpirated(calculateExpirated());
-        }, 1000);
+        }, 100);
         return () => clearTimeout(timer);
-      });
+    });
 
     useEffect(() => {
         const fetchTorneio = async () => {
@@ -81,14 +97,13 @@ export const TorneioPage = () => {
             }
         };
         fetchTorneio();
-        console.log(torneio)
     }, [id]);
 
     useEffect(() => {
         const fetchInscricoes = async () => {
-        if(!torneio || !torneio.id)
-            return;
-        setInscricoes(await getInscricaoByTorneioId(torneio.id));
+            if (!torneio || !torneio.id)
+                return;
+            setInscricoes(await getInscricaoByTorneioId(torneio.id));
         };
         fetchInscricoes();
     }, [torneio]);
@@ -97,40 +112,64 @@ export const TorneioPage = () => {
         return <div>Loading...</div>;
     }
 
+
+    const fases = [
+        {
+            title: 'Fase de Grupos',
+            description: 'fase 11111',
+            content: <div style={{ height: '700px', backgroundColor: '#3bdbff', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white' }}>Fazer um componente para Fase de grupos</div>
+
+        },
+        {
+            title: 'Eliminatórias',
+            description,
+            content: <div style={{ height: '700px', backgroundColor: '#8218b8', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white' }}>Fazer um componente para Eliminatórias</div>
+        },
+        {
+            title: 'Terceiro Lugar',
+            description,
+            content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
+        },
+    ];
     return (
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
-                <div style={{ fontSize: '20px' , color: 'gray'}}>
-                {timeExpiratedCompost.length ? timeExpiratedCompost : null}
+                <div style={{ fontSize: '20px', color: 'gray' }}>
+                    {timeExpiratedCompost.length ? timeExpiratedCompost : null}
+                </div>
             </div>
-            </div>
-            <div style={{ marginTop: '20px' }}>   
-                <Descriptions labelStyle={{ fontSize: '20px'}} contentStyle={{ fontSize: '22px'}} >
+            <div style={{ marginTop: '20px' }}>
+                <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >
                     <Descriptions.Item label="Data inicial">{torneio?.data_inicio}</Descriptions.Item>
                     <Descriptions.Item label="Data final">{torneio?.data_final}</Descriptions.Item>
                 </Descriptions>
-                <Descriptions labelStyle={{ fontSize: '20px'}} contentStyle={{ fontSize: '22px'}}>
+                <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                 </Descriptions>
             </div>
-            {
-                inscricoes?.length ? 
-                    (<div style={{ marginTop: '20px' }}>
-                        <h2 style={{ margin: 0 }}>Inscritos</h2>
-                        <Row>
-                            {inscricoes.map((inscricao) => (
-                                <div key={inscricao.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '10px' }}>
-                                  {inscricao.id}
-                                </div>
-                            ))}
-                        </Row> 
-                       </div>)
-                        :
-                        <div>Nenhum inscrito</div> 
+            <div style={{ marginTop: '20px' }}>
+                <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
+                    <Panel header={<span >Inscritos ({inscricoes?.length})</span>} key="1" style={{ color: 'white' }}>
+                        <div style={{ width: '80%', margin: '0 auto' }}>
+                            {<InscricaoTable inscricoes={inscricoes} />}
+                        </div>
+                    </Panel>
+                </Collapse>
+                <div style={{ justifyContent: 'center', width: '100%', textAlign: 'center' }}>
+                    <h2>Fases</h2>
+                </div>
 
-            }
-            {/* render the rest of the torneio details */}
+            </div>
+
+            <Steps
+                current={current}
+                onChange={onChange}
+                items={fases}
+            />
+            <div>
+                {fases[current].content}
+            </div>
         </div>
     );
 }

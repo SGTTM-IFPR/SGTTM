@@ -1,3 +1,5 @@
+from typing import List
+
 from dependency_injector.wiring import inject
 
 from model import InscricaoModel
@@ -11,5 +13,5 @@ class InscricaoService(GenericService[InscricaoModel]):
     def __init__(self, repository: InscricaoRepository):
         super().__init__(repository)
     
-    def get_by_torneio_id(self, id):
+    def get_by_torneio_id(self, id) -> List[InscricaoModel]:
         return self.repository.get_by_torneio_id(id)

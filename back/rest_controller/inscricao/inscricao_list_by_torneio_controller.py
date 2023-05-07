@@ -8,6 +8,8 @@ class InscricaoListByTorneioController(AbstractInscricaoRestController):
     def get(self, torneio_id):
         '''Listar todas as inscrições por torneio'''
         inscricoes = self.service.get_by_torneio_id(torneio_id)
+        for inscricao in inscricoes:
+            print(inscricao.to_dict())
         inscricao_dicts = [inscricao.to_dict() for inscricao in inscricoes]
         try:
             return inscricao_dicts, 200
