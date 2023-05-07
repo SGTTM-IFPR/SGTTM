@@ -86,6 +86,8 @@ export const TorneioListPage = () => {
 
                     <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
+                    <Column title="Status" dataIndex="status" key="status" />
+
                     <Column
                         align="center"
                         title="Ações"

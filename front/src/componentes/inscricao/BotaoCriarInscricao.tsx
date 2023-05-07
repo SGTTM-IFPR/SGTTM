@@ -8,12 +8,10 @@ import { MyEnum, enumOpcoes } from './EnumOpcao';
 import { buscarIdPorCpf } from '../../servicos/UsuarioServico';
 
 type Props = {
-    setData: React.Dispatch<React.SetStateAction<InscricaoData[]>>;
     idTournament?: number;
 };
 
 export const BotaoCriarInscricao: React.FC<Props> = ({
-    setData: setData,
     idTournament: idTournament,
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,7 +29,6 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
         setSelectedCpf(value);
         // buscar id do usuario por cpf
         await buscarIdPorCpf(value).then((idUser) => setSelectedIdUser(idUser));
-        // console.log(selectedIdUser);
     }
 
     const showModal = () => {
@@ -41,10 +38,8 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
     async function onSubmit(data: InscricaoData) {
         try {
             const response = await createInscricao(data)
-            // setOutput(JSON.stringify(response, null, 2));
-            await getAllInscricoes().then((InscricaoData) => setData(InscricaoData));
             setIsModalOpen(false);
-            // location.reload();
+            location.reload();
         } catch (error) {
             console.error(error);
             setOutput(JSON.stringify(error, null, 2));
@@ -74,9 +69,9 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
     return (
         <>
             <Button
-                size="small"
+                size='middle'
                 type="primary"
-                style={{ background: "green", height: 30 }}
+                style={{ background: "green", marginLeft: "auto", marginRight: 10 }}
                 onClick={showModal}
             >
                 Inscrever-se agora!

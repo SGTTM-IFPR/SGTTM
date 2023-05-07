@@ -9,6 +9,7 @@ import { InscricaoData } from '../../datas/InscricaoData';
 import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
 import { Collapse } from 'antd';
 import { Divider, Steps } from 'antd';
+import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscricao';
 
 const { Panel } = Collapse;
 
@@ -50,7 +51,7 @@ export const TorneioPage = () => {
 
     const timeExpiratedCompost: JSX.Element[] = [];
 
-    
+
     const [current, setCurrent] = useState(0);
 
 
@@ -135,6 +136,7 @@ export const TorneioPage = () => {
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
+                <BotaoCriarInscricao idTournament={torneio?.id} />
                 <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
                 </div>
