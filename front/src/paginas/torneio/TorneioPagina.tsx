@@ -89,6 +89,8 @@ export const TorneioPagina = () => {
 
                     <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
+                    <Column title="Status" dataIndex="status" key="status" />
+
                     <Column
                         align="center"
                         title="Ações"
@@ -106,7 +108,7 @@ export const TorneioPagina = () => {
                                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                                     <p>Deseja realmente excluir o Torneio?</p>
                                 </Modal>
-                                <BotaoCriarGrupo idTournament={record.id}
+                                <BotaoCriarGrupo idTournament={record.id} torneioData={record}
                                 ></BotaoCriarGrupo>
                             </>
                         )}

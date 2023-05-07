@@ -48,7 +48,9 @@ export const TorneioLista = () => {
                                 <b>Tipo do torneio: </b>
                                 {tournament.tipo_torneio}
                             </p>
-                            <BotaoCriarInscricao setData={setDataInscricao} idTournament={tournament.id} />
+                            {tournament.status === "Aberto" ? (
+                                <BotaoCriarInscricao setData={setDataInscricao} idTournament={tournament.id} />
+                            ) : null}
                         </Card>
                     ))}
                 </div>

@@ -4,5 +4,6 @@ export class TorneioData {
     data_inicio?: string;
     data_final?: string;
     local?: string;
+    status?: string;
     tipo_torneio?: string;
 }
