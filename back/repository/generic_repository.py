@@ -10,7 +10,6 @@ class GenericRepository:
 
     def create(self, data: Dict[str, Any]) -> Dict[str, Any]:
         try:
-            print(data)
             model = self.model(**data)
             self.session.add(model)
             self.session.commit()
@@ -31,6 +30,8 @@ class GenericRepository:
         entity = self.get_by_id(id)
         if entity:
             for key, value in data.items():
+                if value == 'Professor IFPR':
+                    value = 'PROFESSOR_IFPR'
                 setattr(entity, key, value)
             self.session.commit()
             return entity

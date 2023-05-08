@@ -151,7 +151,7 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                <BotaoCriarGrupo />
+                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} />
                 <BotaoCriarInscricao idTournament={torneio?.id} />
             </div>
             <div style={{ marginTop: '20px' }}>

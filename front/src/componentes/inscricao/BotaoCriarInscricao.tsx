@@ -71,7 +71,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
             <Button
                 size='middle'
                 type="primary"
-                style={{ background: "green", marginLeft: 10 }}
+                style={{ background: "green" }}
                 onClick={showModal}
             >
                 Inscrever-se agora!

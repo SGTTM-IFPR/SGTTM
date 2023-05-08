@@ -21,8 +21,9 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
         if (typeof idTournament == "number") {
             torneioData.status = "EM_ANDAMENTO";
             updateTournament(idTournament, torneioData);
+
             const InscricaoData = await getInscricaoById(idTournament);
-            setDataInscricao(InscricaoData as InscricaoData[]);
+            // setDataInscricao(InscricaoData as InscricaoData[]);
             location.reload();
         }
     };
@@ -32,7 +33,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
             size='middle'
             type="primary"
             style={{
-                background: "green"
+                background: "green", marginRight: 10
             }}
             onClick={CriarGrupo}
         >
