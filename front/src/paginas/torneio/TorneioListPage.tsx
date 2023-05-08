@@ -61,7 +61,7 @@ export const TorneioListPage = () => {
                     fontSize: "20px",
                 }}
             >
-                <h1 style={{ margin: 0 }}>Lista de Torneios</h1>
+                <h1 style={{ marginRight: "auto" }}>Lista de Torneios</h1>
                 <BotaoCriarTorneio setData={setData} />
             </Header>
             <Content>
@@ -107,8 +107,6 @@ export const TorneioListPage = () => {
                                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                                     <p>Deseja realmente excluir o Torneio?</p>
                                 </Modal>
-                                <BotaoCriarGrupo idTournament={record.id}
-                                ></BotaoCriarGrupo>
                             </Space>
                         )}
                     />

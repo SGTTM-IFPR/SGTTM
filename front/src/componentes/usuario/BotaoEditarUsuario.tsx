@@ -36,7 +36,6 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
       setIsModalOpen(false);
-      location.reload()
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
@@ -45,7 +44,6 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    location.reload();
   };
 
   const modalStyle = {

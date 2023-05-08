@@ -28,6 +28,6 @@ class UsuarioController(AbstractUsuarioRestController):
         '''Excluir um usuário pelo ID'''
         result = self.service.delete(user_id)
         if result:
-            return '', 204
+            return '', 200
         else:
             return {'error': 'Usuário não encontrado'}, 404

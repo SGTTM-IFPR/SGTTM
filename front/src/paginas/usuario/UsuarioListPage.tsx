@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal, Form } from "antd";
+import { Button, Layout, Table, Modal, Form, Space } from "antd";
 import { UsuarioData } from "../../datas/UsuarioData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ export const UsuarioListPage = () => {
           fontSize: "20px",
         }}
       >
-        <h1 style={{ margin: 0 }}>Lista de Usuários</h1>
+        <h1 style={{ marginRight: "auto" }}>Lista de Usuários</h1>
         <BotaoCriarUsuario setData={setData} />
       </Header>
       <Content>
@@ -93,7 +93,7 @@ export const UsuarioListPage = () => {
             align="center"
             title="Ações"
             render={(record: UsuarioData) => (
-              <>
+              <Space size="middle">
                 <BotaoEditarUsuario setData={setData} userUpdate={record} />
                 <Button
                   size="small"
@@ -106,7 +106,7 @@ export const UsuarioListPage = () => {
                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                   <p>Deseja realmente excluir o Usuário?</p>
                 </Modal>
-              </>
+                </Space>
             )}
           />
         </Table>
