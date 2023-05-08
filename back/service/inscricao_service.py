@@ -59,30 +59,28 @@ class InscricaoService(GenericService[InscricaoModel]):
         distribuicao = self.distribuir_chaves(num_jogadores, jogadores)
         
         # Exibe os grupos criados
+        dicionario_grupo = []
         print("Grupos criados:")
         for i, grupo in enumerate(distribuicao):
             print(f"Grupo {i+1}: {grupo}")
+            dicionario_grupo.append([f"Grupo {i+1}", grupo])
             # inserir grupo no banco
             from rest_controller.grupo.abstract_grupo_rest_controller import AbstractGrupoRestController
             AbstractGrupoRestController().service.create({'torneio_id': id, 'nome': f"Grupo {i+1}"})
                 
-        
-        grupos = AbstractGrupoRestController().service.get_by_torneio_id(id)
-        
+        for gp in dicionario_grupo:
+            id_grupo = AbstractGrupoRestController().service.get_by_name_and_torneio_id(name=gp[0], torneio_id=id)
+            gp.append(id_grupo.id)
+
+
         # atualizar inscricao com o grupo
         inscricoes = self.get_by_torneio_id(id)
+        inscricoes2 = [inscricao.to_dict() for inscricao in inscricoes]
         
-        for inscricao in inscricoes:
-            for i, grupo_lista in enumerate(distribuicao):
-                if inscricao.id in grupo_lista:
-                    for grupo in grupos:
-                        if grupo.nome == f"Grupo {i+1}":
-                            id_do_grupo = grupo.id
-            inscricao2 = inscricao.to_dict()
-            inscricao2['grupo_id'] = id_do_grupo
-            del inscricao2['usuario']
-            self.update(inscricao.id, inscricao2)
+        for inscricao in inscricoes2:
+            for grupo in dicionario_grupo:
+                if inscricao['id'] in grupo[1]:
+                    inscricao['grupo_id'] = grupo[2]
+                    inscricao['condicao'] = 'PROFESSOR_IFPR'
+                    self.repository.update2(inscricao['id'], inscricao)
         return inscricao_dicts, 200
-        
-    
-    

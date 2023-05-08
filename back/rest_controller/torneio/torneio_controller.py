@@ -11,7 +11,7 @@ class TorneioController(AbstractTorneioRestController):
         '''Obter informações de um torneio pelo ID'''
         torneio_data = self.service.get_by_id(torneio_id)
         if torneio_data:
-            print(torneio_data.to_dict())
+            # print(torneio_data.to_dict()) 
             return torneio_data.to_dict(), 200
         else:
             return {'error': 'Torneio não encontrado'}, 404

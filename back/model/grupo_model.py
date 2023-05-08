@@ -12,5 +12,5 @@ class GrupoModel(database.Model, SerializerMixin):
     nome = Column(String(100), nullable=False)
     torneio_id = Column(Integer, ForeignKey('torneio.id'))
     partidas = relationship('PartidaModel', backref='grupo')
-    inscricoes = relationship('InscricaoModel', backref='grupo')
+    # inscricoes = relationship('InscricaoModel', backref='grupo')
 

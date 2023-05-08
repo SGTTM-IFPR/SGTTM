@@ -16,3 +16,6 @@ class GrupoService(GenericService[GrupoModel]):
     
     def get_by_torneio_id(self, torneio_id):
         return self.repository.get_by_torneio_id(torneio_id)
+    
+    def get_by_name_and_torneio_id(self, name, torneio_id):
+        return self.repository.get_by_name_and_torneio_id(name, torneio_id)

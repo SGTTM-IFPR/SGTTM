@@ -30,11 +30,24 @@ class GenericRepository:
         entity = self.get_by_id(id)
         if entity:
             for key, value in data.items():
-                if value == 'Professor IFPR':
-                    value = 'PROFESSOR_IFPR'
                 setattr(entity, key, value)
             self.session.commit()
             return entity
+    
+    def update2(self, id: int, data: Dict[str, Any]) -> Dict[str, Any]:
+        entity = self.get_by_id(id)
+        if entity:
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    # se o valor for um dicionário, atualiza os campos correspondentes no objeto 'entity'
+                    for sub_key, sub_value in value.items():
+                        setattr(getattr(entity, key), sub_key, sub_value)
+                else:
+                    # se não for um dicionário, atualiza o campo diretamente no objeto 'entity'
+                    setattr(entity, key, value)
+            self.session.commit()
+            return entity
+
 
     def delete(self, id: int) -> bool:
         entity = self.get_by_id(id)
