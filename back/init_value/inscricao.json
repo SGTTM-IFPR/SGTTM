@@ -1,0 +1,12 @@
+[
+  {
+    "usuario_id": 1,
+    "torneio_id": 1,
+    "condicao": "ESTUDANTE_IFPR"
+  },
+    {
+    "usuario_id": 2,
+    "torneio_id": 1,
+    "condicao": "ESTUDANTE_IFPR"
+  }
+]
