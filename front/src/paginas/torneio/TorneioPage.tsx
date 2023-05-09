@@ -110,7 +110,7 @@ export const TorneioPage = () => {
         const fetchGrupos = async () => {
             if (!torneio || !torneio.id)
                 return;
-            setGrupos(await getGruposByTorneioId(torneio.id));
+                await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
         };
         fetchGrupos();
     }, [torneio])
@@ -119,10 +119,10 @@ export const TorneioPage = () => {
         const fetchInscricoes = async () => {
             if (!torneio || !torneio.id)
                 return;
-            await getInscricaoByTorneioId(torneio.id).then((InscricaoData) => setInscricoes(InscricaoData))
+            await getInscricaoByTorneioId(torneio.id).then((inscricaoData) => setInscricoes(inscricaoData))
         };
         fetchInscricoes();
-    });
+    }, [torneio, inscricoes]);
 
     if (!torneio) {
         return <div>Loading...</div>;
