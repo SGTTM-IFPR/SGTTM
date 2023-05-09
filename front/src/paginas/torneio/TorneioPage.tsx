@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { getTorneioById } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
+import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
 import { useState, useEffect } from 'react';
 import { Row, Descriptions } from 'antd';
@@ -11,6 +12,8 @@ import { Collapse } from 'antd';
 import { Divider, Steps } from 'antd';
 import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscricao';
 import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
+import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
+import { GrupoData } from '../../datas/GrupoData';
 
 const { Panel } = Collapse;
 
@@ -25,6 +28,7 @@ export const TorneioPage = () => {
     const { id } = useParams<{ id: string }>();
     const [torneio, setTorneio] = useState<TorneioData | null>(null);
     const [inscricoes, setInscricoes] = useState<InscricaoData[] | null>(null);
+    const [grupos, setGrupos] = useState<GrupoData[] | null>(null);
     const millisecondsPerSecond = 1000;
     const secondsPerMinute = 60;
     const minutesPerHour = 60;
@@ -103,6 +107,15 @@ export const TorneioPage = () => {
 
 
     useEffect(() => {
+        const fetchGrupos = async () => {
+            if (!torneio || !torneio.id)
+                return;
+            setGrupos(await getGruposByTorneioId(torneio.id));
+        };
+        fetchGrupos();
+    }, [torneio])
+
+    useEffect(() => {
         const fetchInscricoes = async () => {
             if (!torneio || !torneio.id)
                 return;
@@ -119,7 +132,7 @@ export const TorneioPage = () => {
         {
             title: 'Fase de Grupos',
             description: 'fase 11111',
-            content: <div style={{ height: '700px', backgroundColor: '#3bdbff', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white' }}>Fazer um componente para Fase de grupos</div>
+            content: <FaseGrupo  grupos={grupos}/>
 
         },
         {

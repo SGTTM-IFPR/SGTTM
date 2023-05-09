@@ -39,7 +39,7 @@ export const AppSidebar = () => {
   //adicionar rank depois
 
   return (
-    <Sider width={250} collapsible>
+    <Sider width={200} collapsible>
       <div className="logo" />
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
     </Sider>

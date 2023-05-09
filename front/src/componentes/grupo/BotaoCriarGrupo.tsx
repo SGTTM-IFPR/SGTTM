@@ -24,7 +24,6 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
 
             const InscricaoData = await getInscricaoById(idTournament);
             // setDataInscricao(InscricaoData as InscricaoData[]);
-            location.reload();
         }
     };
 
