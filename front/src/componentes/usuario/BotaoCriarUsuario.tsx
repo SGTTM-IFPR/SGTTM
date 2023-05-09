@@ -51,7 +51,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
         Cadastrar usuário
       </Button>
       <Modal
-        title="Criar Usuario"
+        title="Cadastrar usuário"
         open={isModalOpen}
         centered={true}
         style={modalStyle}

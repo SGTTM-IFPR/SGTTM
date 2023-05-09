@@ -31,8 +31,7 @@ export const LoginPagina = () => {
                 <div className='div_login'>
                     <LoginComponente />
                 </div>
-                <div>
-                    {/* <Button type="primary" style={{borderRadius: '15px', border: 'none', fontSize: '1.0em', textDecoration: 'none', backgroundColor: 'rgb(4, 169, 235)', color: 'white'}}>Não tem conta? Cadastre-se</Button> */}
+                <div style={{ marginLeft: '50px', marginBottom: '5px' }}>
                     <BotaoCriarUsuario setData={setData} />
                 </div>
                 <div></div>

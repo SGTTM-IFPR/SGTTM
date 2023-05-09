@@ -90,8 +90,6 @@ body {
 
 .white div:nth-child(3) {
     order: 3;
-    margin-left: 50px;
-    margin-bottom: 5px;
 }
 
 .white div:nth-child(4) {
