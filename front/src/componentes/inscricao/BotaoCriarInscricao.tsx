@@ -39,7 +39,6 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
         try {
             const response = await createInscricao(data)
             setIsModalOpen(false);
-            location.reload();
         } catch (error) {
             console.error(error);
             setOutput(JSON.stringify(error, null, 2));
@@ -48,7 +47,6 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
 
     const handleCancel = () => {
         setIsModalOpen(false);
-        location.reload();
     };
 
     const modalStyle = {

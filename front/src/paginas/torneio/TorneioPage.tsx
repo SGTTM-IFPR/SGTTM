@@ -101,19 +101,19 @@ export const TorneioPage = () => {
         fetchTorneio();
     }, [id]);
 
+
     useEffect(() => {
         const fetchInscricoes = async () => {
             if (!torneio || !torneio.id)
                 return;
-            setInscricoes(await getInscricaoByTorneioId(torneio.id));
+            await getInscricaoByTorneioId(torneio.id).then((InscricaoData) => setInscricoes(InscricaoData))
         };
         fetchInscricoes();
-    }, [torneio]);
+    });
 
     if (!torneio) {
         return <div>Loading...</div>;
     }
-
 
     const fases = [
         {

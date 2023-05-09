@@ -28,6 +28,6 @@ class InscricaoController(AbstractInscricaoRestController):
         '''Excluir uma inscrição pelo ID'''
         result = self.service.delete(inscricao_id)
         if result:
-            return '', 204
+            return '', 200
         else:
             return {'error': 'Inscrição não encontrada'}, 404

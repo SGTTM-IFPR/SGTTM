@@ -19,7 +19,6 @@ export const BotaoExcluirInscricao: React.FC<Props> = ({
         try {
             const response = await deleteInscricao(idInscricao!)
             setIsModalOpen(false);
-            location.reload();
         } catch (error) {
             console.error(error);
             // setOutput(JSON.stringify(error, null, 2));
