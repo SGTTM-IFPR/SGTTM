@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.login {
+    display: flex;
+    height: 100vh;
+}
+
+.login .green {
+    flex: 1;
+    background-color: rgb(3, 194, 3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.green div:nth-child(1) {
+    order: 1;
+    align-items: left;
+    margin: 20px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.title {
+    color: white;
+}
+
+.icon {
+    /* color: white; */
+    font-size: 15.0em;
+}
+
+.subtitle {
+    color: white;
+    font-weight: bold;
+}
+
+.green div:nth-child(2) {
+    order: 2;
+    text-align: center;
+}
+
+.green div:nth-child(3) {
+    order: 3;
+
+}
+
+.green div:nth-child(4) {
+    order: 4;
+}
+
+.green div:nth-child(5) {
+    order: 5;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+.login .white {
+    flex: 2;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.white div:nth-child(1) {
+    order: 1;
+}
+
+.div_titulo {
+    font-weight: bold;
+    font-size: 2.5em;
+    margin: 50px;
+
+}
+
+.div_login {
+    margin: 50px;
+}
+
+.white div:nth-child(2) {
+    order: 2;
+}
+
+.white div:nth-child(3) {
+    order: 3;
+}
+
+.white div:nth-child(4) {
+    order: 4;
+}
+
+.white div:nth-child(5) {
+    order: 5;
+}

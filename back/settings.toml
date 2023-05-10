@@ -1,0 +1,9 @@
+[default]
+SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:bancodedados@localhost/tcc"
+CORS_HEADERS = "application/json"
+EXTENSIONS = [
+    "extension.database",
+    "extension.CORS",
+    "rest_controller",
+    "init_value",
+]

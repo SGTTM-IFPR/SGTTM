@@ -1,0 +1,37 @@
+[
+  {
+    "cpf": "00000000000",
+    "senha": "minha_senha",
+    "nome": "Fulano de Tal",
+    "email": "rafhael369@gmail.com",
+    "data_de_nascimento": "1990-01-01",
+    "administrador": false,
+    "clube": "Meu Clube",
+    "federacao": "Minha Federação",
+    "sexo": "MASCULINO"
+  },
+  {
+    "id":  2,
+    "cpf": "00000000001",
+    "senha": "minha_senha",
+    "nome": "Fulano de Tal",
+    "email": "admin@gmail.com",
+    "data_de_nascimento": "1990-01-01",
+    "administrador": false,
+    "clube": "Meu Clube",
+    "federacao": "Minha Federação",
+    "sexo": "MASCULINO"
+  },
+    {
+    "id":  3,
+    "cpf": "00000000002",
+    "senha": "minha_senha",
+    "nome": "Fulano de Tal",
+    "email": "jogador1@gmail.com",
+    "data_de_nascimento": "1990-01-01",
+    "administrador": false,
+    "clube": "Meu Clube",
+    "federacao": "Minha Federação",
+    "sexo": "MASCULINO"
+  }
+]
