@@ -43,3 +43,10 @@ export const getInscricaoByTorneioId = async (id: number): Promise<InscricaoData
     const response = await axios.get<InscricaoData[]>(`${baseURL}/${endpoint}`);
     return response.data;
 }
+
+export const getInscricaoByGrupoId = async (id: number): Promise<InscricaoData[]> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `inscricao/find-by-grupo/${id}`;
+    const response = await axios.get<InscricaoData[]>(`${baseURL}/${endpoint}`);
+    return response.data;
+}

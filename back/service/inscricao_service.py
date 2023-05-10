@@ -16,6 +16,9 @@ class InscricaoService(GenericService[InscricaoModel]):
     def get_by_torneio_id(self, id) -> List[InscricaoModel]:
         return self.repository.get_by_torneio_id(id)
 
+    def get_by_grupo_id(self, id) -> List[InscricaoModel]:
+        return self.repository.get_by_grupo_id(id)
+
     def distribuir_chaves(self, num_jogadores, jogadores):
         # Verifica se é possível formar um grupo de no mínimo 3 jogadores
         if num_jogadores < 3:
