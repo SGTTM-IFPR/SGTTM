@@ -122,7 +122,7 @@ export const TorneioPage = () => {
             await getInscricaoByTorneioId(torneio.id).then((inscricaoData) => setInscricoes(inscricaoData))
         };
         fetchInscricoes();
-    }, [torneio, inscricoes]);
+    }, [torneio]);
 
     if (!torneio) {
         return <div>Loading...</div>;
@@ -131,7 +131,7 @@ export const TorneioPage = () => {
     const fases = [
         {
             title: 'Fase de Grupos',
-            description: 'fase 11111',
+            description,
             content: <FaseGrupo  grupos={grupos}/>
 
         },

@@ -3,6 +3,7 @@ import { GrupoData } from "../../datas/GrupoData";
 import { useState, useEffect } from 'react';
 import { getInscricaoByGrupoId, getInscricaoById } from "../../servicos/InscricaoServico";
 import { InscricaoData } from "../../datas/InscricaoData";
+import { InscricaoPointsTable } from "../inscricao/InscricaoPointsTable";
 
 interface IGrupoCardProps {
     grupo?: GrupoData | null;
@@ -17,9 +18,10 @@ export const GrupoCard = ({ grupo }: IGrupoCardProps) => {
             if (!grupo || !grupo.id)
                 return;
             await getInscricaoByGrupoId(grupo.id).then((inscricaoData) => setInscricoes(inscricaoData))
+            console.log(inscricoes)
         };
         fetchInscricoes();
-    }, [grupo, inscricoes]);
+    }, [grupo]);
     
 
     if (!grupo)
@@ -29,7 +31,7 @@ export const GrupoCard = ({ grupo }: IGrupoCardProps) => {
     return (
         <Card title={<div>{grupo.nome}</div>}>
             <div>
-                {JSON.stringify(grupo, null, 2)}
+                <InscricaoPointsTable inscricoes={inscricoes} />
             </div>
         </Card>
     )
