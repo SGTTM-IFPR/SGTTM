@@ -1,5 +1,5 @@
 import { Col, Drawer, Row } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrupoData } from "../../datas/GrupoData"
 import { GrupoCard } from "../grupo/GrupoCard";
 import { GrupoTable } from "../grupo/GrupoTable";
@@ -8,6 +8,11 @@ interface IFaseGrupoProps {
     grupos?: GrupoData[] | null;
 }
 export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
+    
+    useEffect(() => {
+        console.log(grupos);
+    }, [grupos])
+    
     const [open, setOpen] = useState(false);
 
     const showDrawer = () => {

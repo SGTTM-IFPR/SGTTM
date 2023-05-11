@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Breadcrumb, Card } from "antd";
 import { EditOutlined, EllipsisOutlined, SettingOutlined, EyeFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { BotaoCriarInscricao } from "../inscricao/BotaoCriarInscricao";
@@ -27,15 +27,23 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
 
 
     const cardStyle = {
+        width: "300px",
         display: "flex",
         flexDirection: "column" as "column",
         justifyContent: "space-between",
-        height: "100%",
+        height: isHovered || hoveredId === torneio?.id ? "auto" : "100%",
         transform: isHovered || hoveredId === torneio?.id ? "scale(1.1)" : "scale(1)",
         opacity: isHovered || hoveredId === torneio?.id ? 1 : 0.8,
-        transition: "transform 0.3s ease-in-out, opacity 0.2s ease-in-out",
+        transition: "transform 0.3s ease-in-out, opacity 0.2s ease-in-out, height 0.3s ease-out-in",
     };
 
+    const imageStyle = {
+        maxWidth: "300px",
+        maxHeight: "100%",
+        height: isHovered ? "0px" : "30%",
+        transform: isHovered ? "scaleY(0)" : "scaleY(1)",
+        transition: "transform 0.3s ease-in-out, height 0.3s ease-in-out",
+      };
 
     const buttonStyle = {
         transition: "transform 0.3s ease-in-out",
@@ -43,6 +51,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         color: "white",
         padding: "10x 16px", // fix padding value here
         borderRadius: "4px",
+        maxWidth: "100%",
         ":hover": {
             transform: "scale(1.5)",
             backgroundColor: green[10],
@@ -54,15 +63,14 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         <Card key={torneio?.id}
             hoverable
             style={{ ...cardStyle }}
-            cover={isHovered ? null : <img alt="example"
-                src="src\assets\image-card.jpg"
-                style={{
-                    maxWidth: "200px",
-                    maxHeight: "100%",
-                    height: "30%",
-                    transform: isHovered ? "scale(1.2)" : "scale(1)",
-                }}
-            />}
+            cover={<div>
+                <img alt="example"
+                    src="src\assets\image-card.jpg"
+                    style={{ ...imageStyle }}
+                />
+            </div>
+            }
+
             actions={
                 isHovered ? [
                     <Link to={`/torneio/${torneio?.id}`}>
@@ -81,11 +89,11 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)} >
             <Meta
-                title={<h2>{torneio?.nome}</h2>}
+                title={<h2 >{torneio?.nome}</h2>}
                 description={torneio?.local}
             />
             {isHovered ? (
-                <>
+                <div>
                     <p>
                         <b>torneio de início: </b>
                         {torneio.data_inicio}
@@ -101,7 +109,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                     <p>
                         <b>Tipo do torneio: </b>
                         {ModificarEnumTipoTorneio(torneio.tipo_torneio ?? '')}
-                    </p> </>
+                    </p> </div>
             ) : null}
         </Card>
     )

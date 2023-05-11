@@ -8,21 +8,24 @@ import { TorneioData } from "../../datas/TorneioData";
 type Props = {
     idTournament?: Number;
     torneioData?: TorneioData;
+    onCreateGrupo: () => void;
 };
 
 
 export const BotaoCriarGrupo: React.FC<Props> = ({
     idTournament: idTournament,
     torneioData = {} as TorneioData,
+    onCreateGrupo
 }) => {
     const [dataInscricao, setDataInscricao] = useState<InscricaoData[]>([]);
 
-    const CriarGrupo = async () => {
+    const criarGrupo = async () => {
         if (typeof idTournament == "number") {
             torneioData.status = "EM_ANDAMENTO";
             updateTournament(idTournament, torneioData);
 
             const InscricaoData = await getInscricaoById(idTournament);
+            onCreateGrupo();
             // setDataInscricao(InscricaoData as InscricaoData[]);
         }
     };
@@ -34,7 +37,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
             style={{
                 background: "green", marginRight: 10
             }}
-            onClick={CriarGrupo}
+            onClick={criarGrupo}
         >
             Iniciar Torneio
         </Button >

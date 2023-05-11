@@ -106,14 +106,11 @@ export const TorneioPage = () => {
     }, [id]);
 
 
-    useEffect(() => {
-        const fetchGrupos = async () => {
-            if (!torneio || !torneio.id)
-                return;
-                await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
-        };
-        fetchGrupos();
-    }, [torneio])
+    const fetchGrupos = async () => {
+        if (!torneio || !torneio.id)
+            return;
+            await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
+    };
 
     useEffect(() => {
         const fetchInscricoes = async () => {
@@ -122,6 +119,7 @@ export const TorneioPage = () => {
             await getInscricaoByTorneioId(torneio.id).then((inscricaoData) => setInscricoes(inscricaoData))
         };
         fetchInscricoes();
+        fetchGrupos();
     }, [torneio]);
 
     if (!torneio) {
@@ -164,7 +162,7 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} />
+                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio}  onCreateGrupo={fetchGrupos}/>
                 <BotaoCriarInscricao idTournament={torneio?.id} />
             </div>
             <div style={{ marginTop: '20px' }}>
