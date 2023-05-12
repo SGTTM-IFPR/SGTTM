@@ -1,5 +1,6 @@
 import axios from "axios";
 import { InscricaoData } from "../datas/InscricaoData";
+import { TesteData } from "../datas/TesteData";
 
 export const callApi = (baseURL: string, endpoint: string) => {
     const url = `${baseURL}/${endpoint}`;
@@ -37,6 +38,13 @@ export const getInscricaoById = async (id: number): Promise<InscricaoData> => {
     return response.data;
 }
 
+export const montarGrupos = async (id: number, formato: string, quantidade_classificados: number): Promise<string> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `inscricao/montar-grupos/${id}/${formato}/${quantidade_classificados}`;
+    const response = await axios.get<string>(`${baseURL}/${endpoint}`);
+    return response.data;
+}
+
 export const getInscricaoByTorneioId = async (id: number): Promise<InscricaoData[]> => {
     const baseURL = "http://localhost:5000/";
     const endpoint = `inscricao/find-by-torneio/${id}`;
@@ -48,5 +56,12 @@ export const getInscricaoByGrupoId = async (id: number): Promise<InscricaoData[]
     const baseURL = "http://localhost:5000/";
     const endpoint = `inscricao/find-by-grupo/${id}`;
     const response = await axios.get<InscricaoData[]>(`${baseURL}/${endpoint}`);
+    return response.data;
+}
+
+export const getNumeroClassificados = async (quantidade_inscritos: number): Promise<TesteData> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `inscricao/classificados/${quantidade_inscritos}`;
+    const response = await axios.get<TesteData>(`${baseURL}/${endpoint}`);
     return response.data;
 }

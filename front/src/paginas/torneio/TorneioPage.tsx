@@ -109,7 +109,7 @@ export const TorneioPage = () => {
     const fetchGrupos = async () => {
         if (!torneio || !torneio.id)
             return;
-            await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
+        await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
     };
 
     useEffect(() => {
@@ -130,7 +130,7 @@ export const TorneioPage = () => {
         {
             title: 'Fase de Grupos',
             description,
-            content: <FaseGrupo  grupos={grupos}/>
+            content: <FaseGrupo grupos={grupos} />
 
         },
         {
@@ -162,7 +162,7 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio}  onCreateGrupo={fetchGrupos}/>
+                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
                 <BotaoCriarInscricao idTournament={torneio?.id} />
             </div>
             <div style={{ marginTop: '20px' }}>

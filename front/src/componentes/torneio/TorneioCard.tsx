@@ -43,7 +43,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         height: isHovered ? "0px" : "30%",
         transform: isHovered ? "scaleY(0)" : "scaleY(1)",
         transition: "transform 0.3s ease-in-out, height 0.3s ease-in-out",
-      };
+    };
 
     const buttonStyle = {
         transition: "transform 0.3s ease-in-out",
@@ -108,7 +108,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                     </p>
                     <p>
                         <b>Tipo do torneio: </b>
-                        {ModificarEnumTipoTorneio(torneio.tipo_torneio ?? '')}
+                        {torneio.tipo_torneio}
                     </p> </div>
             ) : null}
         </Card>
