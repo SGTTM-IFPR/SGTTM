@@ -14,8 +14,11 @@ import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscr
 import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
 import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
 import { GrupoData } from '../../datas/GrupoData';
+import { VerificarUsuario } from '../../componentes/autenticacao/VerificarUsuario';
 
 const { Panel } = Collapse;
+
+const admin = VerificarUsuario();
 
 interface ITimeExpirated {
     dias?: number;
@@ -65,7 +68,7 @@ export const TorneioPage = () => {
         setCurrent(value);
     };
 
-    const description = 'This is a description.';
+    const description = '';
 
     Object.keys(timeExpirated).forEach((interval) => {
         const key = interval as keyof ITimeExpirated;
@@ -136,13 +139,13 @@ export const TorneioPage = () => {
         {
             title: 'Eliminatórias',
             description,
-            content: <div style={{ height: '700px', backgroundColor: '#8218b8', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white' }}>Fazer um componente para Eliminatórias</div>
+            content: <div style={{ height: '700px', backgroundColor: 'green', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white', borderRadius: "15px", margin: "10px" }}>Fazer um componente para Eliminatórias</div>
         },
-        {
-            title: 'Terceiro Lugar',
-            description,
-            content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
-        },
+        // {
+        //     title: 'Terceiro Lugar',
+        //     description,
+        //     content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
+        // },
     ];
     return (
         <div >
@@ -162,7 +165,9 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
+                {admin &&
+                    <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
+                }
                 <BotaoCriarInscricao idTournament={torneio?.id} />
             </div>
             <div style={{ marginTop: '20px' }}>

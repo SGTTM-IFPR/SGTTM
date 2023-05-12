@@ -95,11 +95,11 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
             {isHovered ? (
                 <div>
                     <p>
-                        <b>torneio de início: </b>
+                        <b>Data de início: </b>
                         {torneio.data_inicio}
                     </p>
                     <p>
-                        <b>torneio de término: </b>
+                        <b>Data de término: </b>
                         {torneio.data_final}
                     </p>
                     <p>
