@@ -10,17 +10,15 @@ def token_required(f):
         token = None
 
         if 'Authorization' in request.headers:
-            token = request.headers['Authorization']           
-            print(token)
+            token = request.headers['Authorization']
 
         if not token:
-            print('Token de autenticação faltando ou inválido')
             abort(401, 'Token de autenticação faltando ou inválido')   
 
         try:
-            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            auth_token = token.split(" ")[1]
+            data = jwt.decode(auth_token, SECRET_KEY, algorithms=["HS256"])
         except:
-            print('Token de autenticação inválido')
             abort(401, 'Token de autenticação inválido')
 
         return f(*args, **kwargs)
