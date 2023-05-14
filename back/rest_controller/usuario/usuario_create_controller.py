@@ -1,3 +1,4 @@
+import hashlib
 from flask import request
 from .usuario_namespace import usuario_namespace as api
 from ..auth_decorator import token_required
@@ -11,6 +12,7 @@ class UsuarioCreateController(AbstractUsuarioRestController):
     def post(self):
         '''Criar um novo usuario'''
         user_data = request.json
+        user_data['senha'] = hashlib.md5(user_data['senha'].encode()).hexdigest()
         user = self.service.create(user_data)
         if isinstance(user, UsuarioModel):
             return user.to_dict(), 201

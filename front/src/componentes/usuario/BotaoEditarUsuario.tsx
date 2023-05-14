@@ -85,7 +85,6 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
             id: userUpdate.id,
             nome: userUpdate.nome,
             cpf: userUpdate.cpf,
-            senha: userUpdate.senha,
             email: userUpdate.email,
             administrador: userUpdate.administrador,
             atleta: userUpdate.atleta,

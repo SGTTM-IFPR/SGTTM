@@ -1,5 +1,6 @@
 import json
 import jwt
+import hashlib
 from dependency_injector.wiring import inject, Provide
 from flask import request, jsonify, Response
 from flask_restx import Resource
@@ -34,6 +35,7 @@ class LoginController(Resource):
         # replace with authentication logic
         email = request.json.get("email")
         password = request.json.get("password")
+        password = hashlib.md5(password.encode()).hexdigest()
         print(request.json)
 
         if self.service.get_usuario_by_email(email):
