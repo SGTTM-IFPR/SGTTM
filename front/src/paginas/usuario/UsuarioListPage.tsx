@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal, Form, Space } from "antd";
+import { Button, Layout, Table, Modal, Form, Space, message } from "antd";
 import { UsuarioData } from "../../datas/UsuarioData";
 import Column from "antd/es/table/Column";
 import { useEffect, useState } from "react";
@@ -37,6 +37,7 @@ export const UsuarioListPage = () => {
       getResults();
     }
     setIsModalOpen(false);
+    message.success("Usuário excluído com sucesso!");
   };
 
   const handleCancel = () => {

@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Radio } from "antd";
+import { Button, Form, Modal, Radio, message } from "antd";
 import { getInscricaoById, getNumeroClassificados, montarGrupos } from "../../servicos/InscricaoServico";
 import { useState } from "react";
 import { updateTournament } from "../../servicos/TorneioServico";
@@ -47,6 +47,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
         const newValues = { ...formValues, ...values };
         criarGrupo(newValues.formato, newValues.quantidade_classificados);
         setVisible(false);
+        message.success('Torneio iniciado com sucesso!');
     };
 
     const handleCancel = () => {

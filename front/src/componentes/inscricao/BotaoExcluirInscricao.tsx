@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { deleteInscricao } from '../../servicos/InscricaoServico';
-import { Button, Modal } from 'antd';
+import { Button, Modal, message } from 'antd';
 
 type Props = {
     idInscricao?: number;
@@ -19,6 +19,7 @@ export const BotaoExcluirInscricao: React.FC<Props> = ({
         try {
             const response = await deleteInscricao(idInscricao!)
             setIsModalOpen(false);
+            message.success('Inscrição excluída com sucesso!');
         } catch (error) {
             console.error(error);
             // setOutput(JSON.stringify(error, null, 2));

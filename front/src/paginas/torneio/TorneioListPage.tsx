@@ -1,5 +1,5 @@
 import { Content, Header } from "antd/es/layout/layout";
-import { Button, Layout, Table, Modal, Space } from "antd";
+import { Button, Layout, Table, Modal, Space, message } from "antd";
 import { TorneioData } from "../../datas/TorneioData";
 import { InscricaoData } from "../../datas/InscricaoData";
 import Column from "antd/es/table/Column";
@@ -30,8 +30,8 @@ export const TorneioListPage = () => {
             getResults();
         }
         setIsModalOpen(false);
+        message.success('Torneio excluído com sucesso!');
     };
-
     const handleCancel = () => {
         setIsModalOpen(false);
     };

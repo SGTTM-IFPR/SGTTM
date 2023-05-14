@@ -1,5 +1,5 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
 import React, { useState } from "react";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -36,6 +36,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
       setIsModalOpen(false);
+      message.success('Usuário atualizado com sucesso!');
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));

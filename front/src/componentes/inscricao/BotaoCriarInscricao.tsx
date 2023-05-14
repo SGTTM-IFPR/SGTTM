@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createInscricao } from '../../servicos/InscricaoServico';
 import { InscricaoData } from '../../datas/InscricaoData';
-import { Button, Form, Modal } from 'antd';
+import { Button, Form, Modal, message } from 'antd';
 import { SelecaoEnum } from './SelecaoEnum';
 import { MyEnum, enumOpcoes } from './EnumOpcao';
 import { VerificarIdUsuario } from '../autenticacao/VerificarIdUsuario';
@@ -41,6 +41,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
 
         const response = await createInscricao(inscricao)
         setIsModalOpen(false);
+        message.success('Inscrição realizada com sucesso!');
     };
 
     if (!visible) {

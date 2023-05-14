@@ -1,5 +1,5 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from 'zod'
@@ -33,6 +33,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
       setIsModalOpen(false);
+      message.success('Usuário criado com sucesso!');
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
