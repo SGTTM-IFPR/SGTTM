@@ -1,6 +1,23 @@
 import axios from "axios";
 import { UsuarioData } from "../datas/UsuarioData";
 
+
+axios.interceptors.request.use(
+  config => {
+    if (config.url?.includes('/login')) {
+        return config 
+      }
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
 export const callApi = (baseURL: string, endpoint: string) => {
   const url = `${baseURL}/${endpoint}`;
   return axios.get<UsuarioData[]>(url);

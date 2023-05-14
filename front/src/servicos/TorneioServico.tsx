@@ -1,7 +1,23 @@
 import axios from "axios";
 import { TorneioData } from "../datas/TorneioData";
 
-  const baseURL = "http://localhost:5000/";
+const baseURL = "http://localhost:5000/";
+
+axios.interceptors.request.use(
+  config => {
+    if (config.url?.includes('/login')) {
+        return config 
+      }
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
 
 export const createTournament = async (tournamentData: TorneioData): Promise<TorneioData> => {
   console.log(tournamentData);
@@ -23,7 +39,7 @@ export const getAllTournaments = async (): Promise<TorneioData[]> => {
 export const getTorneioById = async (id: number): Promise<TorneioData> => {
   const endpoint = `torneio/${id}`;
   const url = `${baseURL}/${endpoint}`;
-  const response =  await  axios.get<TorneioData>(url);
+  const response = await axios.get<TorneioData>(url);
   return response.data;
 };
 
@@ -40,7 +56,8 @@ export const updateTournament = async (
   return response.data;
 };
 
-export const deleteTournament = async (id: number): Promise<string> => {;
+export const deleteTournament = async (id: number): Promise<string> => {
+  ;
   const endpoint = `torneio/${id}`;
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;

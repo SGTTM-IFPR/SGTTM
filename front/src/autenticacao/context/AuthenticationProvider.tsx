@@ -12,11 +12,11 @@ interface AutheticationProviderProps {
   children: ReactNode;
 }
 
-const AUTH_TOKEN = "token";
-
+const USER = "user";
+const TOKEN = "token";
 export const AuthenticationProvider = ({ children }: AutheticationProviderProps) => {
 
-  const [identity, setIdentity] = useLocalStorage(AUTH_TOKEN, {} as Identity);
+  const [identity, setIdentity] = useLocalStorage(USER, {} as Identity);
   const navigate = useNavigate();
 
 
@@ -51,6 +51,7 @@ export const AuthenticationProvider = ({ children }: AutheticationProviderProps)
           const identityJwt = getIdentity(response.data.token);
           console.log(identityJwt)
           setIdentity(identityJwt);
+          window.localStorage.setItem(TOKEN, response.data.token);
           console.log(identity)
         }
         navigate('/home');
@@ -64,7 +65,8 @@ export const AuthenticationProvider = ({ children }: AutheticationProviderProps)
   );
 
   const logout = useCallback<AutheticationContextProps["logout"]>(() => {
-    setIdentity(  {} as Identity);
+    setIdentity({} as Identity);
+    window.localStorage.removeItem(TOKEN);
     navigate('/login');
   }, []);
 

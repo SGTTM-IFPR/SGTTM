@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { GrupoData } from "../datas/GrupoData";
 
 
