@@ -27,26 +27,20 @@ export const TorneioLista: React.FC<Props> = ({ status }) => {
 
     return (
         <Layout>
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "30px", justifyContent: "center", marginBottom: "20px" }}>
-                    {torneiosAbertos.map((torneio) => (
-                        <TorneioCard key={torneio.id} torneio={torneio} />
-                    ))}
+            {torneiosAbertos.length > 0 ? (
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "30px", justifyContent: "center", marginBottom: "20px" }}>
+                        {torneiosAbertos.map((torneio) => (
+                            <TorneioCard key={torneio.id} torneio={torneio} />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+                    <h4>Nenhum torneio encontrado.</h4>
+                </div>
+            )}
         </Layout>
     );
 
-    return (
-        // so mostrar se start for false
-        <Layout>
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "30px", justifyContent: "center", marginBottom: "20px" }}>
-                    {dataCard.map((torneio) => (
-                        <TorneioCard key={torneio.id} torneio={torneio} />
-                    ))}
-                </div>
-            </div>
-        </Layout>
-    );
 };
