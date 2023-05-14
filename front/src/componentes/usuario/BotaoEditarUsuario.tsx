@@ -1,10 +1,11 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
 import React, { useState } from "react";
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers, updateUser } from "../../servicos/UsuarioServico";
+import { cpf } from 'cpf-cnpj-validator';
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
@@ -20,6 +21,12 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   dayjs.extend(customParseFormat);
   const dateFormat: string = "YYYY-MM-DD";
+  const [cpfValido, setCpfValido] = useState(true);
+
+  const handleCPFChange = (e: { target: { value: string } }) => {
+    const cpf_inserido = e.target.value; // remove caracteres não numéricos
+    setCpfValido(cpf.isValid(cpf_inserido));
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,7 +43,6 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
       setIsModalOpen(false);
-      message.success('Usuário atualizado com sucesso!');
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
@@ -99,7 +105,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
             label="CPF"
             rules={[{ required: true, message: "Campo obrigatório" }, { min: 11 }, { max: 11 }]}
           >
-            <Input />
+            <Input onChange={handleCPFChange} />
           </Form.Item>
           <Form.Item
             name="senha"
@@ -151,6 +157,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
               style={{ backgroundColor: "green-6", height: 40 }}
               type="primary"
               htmlType="submit"
+              disabled={!cpfValido}
             >
               Editar
             </Button>

@@ -1,12 +1,9 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers } from "../../servicos/UsuarioServico";
-
+import { cpf } from 'cpf-cnpj-validator';
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
@@ -16,6 +13,12 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [output, setOutput] = useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [cpfValido, setCpfValido] = useState(false);
+
+  const handleCPFChange = (e: { target: { value: string; }; }) => {
+    const cpf_inserido = e.target.value.replace(/[^\d]/g, ""); // remove caracteres não numéricos
+    setCpfValido(cpf.isValid(cpf_inserido));
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -33,7 +36,6 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
       setIsModalOpen(false);
-      message.success('Usuário criado com sucesso!');
     } catch (error) {
       console.error(error);
       setOutput(JSON.stringify(error, null, 2));
@@ -69,14 +71,14 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
           onFinish={onSubmit}
         >
           <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
-            <Input />
+            <Input onChange={handleCPFChange} />
           </Form.Item>
           <Form.Item
             name="cpf"
             label="CPF"
             rules={[{ required: true, message: "Campo obrigatório" }, { min: 11 }, { max: 11 }]}
           >
-            <Input />
+            <Input onChange={handleCPFChange} />
           </Form.Item>
           <Form.Item
             name="senha"
@@ -128,6 +130,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
               style={{ backgroundColor: "green-6", height: 40 }}
               type="primary"
               htmlType="submit"
+              disabled={!cpfValido}
             >
               Cadastrar
             </Button>
