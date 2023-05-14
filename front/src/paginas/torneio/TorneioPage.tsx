@@ -16,10 +16,9 @@ import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
 import { GrupoData } from '../../datas/GrupoData';
 import { VerificarUsuario } from '../../componentes/autenticacao/VerificarUsuario';
 import { DataFormatada } from '../../componentes/data/FormatarData';
+import { VerificarIdUsuario } from '../../componentes/autenticacao/VerificarIdUsuario';
 
 const { Panel } = Collapse;
-
-const admin = VerificarUsuario();
 
 interface ITimeExpirated {
     dias?: number;
@@ -29,6 +28,9 @@ interface ITimeExpirated {
 }
 
 export const TorneioPage = () => {
+    const admin = VerificarUsuario();
+    const usuario_id = VerificarIdUsuario();
+    let usuarioEncontrado = false;
     const { id } = useParams<{ id: string }>();
     const [torneio, setTorneio] = useState<TorneioData | null>(null);
     const [inscricoes, setInscricoes] = useState<InscricaoData[] | null>(null);
@@ -129,6 +131,12 @@ export const TorneioPage = () => {
     if (!torneio) {
         return <div>Loading...</div>;
     }
+    if (inscricoes !== null) {
+        const encontrar = inscricoes!.some((item) => item.usuario?.id === usuario_id);
+        if (encontrar) {
+            usuarioEncontrado = true;
+        }
+    }
 
     const fases = [
         {
@@ -148,6 +156,7 @@ export const TorneioPage = () => {
         //     content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
         // },
     ];
+
     return (
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
@@ -169,7 +178,9 @@ export const TorneioPage = () => {
                 {admin &&
                     <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
                 }
-                <BotaoCriarInscricao idTournament={torneio?.id} />
+                {!usuarioEncontrado &&
+                    <BotaoCriarInscricao idTournament={torneio?.id} />
+                }
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
@@ -195,4 +206,4 @@ export const TorneioPage = () => {
             </div>
         </div>
     );
-}
+};

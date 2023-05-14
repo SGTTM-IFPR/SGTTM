@@ -20,7 +20,7 @@ export const FlagStatusTorneio = ({ statusDefault = "Aberto", onStatusChange }: 
 
     return (
         <div>
-            <Select defaultValue={status} onChange={handleStatusChange} style={{ margin: "10px" }}>
+            <Select defaultValue={status} onChange={handleStatusChange} style={{ margin: "10px", width: "10%" }}>
                 <Option value="Aberto">Aberto</Option>
                 <Option value="Em andamento">Em andamento</Option>
                 <Option value="Fechado">Fechado</Option>
