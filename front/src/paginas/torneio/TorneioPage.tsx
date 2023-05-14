@@ -35,6 +35,8 @@ export const TorneioPage = () => {
     const [torneio, setTorneio] = useState<TorneioData | null>(null);
     const [inscricoes, setInscricoes] = useState<InscricaoData[] | null>(null);
     const [grupos, setGrupos] = useState<GrupoData[] | null>(null);
+    let visibleButtonInscricao = true;
+    let visibleButtonGrupo = false;
     const millisecondsPerSecond = 1000;
     const secondsPerMinute = 60;
     const minutesPerHour = 60;
@@ -156,7 +158,14 @@ export const TorneioPage = () => {
         //     content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
         // },
     ];
-
+    {
+        if (usuarioEncontrado || torneio.status !== "Aberto") {
+            visibleButtonInscricao = false;
+        }
+        if (identity.isAdmin && torneio.status !== "Aberto") {
+            visibleButtonGrupo = true;
+        }
+    }
     return (
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
@@ -176,11 +185,9 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
                 {identity.isAdmin &&
-                    <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
+                    <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
                 }
-                {!usuarioEncontrado &&
-                    <BotaoCriarInscricao idTournament={torneio?.id} />
-                }
+                <BotaoCriarInscricao idTournament={torneio?.id} visible={visibleButtonInscricao} />
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>

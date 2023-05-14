@@ -10,6 +10,7 @@ type Props = {
     torneioData?: TorneioData;
     onCreateGrupo: () => void;
     quantidade_inscritos?: Number;
+    visibleButton?: boolean;
 };
 
 
@@ -17,7 +18,8 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
     idTournament: idTournament,
     torneioData = {} as TorneioData,
     onCreateGrupo,
-    quantidade_inscritos
+    quantidade_inscritos,
+    visibleButton: visibleButton,
 }) => {
     const [formValues, setFormValues] = useState({ formato: 'ALEATORIO', quantidade_classificados: 2 });
     const [visible, setVisible] = useState(false);
@@ -51,6 +53,18 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
         setVisible(false);
     };
 
+    if (!visible) {
+        return <Button
+            size='middle'
+            type="primary"
+            style={{ background: "red", color: "white", fontWeight: "bold" }}
+            onClick={showModal}
+            disabled
+        >
+            Inicio do Torneio indisponível
+        </Button>
+    }
+
     return (
         <>
             <Button
@@ -75,8 +89,8 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
                     wrapperCol={{ span: 16 }}
                     onFinish={onFinish}
                     form={form}
-                    >
-                    <Form.Item  name="formato" label="Formato" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                >
+                    <Form.Item name="formato" label="Formato" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group>
                             <Radio value="RANKING">Ordem de RANKING</Radio>
                             <Radio value="ALEATORIO">Sorteio</Radio>
