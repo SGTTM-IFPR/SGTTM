@@ -11,6 +11,15 @@ from .set.set_namespace import set_namespace
 from .torneio.torneio_namespace import torneio_namespace
 
 blueprint = Blueprint('api', __name__)
+
+authorizations = {
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'Authorization'
+    }
+}
+
 api = Api(blueprint
           , title='Tournament API'
           , version='1.0'
@@ -19,6 +28,8 @@ api = Api(blueprint
           , default='Tournament'
           , default_label='Tournament API'
           , validate=True
+          , authorizations = authorizations
+          , security= 'apikey'
           )
 
 

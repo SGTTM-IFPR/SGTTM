@@ -5,8 +5,9 @@ from ..auth_decorator import token_required
 
 @api.route('/find-all')
 class TorneioListController(AbstractTorneioRestController):
-    
+
     @token_required
+    @api.doc(security='apikey')
     def get(self):
         '''Listar todos os torneios'''
         torneios = self.service.get_all()
