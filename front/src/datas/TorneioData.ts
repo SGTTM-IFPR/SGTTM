@@ -6,4 +6,5 @@ export class TorneioData {
     local?: string;
     status?: string;
     tipo_torneio?: string;
+    tipo_formato?: string;
 }

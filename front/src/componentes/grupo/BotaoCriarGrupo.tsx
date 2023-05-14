@@ -22,6 +22,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
     const [formValues, setFormValues] = useState({ formato: 'ALEATORIO', quantidade_classificados: 2 });
     const [visible, setVisible] = useState(false);
     const [grupos, setGrupos] = useState<TesteData>();
+    const [form] = Form.useForm();
 
     const criarGrupo = async (formato: string, quantidade_classificados: number) => {
         if (typeof idTournament == "number") {
@@ -40,14 +41,10 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
     };
 
     const onFinish = (values: any) => {
+        console.log('Received values of form: ', values);
         const newValues = { ...formValues, ...values };
-        setFormValues(newValues);
-    };
-
-    const handleOk = () => {
+        criarGrupo(newValues.formato, newValues.quantidade_classificados);
         setVisible(false);
-        console.log(formValues.formato, formValues.quantidade_classificados)
-        criarGrupo(formValues.formato, formValues.quantidade_classificados)
     };
 
     const handleCancel = () => {
@@ -68,7 +65,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
             </Button >
             <Modal
                 open={visible}
-                onOk={handleOk}
+                onOk={form.submit}
                 onCancel={handleCancel}
                 cancelText="Cancelar"
                 title="Definição de Regras"
@@ -76,8 +73,10 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
                 <Form
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
-                    onFinish={onFinish}>
-                    <Form.Item name="formato" label="Formato" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                    onFinish={onFinish}
+                    form={form}
+                    >
+                    <Form.Item  name="formato" label="Formato" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group>
                             <Radio value="RANKING">Ordem de RANKING</Radio>
                             <Radio value="ALEATORIO">Sorteio</Radio>

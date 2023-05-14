@@ -17,7 +17,7 @@
     "nome": "Fulano de Tal",
     "email": "admin@gmail.com",
     "data_de_nascimento": "1990-01-01",
-    "administrador": false,
+    "administrador": true,
     "clube": "Meu Clube",
     "federacao": "Minha Federação",
     "sexo": "MASCULINO"
