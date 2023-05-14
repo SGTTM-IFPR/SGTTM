@@ -1,12 +1,20 @@
-import { Button } from 'antd';
 import { TorneioLista } from '../componentes/torneio/TorneioLista';
+import { FlagStatusTorneio } from '../componentes/torneio/FlagStatusTorneio';
+import { SetStateAction, useState } from 'react';
 
 export const HomePage = () => {
+  const [status, setStatus] = useState('Aberto');
+
+  const handleStatusChange = (value: SetStateAction<string>) => {
+    setStatus(value);
+  };
 
   return (
     // so mostrar se start for false
+
     <>
-      <TorneioLista />
+      <FlagStatusTorneio onStatusChange={handleStatusChange} />
+      <TorneioLista status={status} />
     </>
   );
 };

@@ -34,7 +34,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         justifyContent: "space-between",
         height: isHovered || hoveredId === torneio?.id ? "auto" : "100%",
         transform: isHovered || hoveredId === torneio?.id ? "scale(1.1)" : "scale(1)",
-        opacity: isHovered || hoveredId === torneio?.id ? 1 : 0.8,
+        opacity: isHovered || hoveredId === torneio?.id ? 1 : 0.9,
         transition: "transform 0.3s ease-in-out, opacity 0.2s ease-in-out, height 0.3s ease-out-in",
     };
 
@@ -43,6 +43,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         maxHeight: "100%",
         height: isHovered ? "0px" : "30%",
         transform: isHovered ? "scaleY(0)" : "scaleY(1)",
+        transformOrigin: "bottom",
         transition: "transform 0.3s ease-in-out, height 0.3s ease-in-out",
     };
 

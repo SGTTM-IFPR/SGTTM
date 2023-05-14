@@ -8,8 +8,10 @@ import { BotaoCriarInscricao } from "../inscricao/BotaoCriarInscricao";
 import { TorneioCard } from "./TorneioCard";
 
 const { Content } = Layout;
-
-export const TorneioLista = () => {
+interface Props {
+    status: string;
+}
+export const TorneioLista: React.FC<Props> = ({ status }) => {
     const [dataCard, setDataCard] = useState<TorneioData[]>([]);
     const [dataInscricao, setDataInscricao] = useState<InscricaoData[]>([]);
 
@@ -20,6 +22,20 @@ export const TorneioLista = () => {
         }
         fetchData();
     }, []);
+    // Filtrar torneios abertos
+    const torneiosAbertos = dataCard.filter(torneio => torneio.status === status);
+
+    return (
+        <Layout>
+            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "30px", justifyContent: "center", marginBottom: "20px" }}>
+                    {torneiosAbertos.map((torneio) => (
+                        <TorneioCard key={torneio.id} torneio={torneio} />
+                    ))}
+                </div>
+            </div>
+        </Layout>
+    );
 
     return (
         // so mostrar se start for false
