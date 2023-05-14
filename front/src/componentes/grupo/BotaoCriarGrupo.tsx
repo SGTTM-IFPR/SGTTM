@@ -54,7 +54,7 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
         setVisible(false);
     };
 
-    if (!visible) {
+    if (!visibleButton) {
         return <Button
             size='middle'
             type="primary"

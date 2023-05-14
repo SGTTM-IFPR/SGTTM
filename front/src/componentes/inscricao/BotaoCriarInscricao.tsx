@@ -8,12 +8,12 @@ import { VerificarIdUsuario } from '../autenticacao/VerificarIdUsuario';
 
 type Props = {
     idTournament?: number;
-    visible?: boolean;
+    visibleButton?: boolean;
 };
 
 export const BotaoCriarInscricao: React.FC<Props> = ({
     idTournament: idTournament,
-    visible: visible,
+    visibleButton: visibleButton,
 }) => {
     const usuario_id = VerificarIdUsuario();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +44,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
         message.success('Inscrição realizada com sucesso!');
     };
 
-    if (!visible) {
+    if (!visibleButton) {
         return <Button
             size='middle'
             type="primary"

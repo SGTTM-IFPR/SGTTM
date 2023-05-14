@@ -36,7 +36,7 @@ export const TorneioPage = () => {
     const [inscricoes, setInscricoes] = useState<InscricaoData[] | null>(null);
     const [grupos, setGrupos] = useState<GrupoData[] | null>(null);
     let visibleButtonInscricao = true;
-    let visibleButtonGrupo = false;
+    let visibleButtonGrupo = true;
     const millisecondsPerSecond = 1000;
     const secondsPerMinute = 60;
     const minutesPerHour = 60;
@@ -162,8 +162,8 @@ export const TorneioPage = () => {
         if (usuarioEncontrado || torneio.status !== "Aberto") {
             visibleButtonInscricao = false;
         }
-        if (identity.isAdmin && torneio.status !== "Aberto") {
-            visibleButtonGrupo = true;
+        if (torneio.status !== "Aberto") {
+            visibleButtonGrupo = false;
         }
     }
     return (
@@ -187,7 +187,7 @@ export const TorneioPage = () => {
                 {identity.isAdmin &&
                     <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
                 }
-                <BotaoCriarInscricao idTournament={torneio?.id} visible={visibleButtonInscricao} />
+                <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
