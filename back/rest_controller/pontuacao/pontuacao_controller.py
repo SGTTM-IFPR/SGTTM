@@ -2,11 +2,11 @@ from flask import request
 
 from .pontuacao_namespace import pontuacao_namespace as api
 from .abstract_pontuacao_rest_controller import AbstractPontuacaoRestController
-
+from ..auth_decorator import token_required
 
 @api.route('/<int:pontuacao_id>')
 class PontuacaoController(AbstractPontuacaoRestController):
-
+    @token_required
     def get(self, pontuacao_id):
         '''Obter informações de uma pontuação pelo ID'''
         pontuacao = self.service.get_by_id(pontuacao_id)
@@ -14,7 +14,7 @@ class PontuacaoController(AbstractPontuacaoRestController):
             return pontuacao.to_dict(), 200
         else:
             return {'error': 'Pontuação não encontrada'}, 404
-
+    @token_required
     def put(self, pontuacao_id):
         '''Atualizar informações de uma pontuação pelo ID'''
         pontuacao_data = request.json
@@ -23,7 +23,7 @@ class PontuacaoController(AbstractPontuacaoRestController):
             return updated_pontuacao.to_dict(), 200
         else:
             return {'error': 'Pontuação não encontrada'}, 404
-
+    @token_required
     def delete(self, pontuacao_id):
         '''Excluir uma pontuação pelo ID'''
         result = self.service.delete(pontuacao_id)

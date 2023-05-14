@@ -1,10 +1,11 @@
 from .pontuacao_namespace import pontuacao_namespace as api
 from .abstract_pontuacao_rest_controller import AbstractPontuacaoRestController
+from ..auth_decorator import token_required
 
 
 @api.route('/find-all')
 class PontuacaoListController(AbstractPontuacaoRestController):
-
+    @token_required
     def get(self):
         '''Listar todas as pontuações'''
         pontuacoes = self.service.get_all()
