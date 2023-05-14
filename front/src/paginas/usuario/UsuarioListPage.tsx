@@ -8,6 +8,7 @@ import { ModificarEnumSexoUsuario } from "../../componentes/usuario/ModificarEnu
 import { BotaoCriarUsuario } from "../../componentes/usuario/BotaoCriarUsuario";
 import { BotaoEditarUsuario } from "../../componentes/usuario/BotaoEditarUsuario";
 import { AuthService } from "../../servicos/AutenticarTokenServico";
+import moment from "moment";
 
 
 export const UsuarioListPage = () => {
@@ -71,6 +72,7 @@ export const UsuarioListPage = () => {
             title="Data de Nascimento"
             dataIndex="data_de_nascimento"
             key="data_de_nascimento"
+            render={(text) => moment(text).format('DD/MM/YYYY')}
           />
           <Column
             align="center"
@@ -106,7 +108,7 @@ export const UsuarioListPage = () => {
                 <Modal title="Confirmação de Exclusão" open={isModalOpen} onOk={() => handleOk(record.id)} onCancel={handleCancel} cancelText="Cancelar" okText="Excluir">
                   <p>Deseja realmente excluir o Usuário?</p>
                 </Modal>
-                </Space>
+              </Space>
             )}
           />
         </Table>

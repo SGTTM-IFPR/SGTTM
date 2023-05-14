@@ -6,13 +6,10 @@ interface DecodedToken {
     nome: string;
     id: number;
 }
-export const VerificarUsuario = () => {
+export const VerificarIdUsuario = () => {
     const token = localStorage.getItem('token');
     if (token) {
         const decodedToken: DecodedToken = jwt_decode(token);
-        if (decodedToken.role === 'admin' || decodedToken.role === 'ADMIN') {
-            return true;
-        }
-        return false;
+        return decodedToken.id;
     }
 };

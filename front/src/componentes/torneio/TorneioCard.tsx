@@ -7,6 +7,7 @@ import { TorneioData } from "../../datas/TorneioData";
 import { Button, Space } from 'antd';
 import { green } from '@ant-design/colors'
 import { Link } from "react-router-dom";
+import { DataFormatada } from "../data/FormatarData";
 
 
 const { Meta } = Card;
@@ -96,11 +97,11 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                 <div>
                     <p>
                         <b>Data de início: </b>
-                        {torneio.data_inicio}
+                        <DataFormatada data={torneio.data_inicio?.toString()!} />
                     </p>
                     <p>
                         <b>Data de término: </b>
-                        {torneio.data_final}
+                        <DataFormatada data={torneio.data_final?.toString()!} />
                     </p>
                     <p>
                         <b>Local: </b>

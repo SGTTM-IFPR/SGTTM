@@ -14,8 +14,8 @@ const AUTHED_STORAGE_KEY = "authed";
 
 export const AutenticacaoContexto = createContext<AutenticacaoContextoProps>({
   authed: false,
-  login: () => {},
-  logout: () => {},
+  login: () => { },
+  logout: () => { },
 });
 
 export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps) => {
@@ -27,7 +27,7 @@ export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps
   useEffect(() => {
     localStorage.setItem(AUTHED_STORAGE_KEY, authed.toString());
   }, [authed]);
-  
+
   const login = useCallback<AutenticacaoContextoProps["login"]>(
     (email: string) => {
       setAuthed(true);
@@ -39,6 +39,7 @@ export const AutenticacaoFornecedor = ({ children }: AutenticacaoFornecedorProps
     // Implement your logout logic here
     localStorage.removeItem('token');
     setAuthed(false);
+    localStorage.removeItem(AUTHED_STORAGE_KEY);
   }, []);
 
   return (

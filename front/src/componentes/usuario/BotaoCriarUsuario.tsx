@@ -27,6 +27,8 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
     }
 
     try {
+      data.administrador = false;
+      data.atleta = true;
       const response = await createUser(data);
       // setOutput(JSON.stringify(response, null, 2));
       await getAllUsers().then((userData) => setData(userData));
@@ -65,20 +67,20 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
           wrapperCol={{ span: 16 }}
           onFinish={onSubmit}
         >
-          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
             <Input />
           </Form.Item>
           <Form.Item
             name="cpf"
             label="CPF"
-            rules={[{ required: true, message: "Campo obrigatório"}, { min: 11 }, { max: 11 }]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { min: 11 }, { max: 11 }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="senha"
             label="Senha"
-            rules={[{ required: true, message: "Campo obrigatório"}, { min: 8 }]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { min: 8 }]}
           >
             <Input.Password
               visibilityToggle={{
@@ -90,30 +92,30 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
           <Form.Item
             name="email"
             label="E-mail"
-            rules={[{ required: true, message: "Campo obrigatório"}, { type: "email", message:"Preencha com um e-mail válido"}]}
+            rules={[{ required: true, message: "Campo obrigatório" }, { type: "email", message: "Preencha com um e-mail válido" }]}
           >
-            <Input/>
+            <Input />
           </Form.Item>
-          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório"}]}>
-            <DatePicker placeholder="Insira a data"/>
+          <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório" }]}>
+            <DatePicker placeholder="Insira a data" />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="administrador"
             label="Administrador"
             valuePropName="checked"
           >
             <Switch />
-          </Form.Item>
-          <Form.Item name="atleta" label="Atleta" valuePropName="checked">
+          </Form.Item> */}
+          {/* <Form.Item name="atleta" label="Atleta" valuePropName="checked">
             <Switch />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="clube" label="Clube">
             <Input />
           </Form.Item>
           <Form.Item name="federacao" label="Federação">
             <Input />
           </Form.Item>
-          <Form.Item name="sexo" label="Sexo" rules={[{ required: true, message: "Campo obrigatório"}]}>
+          <Form.Item name="sexo" label="Sexo" rules={[{ required: true, message: "Campo obrigatório" }]}>
             <Radio.Group>
               <Radio value="MASCULINO">Masculino</Radio>
               <Radio value="FEMININO">Feminino</Radio>

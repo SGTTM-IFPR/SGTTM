@@ -36,8 +36,7 @@ class LoginController(Resource):
                 else:
                     role = "admin"
                     message = {"message": "Login successful as admin"}
-
-            payload = {"username": email, "role": role}
+            payload = {"username": email, "role": role, "nome": usuario.nome, "id": usuario.id}
             token = jwt.encode(payload, chave_secreta, algorithm="HS256")
 
             response = {"message": message, "token": token}

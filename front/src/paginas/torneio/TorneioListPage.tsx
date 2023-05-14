@@ -11,6 +11,7 @@ import { BotaoEditarTorneio } from "../../componentes/torneio/BotaoEditarTorneio
 import { BotaoCriarInscricao } from "../../componentes/inscricao/BotaoCriarInscricao";
 import { BotaoCriarGrupo } from "../../componentes/grupo/BotaoCriarGrupo";
 import { AuthService } from "../../servicos/AutenticarTokenServico";
+import moment from "moment";
 
 export const TorneioListPage = () => {
     const [data, setData] = useState<TorneioData[]>([]);
@@ -75,6 +76,7 @@ export const TorneioListPage = () => {
                         title="Data de início"
                         dataIndex="data_inicio"
                         key="data_inicio"
+                        render={(text) => moment(text).format('DD/MM/YYYY')}
                     />
 
                     <Column
@@ -82,6 +84,7 @@ export const TorneioListPage = () => {
                         title="Data de término"
                         dataIndex="data_final"
                         key="data_final"
+                        render={(text) => moment(text).format('DD/MM/YYYY')}
                     />
 
                     <Column title="Local" dataIndex="local" key="local" />

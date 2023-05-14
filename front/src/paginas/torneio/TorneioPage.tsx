@@ -15,6 +15,7 @@ import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
 import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
 import { GrupoData } from '../../datas/GrupoData';
 import { VerificarUsuario } from '../../componentes/autenticacao/VerificarUsuario';
+import { DataFormatada } from '../../componentes/data/FormatarData';
 
 const { Panel } = Collapse;
 
@@ -158,8 +159,8 @@ export const TorneioPage = () => {
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >
-                    <Descriptions.Item label="Data inicial">{torneio?.data_inicio}</Descriptions.Item>
-                    <Descriptions.Item label="Data final">{torneio?.data_final}</Descriptions.Item>
+                    <Descriptions.Item label="Data inicial"><DataFormatada data={torneio?.data_inicio?.toString()!} /></Descriptions.Item>
+                    <Descriptions.Item label="Data final"><DataFormatada data={torneio?.data_final?.toString()!} /></Descriptions.Item>
                 </Descriptions>
                 <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>

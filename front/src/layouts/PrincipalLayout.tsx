@@ -5,11 +5,12 @@ import { Outlet } from "react-router";
 import { useContext } from "react";
 import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoFornecedor";
 import { LogoutOutlined } from "@ant-design/icons";
+import { VerificarNomeUsuario } from "../componentes/autenticacao/VerificarNomeUsuario";
 
 export const MainLayout = () => {
 
   const { logout } = useContext(AutenticacaoContexto);
-
+  const nome_usuario = VerificarNomeUsuario();
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <AppSidebar />
@@ -39,9 +40,25 @@ export const MainLayout = () => {
                 okText="Sim"
                 cancelText="Não"
               >
-                <Button size="small" style={{ color: 'red', fontSize: '11px' }}>
-                  Logout <LogoutOutlined />
+                <span style={{
+                  marginRight: '10px',
+                  fontWeight: 'bold',
+                  fontSize: '14px',
+                  color: 'white'
+                }}>Bem Vindo, {nome_usuario}!</span>
+                <Button size="middle" style={{
+                  backgroundColor: '#F5222D',
+                  color: '#FFFFFF',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  border: 'none',
+                  borderRadius: '4px',
+                  transition: 'background-color 0.3s ease-in-out',
+                }}>
+                  Sair <LogoutOutlined />
                 </Button>
+
+
               </Popconfirm>
             </Col>
           </Row>

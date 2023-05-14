@@ -7,7 +7,7 @@ import { AutenticacaoContexto } from '../../autenticacao/contexto/AutenticacaoFo
 export const LoginComponente = () => {
 
     const { login } = useContext(AutenticacaoContexto);
-    
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -35,7 +35,6 @@ export const LoginComponente = () => {
         } catch (error) {
             setError('Usuário ou senha inválidos.');
         }
-        console.log(`Nome de usuário: ${username}, Senha: ${password}`);
     };
 
     return (

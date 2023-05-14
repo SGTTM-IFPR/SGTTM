@@ -10,7 +10,6 @@ const { Sider } = Layout;
 import type { MenuProps } from 'antd';
 import { VerificarUsuario } from "../componentes/autenticacao/VerificarUsuario";
 
-const admin = VerificarUsuario();
 export const AppSidebar = () => {
 
   type MenuItem = Required<MenuProps>['items'][number];
@@ -30,7 +29,7 @@ export const AppSidebar = () => {
       disabled,
     } as MenuItem;
   }
-
+  const admin = VerificarUsuario();
   const items: MenuItem[] = [
     getItem('Pagina Inicial', '1', <Link to="home"><HomeFilled /></Link>),
     getItem('Ranking', '4', <TableOutlined />, true),
