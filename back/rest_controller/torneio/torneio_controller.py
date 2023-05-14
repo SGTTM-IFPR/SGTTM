@@ -2,11 +2,13 @@ from flask import request
 
 from .torneio_namespace import torneio_namespace as api
 from .abstract_torneio_rest_controller import AbstractTorneioRestController
+from ..auth_decorator import token_required
 
 
 @api.route('/<int:torneio_id>')
 class TorneioController(AbstractTorneioRestController):
 
+    @token_required
     def get(self, torneio_id):
         '''Obter informações de um torneio pelo ID'''
         torneio_data = self.service.get_by_id(torneio_id)
@@ -15,7 +17,7 @@ class TorneioController(AbstractTorneioRestController):
             return torneio_data.to_dict(), 200
         else:
             return {'error': 'Torneio não encontrado'}, 404
-
+    @token_required
     def put(self, torneio_id):
         '''Atualizar informações de um torneio pelo ID'''
         torneio_data = request.json
@@ -24,7 +26,7 @@ class TorneioController(AbstractTorneioRestController):
             return updated_torneio.to_dict(), 200
         else:
             return {'error': 'Torneio não encontrado'}, 404
-
+    @token_required
     def delete(self, torneio_id):
         '''Excluir um torneio pelo ID'''
         result = self.service.delete(torneio_id)

@@ -22,6 +22,16 @@ class LoginController(Resource):
         return service
 
     def post(self):
+        auth = request.authorization
+        try:
+            if not auth or not auth.username or not auth.password:
+                return make_response(
+                    {"message:Could not verify", "WWW-Authenticate:"'Basic realm="Login required!"'},
+                    401
+                )
+        except:
+            pass
+        # replace with authentication logic
         email = request.json.get("email")
         password = request.json.get("password")
         print(request.json)
@@ -29,19 +39,12 @@ class LoginController(Resource):
         if self.service.get_usuario_by_email(email):
             usuario = self.service.get_usuario_by_email(email)
             if password == usuario.senha:
-                if usuario.administrador == False:
-                    role = "user"
-                    message =  "Login successful as User"
-                else:
-                    role = "admin"
-                    message = "Login successful as admin"
-            payload = {"email": email, "role": role, "nome": usuario.nome, "id": usuario.id}
-            token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-
-            response = {"message": message, "token": token, "role": role}
-            response = Response(json.dumps(response), 200, mimetype="application/json")
-
-            return response
+                role = "user" if usuario.administrador == False else "admin"
+                message =  "Login successful as " + role
+                payload = {"username": email, "role": role, "nome": usuario.nome, "id": usuario.id}
+                token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+                response = {"message": message, "token": token, "role": role}
+                response = Response(json.dumps(response), 200, mimetype="application/json")
+                return response
         else:
             return {"message": "Invalid email or password"}, 404
-

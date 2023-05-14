@@ -1,10 +1,11 @@
 from .grupo_namespace import grupo_namespace as api
 from .abstract_grupo_rest_controller import AbstractGrupoRestController
+from ..auth_decorator import token_required
 
 
 @api.route('/find-by-torneio/<int:torneio_id>')
 class GrupoListByTorneioController(AbstractGrupoRestController):
-
+    @token_required
     def get(self, torneio_id):
         '''Listar todos os grupos por torneio'''
         inscricoes = self.service.get_by_torneio_id(torneio_id)
