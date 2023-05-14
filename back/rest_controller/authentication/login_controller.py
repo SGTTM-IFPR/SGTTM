@@ -49,7 +49,7 @@ class LoginController(Resource):
             payload = {"username": email, "role": role, "nome": usuario.nome, "id": usuario.id}
             token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
-            response = {"message": message, "token": token}
+            response = {"message": message, "token": token, "role": role}
             response = Response(json.dumps(response), 200, mimetype="application/json")
 
             return response
