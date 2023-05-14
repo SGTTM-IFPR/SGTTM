@@ -3,14 +3,15 @@ import { Table, Row, Col } from 'antd'
 import Column from "antd/es/table/Column";
 import { UsuarioData } from "../../datas/UsuarioData";
 import { BotaoExcluirInscricao } from "./BotaoExcluirInscricao";
-import { VerificarUsuario } from "../autenticacao/VerificarUsuario";
+import { useContext } from "react";
+import { AutheticationContext, useAuth } from "../../autenticacao/context/AuthenticationContext";
 
-const admin = VerificarUsuario();
 
 interface IInscricaoTableProps {
     inscricoes?: InscricaoData[] | null;
 }
 export const InscricaoTable = ({ inscricoes }: IInscricaoTableProps) => {
+    const { identity } = useAuth();
     if (!inscricoes || inscricoes.length === 0)
         return (
             <div>Nenhum inscrito</div>
@@ -25,7 +26,7 @@ export const InscricaoTable = ({ inscricoes }: IInscricaoTableProps) => {
         { title: 'Nome', dataIndex: 'usuario', key: 'usuario', render: renderNome },
         { title: 'Condição', dataIndex: 'condicao', key: 'condicao' },
         // botao para excluir inscricao
-        ...(admin ? [
+        ...(identity.isAdmin ? [
             {
                 title: 'Ações',
                 render: (_: any, { id }: InscricaoData) => (

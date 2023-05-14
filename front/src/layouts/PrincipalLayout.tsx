@@ -3,14 +3,14 @@ import { Header, Content, Footer } from "antd/es/layout/layout";
 import { AppSidebar } from "../paginas/AppSidebar";
 import { Outlet } from "react-router";
 import { useContext } from "react";
-import { AutenticacaoContexto } from "../autenticacao/contexto/AutenticacaoFornecedor";
 import { LogoutOutlined } from "@ant-design/icons";
 import { VerificarNomeUsuario } from "../componentes/autenticacao/VerificarNomeUsuario";
+import { AutheticationContext } from "../autenticacao/context/AuthenticationContext";
 
 export const MainLayout = () => {
 
-  const { logout } = useContext(AutenticacaoContexto);
-  const nome_usuario = VerificarNomeUsuario();
+  const { logout } = useContext(AutheticationContext);
+  const { identity } = useContext(AutheticationContext);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <AppSidebar />
@@ -45,7 +45,7 @@ export const MainLayout = () => {
                   fontWeight: 'bold',
                   fontSize: '14px',
                   color: 'white'
-                }}>Bem Vindo, {nome_usuario}!</span>
+                }}>Bem Vindo, {identity.nome}!</span>
                 <Button size="middle" style={{
                   backgroundColor: '#F5222D',
                   color: '#FFFFFF',

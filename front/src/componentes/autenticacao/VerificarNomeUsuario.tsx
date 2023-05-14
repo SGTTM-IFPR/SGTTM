@@ -1,11 +1,7 @@
 import jwt_decode from 'jwt-decode';
+import { DecodedToken } from '../../autenticacao/interfaces/DecodedToken';
 
-interface DecodedToken {
-    email: string;
-    role: string;
-    nome: string;
-    id: number;
-}
+
 export const VerificarNomeUsuario = () => {
     const token = localStorage.getItem('token');
     if (token) {

@@ -1,13 +1,13 @@
 import axios from "axios";
-import { AutenticacaoContexto } from '../autenticacao/contexto/AutenticacaoFornecedor';
 import { useContext } from "react";
+import { AutheticationContext } from "../autenticacao/context/AuthenticationContext";
 
 const baseURL = "http://localhost:5000/";
 
 export const AuthService = {
     
     async authToken() {
-    const { logout } = useContext(AutenticacaoContexto);
+    const { logout } = useContext(AutheticationContext);
     const token = localStorage.getItem("token");
     const endpoint = "autenticacao/token";
     let response;

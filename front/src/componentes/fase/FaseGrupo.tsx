@@ -10,7 +10,6 @@ interface IFaseGrupoProps {
 export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
 
     useEffect(() => {
-        console.log(grupos);
     }, [grupos])
 
     const [open, setOpen] = useState(false);

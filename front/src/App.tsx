@@ -1,8 +1,8 @@
 import { Component, ReactNode } from 'react'
 // import './App.css'
 import { ConfigProvider, theme } from 'antd'
-import { AutenticacaoFornecedor } from './autenticacao/contexto/AutenticacaoFornecedor'
-import { AppRota } from './rotas/AppRota'
+import { AuthenticationProvider } from './autenticacao/context/AuthenticationProvider'
+import { AppRoute } from './rotas/AppRoute'
 
 class App extends Component {
   render(): ReactNode {
@@ -12,9 +12,7 @@ class App extends Component {
           algorithm: theme.defaultAlgorithm 
         }}
       >
-        <AutenticacaoFornecedor>
-            <AppRota/>
-        </AutenticacaoFornecedor>
+            <AppRoute/>
       </ConfigProvider>
     );
   }

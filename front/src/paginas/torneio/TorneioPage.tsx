@@ -3,7 +3,7 @@ import { getTorneioById } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Row, Descriptions } from 'antd';
 import { format } from 'date-fns';
 import { InscricaoData } from '../../datas/InscricaoData';
@@ -14,9 +14,9 @@ import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscr
 import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
 import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
 import { GrupoData } from '../../datas/GrupoData';
-import { VerificarUsuario } from '../../componentes/autenticacao/VerificarUsuario';
 import { DataFormatada } from '../../componentes/data/FormatarData';
 import { VerificarIdUsuario } from '../../componentes/autenticacao/VerificarIdUsuario';
+import { AutheticationContext, useAuth } from '../../autenticacao/context/AuthenticationContext';
 
 const { Panel } = Collapse;
 
@@ -28,7 +28,7 @@ interface ITimeExpirated {
 }
 
 export const TorneioPage = () => {
-    const admin = VerificarUsuario();
+    const { identity } = useAuth();
     const usuario_id = VerificarIdUsuario();
     let usuarioEncontrado = false;
     const { id } = useParams<{ id: string }>();
@@ -175,7 +175,7 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                {admin &&
+                {identity.isAdmin &&
                     <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} />
                 }
                 {!usuarioEncontrado &&

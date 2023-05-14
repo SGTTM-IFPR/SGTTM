@@ -2,11 +2,11 @@ import { Alert, Button, Input, Space, Tooltip, Form } from 'antd';
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons';
-import { AutenticacaoContexto } from '../../autenticacao/contexto/AutenticacaoFornecedor';
+import { AutheticationContext } from '../../autenticacao/context/AuthenticationContext';
 
 export const LoginComponente = () => {
 
-    const { login } = useContext(AutenticacaoContexto);
+    const { login } = useContext(AutheticationContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -19,21 +19,11 @@ export const LoginComponente = () => {
             setError('Por favor, preencha todos os campos.');
             return;
         }
-        setError('')
-        try {
-            const response = await axios.post('http://127.0.0.1:5000/autenticacao/login', {
-                username,
-                password
-            });
-
-            if (response.status === 200) {
-                // setError(JSON.stringify(response.data, null, 2))
-                login(username, password);
-                const token = response.data.token;
-                localStorage.setItem('token', token);
-            }
-        } catch (error) {
-            setError('Usuário ou senha inválidos.');
+        
+        const isLogginSucess =  await login(username, password);
+        if (!isLogginSucess) {
+            setError('Usuário ou senha incorretos.');
+            return;
         }
     };
 
