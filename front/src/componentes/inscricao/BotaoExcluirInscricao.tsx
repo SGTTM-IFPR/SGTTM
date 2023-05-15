@@ -21,8 +21,8 @@ export const BotaoExcluirInscricao: React.FC<Props> = ({
             setIsModalOpen(false);
             message.success('Inscrição excluída com sucesso!');
         } catch (error) {
-            console.error(error);
-            // setOutput(JSON.stringify(error, null, 2));
+            message.error('Erro ao excluir inscrição!');
+            setIsModalOpen(false);
         }
     }
 

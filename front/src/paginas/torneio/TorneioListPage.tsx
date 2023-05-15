@@ -24,13 +24,18 @@ export const TorneioListPage = () => {
     };
 
     const handleOk = async (id?: number) => {
-        if (id) {
-            const deletedTournament = await deleteTournament(id);
-            console.log(deletedTournament);
-            getResults();
+        try {
+            if (id) {
+                const deletedTournament = await deleteTournament(id);
+                console.log(deletedTournament);
+                getResults();
+            }
+            setIsModalOpen(false);
+            message.success('Torneio excluído com sucesso!');
+        } catch (error) {
+            message.error('Erro ao excluir torneio!');
+            setIsModalOpen(false);
         }
-        setIsModalOpen(false);
-        message.success('Torneio excluído com sucesso!');
     };
     const handleCancel = () => {
         setIsModalOpen(false);

@@ -31,21 +31,22 @@ export const UsuarioListPage = () => {
   }, []);
 
   const handleOk = async (id?: number) => {
-    if (id) {
-      const deletedUser = await deleteUser(id);
-      console.log(deletedUser);
-      getResults();
+    try {
+      if (id) {
+        const deletedUser = await deleteUser(id);
+        console.log(deletedUser);
+        setIsModalOpen(false);
+        message.success("Usuário excluído com sucesso!");
+      }
+    } catch (error) {
+      message.error("Erro ao excluir usuário!");
+      setIsModalOpen(false);
     }
-    setIsModalOpen(false);
-    message.success("Usuário excluído com sucesso!");
+    getResults();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-
-  const handleUpdate = (id?: number): void => {
-    console.log(id);
   };
 
   return (

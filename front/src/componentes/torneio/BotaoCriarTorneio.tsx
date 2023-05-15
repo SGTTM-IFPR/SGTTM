@@ -34,8 +34,8 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
             setIsModalOpen(false);
             message.success('Torneio criado com sucesso!');
         } catch (error) {
-            console.error(error);
-            setOutput(JSON.stringify(error, null, 2));
+            message.error('Erro ao criar torneio!');
+            setIsModalOpen(false);
         }
     }
 

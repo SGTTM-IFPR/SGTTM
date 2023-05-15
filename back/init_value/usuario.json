@@ -2,7 +2,7 @@
   {
     "id": 0,
     "cpf": "00000000000",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Administrador",
     "email": "admin@admin.com",
     "data_de_nascimento": "1989-12-31",
@@ -15,7 +15,7 @@
   {
     "id": 1,
     "cpf": "00000000001",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 1",
     "email": "jogador1@gmail.com",
     "data_de_nascimento": "1990-01-01",
@@ -28,7 +28,7 @@
   {
     "id": 2,
     "cpf": "00000000002",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 2",
     "email": "jogador2@gmail.com",
     "data_de_nascimento": "1991-02-02",
@@ -41,7 +41,7 @@
   {
     "id": 3,
     "cpf": "00000000003",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 3",
     "email": "jogador3@gmail.com",
     "data_de_nascimento": "1992-03-03",
@@ -54,7 +54,7 @@
   {
     "id": 4,
     "cpf": "00000000004",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 4",
     "email": "jogador4@gmail.com",
     "data_de_nascimento": "1993-04-04",
@@ -67,7 +67,7 @@
   {
     "id": 5,
     "cpf": "00000000005",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 5",
     "email": "jogador5@gmail.com",
     "data_de_nascimento": "1994-05-05",
@@ -80,7 +80,7 @@
   {
     "id": 6,
     "cpf": "00000000006",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 6",
     "email": "jogador6@gmail.com",
     "data_de_nascimento": "1995-06-06",
@@ -93,7 +93,7 @@
   {
     "id": 7,
     "cpf": "00000000007",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 7",
     "email": "jogador7@gmail.com",
     "data_de_nascimento": "1996-07-07",
@@ -106,7 +106,7 @@
   {
     "id": 8,
     "cpf": "00000000008",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 8",
     "email": "jogador8@gmail.com",
     "data_de_nascimento": "1997-08-08",
@@ -119,7 +119,7 @@
   {
     "id": 9,
     "cpf": "00000000009",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 9",
     "email": "jogador9@gmail.com",
     "data_de_nascimento": "1998-09-09",
@@ -132,7 +132,7 @@
   {
     "id": 10,
     "cpf": "00000000010",
-    "senha": "minha_senha",
+    "senha": "56daaa1329ee509600fccc35a77dd3aa",
     "nome": "Jogador 10",
     "email": "jogador10@gmail.com",
     "data_de_nascimento": "1999-10-10",

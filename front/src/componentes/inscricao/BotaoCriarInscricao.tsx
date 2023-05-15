@@ -32,16 +32,21 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
     };
 
     async function handleOk(idTournament?: number) {
-        // criar estrutura de inscrição
-        const inscricao: InscricaoData = {
-            torneio_id: idTournament,
-            usuario_id: usuario_id,
-            condicao: selectedOption,
-        };
+        try {
+            // criar estrutura de inscrição
+            const inscricao: InscricaoData = {
+                torneio_id: idTournament,
+                usuario_id: usuario_id,
+                condicao: selectedOption,
+            };
 
-        const response = await createInscricao(inscricao)
-        setIsModalOpen(false);
-        message.success('Inscrição realizada com sucesso!');
+            const response = await createInscricao(inscricao)
+            setIsModalOpen(false);
+            message.success('Inscrição realizada com sucesso!');
+        } catch (error) {
+            message.error('Erro ao realizar inscrição!');
+            setIsModalOpen(false);
+        }
     };
 
     if (!visibleButton) {

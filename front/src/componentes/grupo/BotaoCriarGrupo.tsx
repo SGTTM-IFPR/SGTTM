@@ -43,11 +43,16 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
     };
 
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
-        const newValues = { ...formValues, ...values };
-        criarGrupo(newValues.formato, newValues.quantidade_classificados);
-        setVisible(false);
-        message.success('Torneio iniciado com sucesso!');
+        try {
+            console.log('Received values of form: ', values);
+            const newValues = { ...formValues, ...values };
+            criarGrupo(newValues.formato, newValues.quantidade_classificados);
+            setVisible(false);
+            message.success('Torneio iniciado com sucesso!');
+        } catch (error) {
+            message.error('Erro ao iniciar torneio!');
+            setVisible(false);
+        }
     };
 
     const handleCancel = () => {

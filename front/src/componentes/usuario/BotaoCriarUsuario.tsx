@@ -1,5 +1,5 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
 import React, { useState } from "react";
 import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers } from "../../servicos/UsuarioServico";
@@ -38,10 +38,11 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData, local: lo
         setOutput(JSON.stringify(response, null, 2));
         await getAllUsers().then((userData) => setData(userData));
       }
+      message.success('Usuário criado com sucesso!');
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
-      setOutput(JSON.stringify(error, null, 2));
+      message.error('Erro ao criar usuário!');
+      setIsModalOpen(false);
     }
   }
 
