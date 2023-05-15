@@ -82,7 +82,7 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
                 centered={true}
                 style={modalStyle}
                 onCancel={handleCancel}
-                maskStyle={modalStyle}
+                // maskStyle={modalStyle}
                 getContainer={false}
                 footer={null}
             >

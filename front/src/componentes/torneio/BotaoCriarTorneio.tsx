@@ -50,7 +50,7 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
     return (
         <>
             <Button type="primary" style={{ fontSize: "12px" }} onClick={showModal}>
-                Cadastrar Torneio
+                Cadastrar
             </Button>
             <Modal
                 title="Criar Torneio"
@@ -58,7 +58,7 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
                 centered={true}
                 style={modalStyle}
                 onCancel={handleCancel}
-                maskStyle={modalStyle}
+                // maskStyle={modalStyle}
                 getContainer={false}
                 footer={null}
             >

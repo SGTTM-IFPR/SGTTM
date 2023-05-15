@@ -31,9 +31,9 @@ export const LoginPagina = () => {
                 <div className='div_login'>
                     <LoginComponente />
                 </div>
-                <div style={{ marginLeft: '50px', marginBottom: '5px' }}>
+                {/* <div style={{ marginLeft: '50px', marginBottom: '5px' }}>
                     <BotaoCriarUsuario setData={setData} />
-                </div>
+                </div> */}
                 <div></div>
                 <div></div>
             </div>

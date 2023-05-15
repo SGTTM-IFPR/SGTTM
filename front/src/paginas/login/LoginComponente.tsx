@@ -3,6 +3,9 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { InfoCircleOutlined, UserOutlined, KeyOutlined } from '@ant-design/icons';
 import { AutheticationContext } from '../../autenticacao/context/AuthenticationContext';
+import { BotaoRecuperarSenha } from '../../componentes/login/BotaoRecuperarSenha';
+import { BotaoCriarUsuario } from '../../componentes/usuario/BotaoCriarUsuario';
+import { UsuarioData } from '../../datas/UsuarioData';
 
 export const LoginComponente = () => {
 
@@ -12,6 +15,7 @@ export const LoginComponente = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [passwordVisible, setPasswordVisible] = React.useState(false);
+    const [data, setData] = useState<UsuarioData[]>([]);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -19,8 +23,8 @@ export const LoginComponente = () => {
             setError('Por favor, preencha todos os campos.');
             return;
         }
-        
-        const isLogginSucess =  await login(username, password);
+
+        const isLogginSucess = await login(username, password);
         if (!isLogginSucess) {
             setError('Usuário ou senha incorretos.');
             return;
@@ -69,9 +73,12 @@ export const LoginComponente = () => {
                 </div>
                 <br></br>
                 <div>
-                    <Button style={{ marginTop: '20px', backgroundColor: 'rgb(3, 194, 3)', color: 'white', border: 'none', borderRadius: '15px', fontWeight: 'bold', fontSize: '0.8em', cursor: 'pointer' }} type="primary" htmlType='submit'>
+                    <Button style={{ marginTop: '20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '15px', fontWeight: 'bold', fontSize: '0.8em', cursor: 'pointer' }} type="primary" htmlType='submit'>
                         Login</Button>
-                    <Button style={{ marginLeft: '20px', backgroundColor: '#e2e0e0', color: '#8f8e8e', border: 'none', borderRadius: '15px', fontWeight: 'bold', fontSize: '0.8em', cursor: 'pointer' }} type="primary">Esqueci minha senha</Button>
+                    <BotaoRecuperarSenha />
+                    <div style={{ marginTop: "10px" }}>
+                        <BotaoCriarUsuario setData={setData} />
+                    </div>
                 </div>
             </form >
         </div >

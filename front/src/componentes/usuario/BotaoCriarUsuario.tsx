@@ -53,7 +53,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
   return (
     <>
       <Button type="primary" style={{ fontSize: "12px" }} onClick={showModal}>
-        Cadastrar usuário
+        Cadastrar
       </Button>
       <Modal
         title="Cadastrar usuário"
@@ -61,7 +61,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
         centered={true}
         style={modalStyle}
         onCancel={handleCancel}
-        maskStyle={modalStyle}
+        // maskStyle={modalStyle}
         getContainer={false}
         footer={null}
       >
