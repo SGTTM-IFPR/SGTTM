@@ -35,7 +35,7 @@ export const BotaoRecuperarSenha = () => {
 
     return (
         <>
-            <Button type="primary" style={{ marginLeft: "10px", fontSize: "12px", background: "#ffc107", border: 'none', borderRadius: '15px', fontWeight: 'bold', fontSizeAdjust: '0.8em', cursor: 'pointer' }} onClick={showModal}>
+            <Button type="primary" style={{ marginLeft: "10px", fontSize: "12px", background: "#ffc107", border: 'none', fontWeight: 'bold', fontSizeAdjust: '0.8em', cursor: 'pointer' }} onClick={showModal}>
                 Recuperar senha
             </Button>
             <Modal

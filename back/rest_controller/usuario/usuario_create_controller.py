@@ -8,7 +8,6 @@ from rest_controller.usuario.abstract_usuario_rest_controller import AbstractUsu
 
 @api.route('/create')
 class UsuarioCreateController(AbstractUsuarioRestController):
-    @token_required
     def post(self):
         '''Criar um novo usuario'''
         user_data = request.json

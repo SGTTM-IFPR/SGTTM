@@ -60,7 +60,7 @@ export const UsuarioListPage = () => {
         }}
       >
         <h1 style={{ marginRight: "auto" }}>Lista de Usuários</h1>
-        <BotaoCriarUsuario setData={setData} />
+        <BotaoCriarUsuario setData={setData} local="lista_usuario" />
       </Header>
       <Content>
         <Table dataSource={data} size="small">

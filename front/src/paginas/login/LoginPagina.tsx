@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Login.css';
 import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponente } from './LoginComponente';
-import { Button } from 'antd';
 import { BotaoCriarUsuario } from '../../componentes/usuario/BotaoCriarUsuario';
 import { UsuarioData } from '../../datas/UsuarioData';
 
@@ -31,9 +30,9 @@ export const LoginPagina = () => {
                 <div className='div_login'>
                     <LoginComponente />
                 </div>
-                {/* <div style={{ marginLeft: '50px', marginBottom: '5px' }}>
-                    <BotaoCriarUsuario setData={setData} />
-                </div> */}
+                <div style={{ marginLeft: '50px', marginBottom: '5px' }}>
+                    <BotaoCriarUsuario setData={setData} local='login' />
+                </div>
                 <div></div>
                 <div></div>
             </div>

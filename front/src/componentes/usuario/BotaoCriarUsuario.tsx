@@ -7,9 +7,10 @@ import { cpf } from 'cpf-cnpj-validator';
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
+  local: string;
 };
 
-export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
+export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData, local: local }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [output, setOutput] = useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
@@ -33,8 +34,10 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData }) => {
       data.administrador = false;
       data.atleta = true;
       const response = await createUser(data);
-      // setOutput(JSON.stringify(response, null, 2));
-      await getAllUsers().then((userData) => setData(userData));
+      if (local !== "login") {
+        setOutput(JSON.stringify(response, null, 2));
+        await getAllUsers().then((userData) => setData(userData));
+      }
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);

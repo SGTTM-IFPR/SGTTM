@@ -73,12 +73,9 @@ export const LoginComponente = () => {
                 </div>
                 <br></br>
                 <div>
-                    <Button style={{ marginTop: '20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '15px', fontWeight: 'bold', fontSize: '0.8em', cursor: 'pointer' }} type="primary" htmlType='submit'>
+                    <Button style={{ marginTop: '20px', backgroundColor: '#28a745', color: 'white', border: 'none', fontWeight: 'bold', fontSize: '0.8em', cursor: 'pointer' }} type="primary" htmlType='submit'>
                         Login</Button>
                     <BotaoRecuperarSenha />
-                    <div style={{ marginTop: "10px" }}>
-                        <BotaoCriarUsuario setData={setData} />
-                    </div>
                 </div>
             </form >
         </div >
