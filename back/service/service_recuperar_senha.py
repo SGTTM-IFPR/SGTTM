@@ -1,39 +1,31 @@
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
+import email.message
 
 class EmailSender:
-    def __init__(self, sender_email, sender_password, smtp_server='smtp.gmail.com', smtp_port=587):
-        self.sender_email = sender_email
-        self.sender_password = sender_password
-        self.smtp_server = smtp_server
-        self.smtp_port = smtp_port
+    def __init__(self, email_from = "sgttm.ifpr.tads@gmail.com", password = "oihzmwkuajlakynl"):
+        self.email_from = email_from
+        self.password = password
 
-    def send_email(self, recipient_email, subject, message):
-        try:
-            # create message object instance
-            msg = MIMEMultipart()
-            msg['From'] = self.sender_email
-            msg['To'] = recipient_email
-            msg['Subject'] = subject
+    def enviar_email(self, email_to, mensagem):
+        corpo_email = f"""
+            <p>Olá,<br><br>
+            Recebemos uma solicitação de redefinição de senha para a sua conta do SGTTM.<br>
+            Para redefinir sua senha, clique no link abaixo:<br><br>
+            <a href="{mensagem}">Redefinir Senha</a><br><br>
+            Se você não solicitou a redefinição de senha, ignore este e-mail.<br><br>
+            Atenciosamente,<br>
+            Equipe do SGTTM
+            </p>
+        """
+    
+        msg = email.message.Message()
+        msg['Subject'] = "Recuperar Senha"
+        msg['From'] = self.email_from
+        msg['To'] = email_to
+        msg.add_header('Content-Type', 'text/html')
+        msg.set_payload(corpo_email)
 
-            # add message to the body
-            msg.attach(MIMEText(message, 'plain'))
-
-            # create smtp session
-            smtp_session = smtplib.SMTP(self.smtp_server, self.smtp_port)
-            smtp_session.starttls()
-
-            # login to the sender email account
-            smtp_session.login(self.sender_email, self.sender_password)
-
-            # send mail
-            smtp_session.sendmail(self.sender_email, recipient_email, msg.as_string())
-
-            # close smtp session
-            smtp_session.quit()
-
-            print('E-mail enviado com sucesso!')
-        except Exception as e:
-            print(f'Erro: {str(e)}')
+        s = smtplib.SMTP('smtp.gmail.com: 587')
+        s.starttls()
+        s.login(msg['From'], self.password)
+        s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))

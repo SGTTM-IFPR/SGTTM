@@ -1,7 +1,7 @@
 import { gray } from "@ant-design/colors";
 import { Button, Form, Input, Modal, message } from "antd";
 import { useState } from "react";
-import { recuperar_senha } from "../../servicos/LoginService";
+import { recuperar_senha } from "../../servicos/UsuarioServico";
 
 export const BotaoRecuperarSenha = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,8 +14,7 @@ export const BotaoRecuperarSenha = () => {
     async function onSubmit(values: any) {
         const email = values.email;
         try {
-            // const response = await recuperar_senha(email);
-            console.log(email);
+            await recuperar_senha(email);
             message.success('E-mail enviado com sucesso!');
             message.success('Verifique sua caixa de entrada!');
         } catch (error) {

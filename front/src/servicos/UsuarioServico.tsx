@@ -5,8 +5,8 @@ import { UsuarioData } from "../datas/UsuarioData";
 axios.interceptors.request.use(
   config => {
     if (config.url?.includes('/login')) {
-        return config 
-      }
+      return config
+    }
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
@@ -72,4 +72,11 @@ export const buscarIdPorCpf = async (cpf: string): Promise<number> => {
   const endpoint = `usuario/find-by-cpf/${cpf}`;
   const response = await axios.get(`${baseURL}/${endpoint}`);
   return response.data.id;
+}
+
+export const recuperar_senha = async (email: string): Promise<string> => {
+  const baseURL = "http://localhost:5000/";
+  const endpoint = `usuario/recuperar-senha/${email}`;
+  const response = await axios.get(`${baseURL}/${endpoint}`);
+  return response.data;
 }

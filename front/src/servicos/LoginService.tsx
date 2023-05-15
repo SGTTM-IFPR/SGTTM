@@ -23,10 +23,3 @@ export const login = async (email: string, password: string) => {
   });
   return response;
 }
-
-export const recuperar_senha = async (email: string) => {
-  const response = await axios.post('http://127.0.0.1:5000/autenticacao/recuperar_senha', {
-    'email': email
-  });
-  return response;
-}
