@@ -17,6 +17,7 @@ import { GrupoData } from '../../datas/GrupoData';
 import { DataFormatada } from '../../componentes/data/FormatarData';
 import { VerificarIdUsuario } from '../../componentes/autenticacao/VerificarIdUsuario';
 import { AutheticationContext, useAuth } from '../../autenticacao/context/AuthenticationContext';
+import { BotaoSelecionarUsuario } from '../../componentes/inscricao/BotaoSelecionarUsuario';
 
 const { Panel } = Collapse;
 
@@ -184,10 +185,16 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                {identity.isAdmin &&
-                    <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
-                }
-                <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                <div style={{ display: "flex" }}>
+                    {identity.isAdmin &&
+                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
+                    }
+                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                    {identity.isAdmin &&
+                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
+                    }
+                </div>
+
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
@@ -211,6 +218,6 @@ export const TorneioPage = () => {
             <div>
                 {fases[current].content}
             </div>
-        </div>
+        </div >
     );
 };

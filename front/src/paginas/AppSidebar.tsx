@@ -46,7 +46,7 @@ export const AppSidebar = () => {
   }
 
   return (
-    <Sider width={200} collapsible>
+    <Sider width={200} collapsible >
       <div className="logo" />
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
     </Sider>

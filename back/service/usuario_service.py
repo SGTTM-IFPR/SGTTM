@@ -18,5 +18,9 @@ class UsuarioService(GenericService[UsuarioModel]):
     def get_by_cpf(self, cpf):
         usuario = self.repository.get_by_cpf(cpf)
         return usuario
+    
+    def get_by_nome(self, nome):
+        usuario = self.repository.get_by_nome(nome)
+        return usuario
 
 

@@ -12,3 +12,6 @@ class UsuarioRepository(GenericRepository):
 
     def get_by_cpf(self, cpf):
         return UsuarioModel.query.filter_by(cpf=cpf).first()
+
+    def get_by_nome(self, nome):
+        return UsuarioModel.query.filter_by(nome=nome).first()

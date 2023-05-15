@@ -74,6 +74,13 @@ export const buscarIdPorCpf = async (cpf: string): Promise<number> => {
   return response.data.id;
 }
 
+export const buscarIdPorNome = async (nome: string): Promise<number> => {
+  const baseURL = "http://localhost:5000/";
+  const endpoint = `usuario/find-by-nome/${nome}`;
+  const response = await axios.get(`${baseURL}/${endpoint}`);
+  return response.data.id;
+}
+
 export const recuperar_senha = async (email: string): Promise<string> => {
   const baseURL = "http://localhost:5000/";
   const endpoint = `usuario/recuperar-senha/${email}`;
