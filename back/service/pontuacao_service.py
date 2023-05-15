@@ -10,3 +10,7 @@ class PontuacaoService(GenericService[PontuacaoModel]):
     @inject
     def __init__(self, repository: PontuacaoRepository):
         super().__init__(repository)
+
+    def get_ranking(self):
+        return self.repository.get_ranking()
+    
