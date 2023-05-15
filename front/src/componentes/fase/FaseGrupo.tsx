@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { GrupoData } from "../../datas/GrupoData"
 import { GrupoCard } from "../grupo/GrupoCard";
 import { GrupoTable } from "../grupo/GrupoTable";
-
+import { getAllPartidasByGrupoId } from "../../servicos/PartidaService";
+import { PartidaData } from "../../datas/PartidaData";
+import { PartidaList } from "../partida/PartidaList";
+ 
 interface IFaseGrupoProps {
     grupos?: GrupoData[] | null;
 }
@@ -13,8 +16,12 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
     }, [grupos])
 
     const [open, setOpen] = useState(false);
+    const [partidas, setPartidas] = useState<any[] | null>(null);
 
-    const showDrawer = () => {
+    const showDrawer = async (grupoId?: number) => {
+        if(!grupoId)
+            return;
+        await getAllPartidasByGrupoId(grupoId).then((partidasData) => setPartidas(partidasData))
         setOpen(true);
     };
 
@@ -36,15 +43,15 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
                     {grupos.map((grupo: GrupoData) => (
                         <Col style={{ width: "48%", paddingTop: '10px' }} span={24}>
 
-                            <a onClick={showDrawer} >
+                            <a onClick={() => showDrawer(grupo.id)} >
                                 <GrupoCard key={grupo.id} grupo={grupo} />
                             </a>
                         </Col>
                     ))}
                 </Row>
             </div>
-            <Drawer closable={false} onClose={onClose} open={open}>
-                Hello
+            <Drawer closable={false} onClose={onClose} open={open} width={'50%'}>
+                 <PartidaList partidas={partidas} />
             </Drawer>
         </>
     )
