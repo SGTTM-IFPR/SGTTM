@@ -46,6 +46,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                         <Row gutter={[12, 12]}>
                             <Col style={{ textAlign: 'center' }} span={24}>
                                 <span>
+                                    <strong>id:</strong> {partida.id}
                                     <strong>data de inicio:</strong> {partida.data_partida?.toString()}
                                 </span>
                             </Col>
