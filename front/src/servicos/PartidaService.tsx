@@ -23,3 +23,10 @@ export const getAllPartidasByGrupoId = async (id: number): Promise<PartidaData[]
     const response = await axios.get<PartidaData[]>(`${baseURL}/${endpoint}`);
     return response.data;
 }
+
+export const updateAllPartidas = async (partidas: PartidaData[]) => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `partida/update-all`;
+    const response = await axios.put<PartidaData[]>(`${baseURL}/${endpoint}`, partidas);
+    return response.data;
+}

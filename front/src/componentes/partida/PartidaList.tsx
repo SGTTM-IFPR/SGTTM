@@ -21,16 +21,14 @@ export const PartidaList = (props: IPartidaListProps) => {
     useEffect(() => {
         if (props.partidas) {
             setPartidas(props.partidas);
-            form.setFieldsValue({
-                partidas: props.partidas,
-            });
+            const formValues = props.partidas.reduce((values: any, partida: PartidaData) => {
+                values[`partidas.${partida.id}.pontos_atleta_1`] = partida.pontos_atleta_1 ?? 0;
+                values[`partidas.${partida.id}.pontos_atleta_2`] = partida.pontos_atleta_2 ?? 0;
+                return values;
+            }, {});
+            form.setFieldsValue(formValues);
         }
     }, [props.partidas]);
-
-    const onFinish = (values: any) => {
-        console.log(values);
-        console.log(partidas)
-    };
 
     if (!partidas)
         return (
@@ -38,12 +36,11 @@ export const PartidaList = (props: IPartidaListProps) => {
         )
 
     return (
-        <Form form={form} onFinish={onFinish}>
             <div>
                 <List
                     dataSource={partidas}
                     renderItem={(partida: PartidaData) => (
-                        <Row gutter={[12, 12]}>
+                        <Row gutter={[12, 12]}  key={partida.id}>
                             <Col style={{ textAlign: 'center' }} span={24}>
                                 <span>
                                     <strong>id:</strong> {partida.id}
@@ -81,6 +78,5 @@ export const PartidaList = (props: IPartidaListProps) => {
                     )}
                 />
             </div>
-        </Form>
     );
 };

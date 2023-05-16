@@ -19,7 +19,6 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
             inscricao.vitorias = 0;
             inscricao.derrotas = 0;
          })
-         console.log(inscricoes)
     }, [inscricoes])
 
     if (!inscricoes || inscricoes.length === 0)

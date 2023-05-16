@@ -18,7 +18,6 @@ export const GrupoCard = ({ grupo }: IGrupoCardProps) => {
             if (!grupo || !grupo.id)
                 return;
             await getInscricaoByGrupoId(grupo.id).then((inscricaoData) => setInscricoes(inscricaoData))
-            console.log(inscricoes)
         };
         fetchInscricoes();
     }, [grupo]);

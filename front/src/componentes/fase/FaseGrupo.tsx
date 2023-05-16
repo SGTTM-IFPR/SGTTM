@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { GrupoData } from "../../datas/GrupoData"
 import { GrupoCard } from "../grupo/GrupoCard";
 import { GrupoTable } from "../grupo/GrupoTable";
-import { getAllPartidasByGrupoId } from "../../servicos/PartidaService";
+import { getAllPartidasByGrupoId, updateAllPartidas } from "../../servicos/PartidaService";
 import { PartidaData } from "../../datas/PartidaData";
 import { PartidaList } from "../partida/PartidaList";
 import { useAuth } from "../../autenticacao/context/AuthenticationContext";
@@ -19,20 +19,34 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
     const { identity } = useAuth();
 
     const [open, setOpen] = useState(false);
-    const [partidas, setPartidas] = useState<any[] | null>(null);
+    const [partidas, setPartidas] = useState<PartidaData[] | null>(null);
     const [form] = Form.useForm();
 
     const showDrawer = async (grupoId?: number) => {
         if (!grupoId)
             return;
         await getAllPartidasByGrupoId(grupoId).then((partidasData) => setPartidas(partidasData))
-        setOpen(true);
+        .finally(() => setOpen(true));
     };
 
     const onClose = () => {
         setOpen(false);
     };
 
+
+    const onFinish = async (values: any) => {
+        console.log(values)
+        if (!partidas)
+            return null;
+        const newPartidas = partidas.map(partida => {
+            return {
+                ...partida,
+                ...values.partidas[partida.id]
+            };
+        });
+        await updateAllPartidas(newPartidas).then((partidasData) => setPartidas(partidasData))
+        .finally(() => setOpen(false));
+    }
 
     if (!grupos)
         return (
@@ -45,7 +59,7 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
             <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
                 <Row gutter={[2, 2]}>
                     {grupos.map((grupo: GrupoData) => (
-                        <Col style={{ width: "48%", paddingTop: '10px' }} span={24}>
+                        <Col style={{ width: "48%", paddingTop: '10px' }} span={24} key={grupo.id}>
 
                             <a onClick={() => showDrawer(grupo.id)} >
                                 <GrupoCard key={grupo.id} grupo={grupo} />
@@ -57,13 +71,15 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
             <Drawer closable={false} onClose={onClose} open={open} width={'50%'}
                 title="Partidas"
                 extra={
-                    identity.isAdmin ? 
-                    <Button type="primary" onClick={form.submit}>
-                        <span>Salvar</span>
-                    </Button> 
-                    : null
+                    identity.isAdmin ?
+                        <Button type="primary" onClick={form.submit}>
+                            <span>Salvar</span>
+                        </Button>
+                        : null
                 }>
-                <PartidaList partidas={partidas} form={form} />
+                <Form form={form} onFinish={onFinish}>
+                    <PartidaList partidas={partidas} form={form} />
+                </Form>
             </Drawer>
         </>
     )

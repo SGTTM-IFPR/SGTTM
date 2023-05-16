@@ -12,7 +12,7 @@ class PartidaByGroupController(AbstractPartidaRestController):
 
         partidas = self.service.get_by_grupo_id(grupo_id)
         partidas_dicts = [partida.to_dict() for partida in partidas]
-
+        print(partidas_dicts)
         if partidas:
             return partidas_dicts, 200
         else:
