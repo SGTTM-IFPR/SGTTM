@@ -5,6 +5,7 @@ import {
   PieChartOutlined,
   TeamOutlined,
   TableOutlined,
+  TrophyOutlined
 } from '@ant-design/icons';
 const { Sider } = Layout;
 import type { MenuProps } from 'antd';
@@ -34,7 +35,7 @@ export const AppSidebar = () => {
 
   const items: MenuItem[] = [
     getItem('Pagina Inicial', '1', <Link to="home"><HomeFilled /></Link>),
-    getItem('Ranking', '4', <TableOutlined />, true),
+    getItem('Ranking', '4', <Link to="ranking"><TrophyOutlined/></Link>),
   ];
   //adicionar rank depois
 
