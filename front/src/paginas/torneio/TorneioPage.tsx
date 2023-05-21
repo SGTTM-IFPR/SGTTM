@@ -135,7 +135,14 @@ export const TorneioPage = () => {
         return <div>Loading...</div>;
     }
     if (inscricoes !== null) {
-        const encontrar = inscricoes!.some((item) => item.usuario?.id === usuario_id);
+        const encontrar = inscricoes!.some((item) => {
+            if (item.usuario?.id === usuario_id) {
+                console.log(item.usuario);
+                return true;
+            }
+            return false;
+        });
+
         if (encontrar) {
             usuarioEncontrado = true;
         }
@@ -161,6 +168,9 @@ export const TorneioPage = () => {
     ];
     {
         if (usuarioEncontrado || torneio.status !== "Aberto") {
+            console.log("entrou");
+            console.log(usuarioEncontrado);
+            console.log(torneio.status);
             visibleButtonInscricao = false;
         }
         if (torneio.status !== "Aberto") {
@@ -172,9 +182,9 @@ export const TorneioPage = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
 
-                <div style={{ fontSize: '20px', color: 'gray' }}>
+                {/* <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
-                </div>
+                </div> */}
             </div>
             <div style={{ marginTop: '20px' }}>
                 <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >

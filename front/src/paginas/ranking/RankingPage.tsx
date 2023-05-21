@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import axios from 'axios';
+import Title from 'antd/es/skeleton/Title';
 
 interface Ranking {
   id: number;
   nome: string;
   pontos: number;
+  clube: string;
+  federacao: string;
 }
 
 export const RankingPage = () => {
@@ -36,6 +39,16 @@ export const RankingPage = () => {
       key: 'nome',
     },
     {
+      title: 'Clube',
+      dataIndex: 'clube',
+      key: 'clube',
+    },
+    {
+      title: 'Federação',
+      dataIndex: 'federacao',
+      key: 'federacao',
+    },
+    {
       title: 'Pontuação',
       dataIndex: 'pontos',
       key: 'pontos',
@@ -46,6 +59,8 @@ export const RankingPage = () => {
     key: ranking.id,
     position: index + 1,
     nome: ranking.nome,
+    clube: ranking.clube,
+    federacao: ranking.federacao,
     pontos: ranking.pontos,
   }));
 

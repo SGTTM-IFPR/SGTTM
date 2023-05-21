@@ -35,7 +35,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData, local: lo
       data.atleta = true;
       const response = await createUser(data);
       if (local !== "login") {
-        setOutput(JSON.stringify(response, null, 2));
+        // setOutput(JSON.stringify(response, null, 2));
         await getAllUsers().then((userData) => setData(userData));
       }
       message.success('Usuário criado com sucesso!');

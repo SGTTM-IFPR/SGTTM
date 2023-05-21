@@ -107,7 +107,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
           >
             <Input onChange={handleCPFChange} />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="senha"
             label="Senha"
             rules={[{ required: true, message: "Campo obrigatório" }, { min: 8 }]}
@@ -118,7 +118,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
                 onVisibleChange: setPasswordVisible,
               }}
             />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="email"
             label="E-mail"

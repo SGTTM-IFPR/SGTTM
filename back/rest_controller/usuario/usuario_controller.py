@@ -20,7 +20,8 @@ class UsuarioController(AbstractUsuarioRestController):
     def put(self, user_id):
         '''Atualizar informações de um usuário pelo ID'''
         user_data = request.json
-        user_data['senha'] = hashlib.md5(user_data['senha'].encode()).hexdigest()
+        if 'senha' in user_data:
+            user_data['senha'] = hashlib.md5(user_data['senha'].encode()).hexdigest()
         updated_user = self.service.update(user_id, user_data)
         if updated_user:
             return updated_user.to_dict(), 200

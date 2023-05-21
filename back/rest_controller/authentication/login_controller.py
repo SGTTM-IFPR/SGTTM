@@ -34,7 +34,7 @@ class LoginController(Resource):
             pass
         # replace with authentication logic
         email = request.json.get("email")
-        password = hashlib.md5(request.json.get("password").encode()).hexdigest()
+        password = hashlib.sha256(request.json.get("password").encode()).hexdigest()
 
         if self.service.get_usuario_by_email(email):
             usuario = self.service.get_usuario_by_email(email)

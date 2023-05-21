@@ -3,12 +3,11 @@ import { PartidaData } from "../../datas/PartidaData";
 import { Content, Header } from "antd/es/layout/layout";
 import { useAuth } from "../../autenticacao/context/AuthenticationContext";
 import { useEffect, useState } from "react";
-
+import { UserOutlined } from "@ant-design/icons";
 
 export interface IPartidaListProps {
     partidas?: PartidaData[] | null;
     form: FormInstance<any>;
-
 }
 
 export const PartidaList = (props: IPartidaListProps) => {
@@ -31,52 +30,73 @@ export const PartidaList = (props: IPartidaListProps) => {
     }, [props.partidas]);
 
     if (!partidas)
-        return (
-            <div>Sem partidas</div>
-        )
+        return <div>Sem partidas</div>;
 
     return (
-            <div>
-                <List
-                    dataSource={partidas}
-                    renderItem={(partida: PartidaData) => (
-                        <Row gutter={[12, 12]}  key={partida.id}>
-                            <Col style={{ textAlign: 'center' }} span={24}>
-                                <span>
-                                    <strong>id:</strong> {partida.id}
-                                    <strong>data de inicio:</strong> {partida.data_partida?.toString()}
-                                </span>
-                            </Col>
-                            <Col style={{ textAlign: 'center' }} span={24}>
+        <div>
+            <List
+                dataSource={partidas}
+                renderItem={(partida: PartidaData) => (
+                    <Row gutter={[12, 12]} key={partida.id}>
+                        <Col style={{ textAlign: 'center' }} span={24}>
+                            {/* <Card> */}
+                            <Space wrap>
+                                <div style={{ paddingTop: "15px" }}>
+                                    <strong>ID:</strong> {partida.id}
+                                </div>
+                                {/* <div>
+                                        <strong>Data de Início:</strong> {partida.data_partida?.toString()}
+                                    </div> */}
+                            </Space>
+                            {/* </Card> */}
+                        </Col>
+                        <Col style={{ textAlign: 'center' }} span={24}>
+                            <Card>
                                 <Space wrap>
                                     <Form.Item>
+                                        <UserOutlined style={{ marginRight: "10px" }} />
                                         {partida.inscricao_atleta1.usuario?.nome?.toUpperCase()}
                                     </Form.Item>
                                     <Form.Item
                                         name={['partidas', partida.id, 'pontos_atleta_1']}
-                                        initialValue={partida.pontos_atleta_1}
+                                        // initialValue={partida.pontos_atleta_1}
                                         style={{ padding: '' }}
                                     >
-                                        <InputNumber style={{ padding: '5px', margin: '10px' }} min={0} max={12} size="small" disabled={!identity.isAdmin} />
-
+                                        <InputNumber
+                                            style={{ padding: '5px', margin: '10px' }}
+                                            min={0}
+                                            max={7}
+                                            size="small"
+                                            disabled={!identity.isAdmin}
+                                            defaultValue={partida.pontos_atleta_1}
+                                        />
                                     </Form.Item>
                                     <Form.Item>
                                         <div>x</div>
                                     </Form.Item>
                                     <Form.Item
                                         name={['partidas', partida.id, 'pontos_atleta_2']}
-                                        initialValue={partida.pontos_atleta_2}
+                                    // initialValue={partida.pontos_atleta_2}
+                                    // defaultValue={partida.pontos_atleta_2 ?? 0}
                                     >
-                                        <InputNumber style={{ padding: '5px', margin: '10px' }} min={0} max={12} size="small" disabled={!identity.isAdmin} />
+                                        <InputNumber
+                                            style={{ padding: '5px', margin: '10px' }}
+                                            min={0}
+                                            max={7}
+                                            size="small"
+                                            disabled={!identity.isAdmin}
+                                            defaultValue={partida.pontos_atleta_2}
+                                        />
+                                        <UserOutlined />
                                     </Form.Item>
-                                    <Form.Item>
-                                    {partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}
-                                    </Form.Item>
+
+                                    <Form.Item>{partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}</Form.Item>
                                 </Space>
-                            </Col>
-                        </Row>
-                    )}
-                />
-            </div>
+                            </Card>
+                        </Col>
+                    </Row>
+                )}
+            />
+        </div>
     );
 };

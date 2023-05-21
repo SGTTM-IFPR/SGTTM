@@ -41,21 +41,18 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
     const imageStyle = {
         maxWidth: "300px",
         maxHeight: "100%",
-        height: isHovered ? "0px" : "30%",
-        transform: isHovered ? "scaleY(0)" : "scaleY(1)",
-        transformOrigin: "bottom",
+        height: isHovered ? "30%" : "100%",
         transition: "transform 0.3s ease-in-out, height 0.3s ease-in-out",
     };
 
     const buttonStyle = {
-        transition: "transform 0.3s ease-in-out",
+        // transition: "transform 0.3s ease-in-out",
         backgroundColor: isButtonHovered ? green[7] : green[5],
         color: "white",
-        padding: "10x 16px", // fix padding value here
-        borderRadius: "4px",
-        maxWidth: "100%",
+        // borderRadius: "4px",
+        // maxWidth: "100%",
         ":hover": {
-            transform: "scale(1.5)",
+            // transform: "scale(0.1)",
             backgroundColor: green[10],
         },
         width: "100%",
@@ -70,11 +67,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                     src="src\assets\image-card.jpg"
                     style={{ ...imageStyle }}
                 />
-            </div>
-            }
-
-            actions={
-                isHovered ? [
+                {isHovered && (
                     <Link to={`/torneio/${torneio?.id}`}>
                         <Button
                             type="primary"
@@ -82,16 +75,18 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                             style={{ ...buttonStyle }}
                             onMouseEnter={() => setIsButtonHovered(true)}
                             onMouseLeave={() => setIsButtonHovered(false)}>
-                            <span>Visualizar</span>
+                            <span style={{}}>Visualizar</span>
                         </Button>
-                    </Link>,
-                ]
-                    : undefined}
+                    </Link>
+                )}
+            </div>
+            }
+
             onClick={handleCardClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)} >
             <Meta
-                title={<h2 >{torneio?.nome}</h2>}
+                title={<h2>{torneio?.nome}</h2>}
                 description={torneio?.local}
             />
             {isHovered ? (
@@ -111,7 +106,8 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
                     <p>
                         <b>Tipo do torneio: </b>
                         {torneio.tipo_torneio}
-                    </p> </div>
+                    </p>
+                </div>
             ) : null}
         </Card>
     )

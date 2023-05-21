@@ -11,7 +11,7 @@ class UsuarioCreateController(AbstractUsuarioRestController):
     def post(self):
         '''Criar um novo usuario'''
         user_data = request.json
-        user_data['senha'] = hashlib.md5(user_data['senha'].encode()).hexdigest()
+        user_data['senha'] = hashlib.sha256(request.json.get("senha").encode()).hexdigest()
         user = self.service.create(user_data)
         if isinstance(user, UsuarioModel):
             return user.to_dict(), 201
