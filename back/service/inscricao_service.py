@@ -5,6 +5,7 @@ from model.Enums import EtapaEnum
 from model import InscricaoModel
 from model import PartidaModel
 from repository.inscricao_repository import InscricaoRepository
+from repository.partida_repository import PartidaRepository
 from service.generic_service import GenericService
 from service.service_tabela_grupo import *
 from service.service_distribuir_jogadores import *
@@ -12,14 +13,21 @@ from service.service_distribuir_jogadores import *
 class InscricaoService(GenericService[InscricaoModel]):
 
     @inject
-    def __init__(self, repository: InscricaoRepository):
+    def __init__(self, repository: InscricaoRepository, partida_repository: PartidaRepository):
         super().__init__(repository)
+        self.partida_repository = partida_repository
 
     def get_by_torneio_id(self, id) -> List[InscricaoModel]:
         return self.repository.get_by_torneio_id(id)
 
     def get_by_grupo_id(self, id) -> List[InscricaoModel]:
-        return self.repository.get_by_grupo_id(id)
+        inscricoes: List[InscricaoModel] = self.repository.get_by_grupo_id(id)
+        for inscricao in inscricoes:
+            self.add_atributes_inscricao(inscricao)
+
+        inscricoes_sorted_by_vitorias = sorted(inscricoes, key=lambda x: x.vitorias, reverse=True)
+
+        return inscricoes_sorted_by_vitorias
 
     def montar_grupo_do_torneio(self, id, formato, quantidade_classificados):
         '''Listar todas as inscrições com o ID do torneio passado'''
@@ -124,3 +132,11 @@ class InscricaoService(GenericService[InscricaoModel]):
             return inscricoes, 200
         except:
             return {'message': 'Limite máximo de inscritos - 80'}, 500
+
+    def add_atributes_inscricao(self, inscricao: InscricaoModel):
+        if not inscricao:
+            return
+        inscricao.partidas_jogadas = len(self.partida_repository.get_partidas_jogadas(inscricao.id))
+        inscricao.vitorias = len(self.partida_repository.get_vitorias(inscricao.id))
+        inscricao.derrotas = inscricao.partidas_jogadas - inscricao.vitorias
+        print(inscricao.usuario_id, inscricao.partidas_jogadas, 'vencidas', inscricao.vitorias, inscricao.derrotas)

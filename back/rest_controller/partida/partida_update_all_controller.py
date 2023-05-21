@@ -2,6 +2,7 @@ import json
 
 from flask import request, Response, jsonify
 
+from model import PartidaModel
 from .partida_namespace import partida_namespace as api
 from .abstract_partida_rest_controller import AbstractPartidaRestController
 from ..auth_decorator import token_required
@@ -13,10 +14,19 @@ class PartidaUpdateAllController(AbstractPartidaRestController):
     def put(self):
         '''Atualizar partidas lista'''
         partidas_data = request.json
-        if (not partidas_data):
-            response = {"message": "sem partidas para atualizar"}
+
+        if not isinstance(partidas_data, list):
+            response = {"message": "dados de partida inválidos"}
             return Response(json.dumps(response), 400, mimetype="application/json")
-        updated_partidas = self.service.update_all(partidas_data)
+
+        # Convert JSON data to PartidaModel instances
+        partidas = []
+        for partida_data in partidas_data:
+            print(partida_data)
+            partida = PartidaModel(**partida_data)
+            partidas.append(partida)
+
+        updated_partidas = self.service.update_all(partidas)
         updated_partidas_dicts = [partida.to_dict() for partida in updated_partidas]
-        print(updated_partidas_dicts)
+
         return Response(json.dumps(updated_partidas_dicts), status=200, mimetype="application/json")

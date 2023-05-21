@@ -15,26 +15,40 @@ class PartidaService(GenericService[PartidaModel]):
         return self.repository.get_by_grupo_id(grupo_id)
 
     def update_all(self, partidas):
-        if not partidas:
-            return []
-
         updated_partidas = []
-        print(partidas)
+
         for partida in partidas:
-            partida_id = partida.get('id')
-            pontos_atleta_1 = partida.get('pontos_atleta_1')
-            if pontos_atleta_1 is None:
-                pontos_atleta_1 = 0
-            pontos_atleta_2 = partida.get('pontos_atleta_2')
-            if pontos_atleta_2 is None:
-                pontos_atleta_2 = 0
-            print('atleta1',pontos_atleta_1)
-            print('atleta2',pontos_atleta_2)
-            if partida_id is not None:
-                updated_partida = self.repository.update(
-                    partida_id,
-                    {'pontos_atleta_1': pontos_atleta_1,
-                     'pontos_atleta_2': pontos_atleta_2})
-                updated_partidas.append(updated_partida)
+            partida_id = partida.id
+            pontos_atleta_1 = partida.pontos_atleta_1
+            pontos_atleta_2 = partida.pontos_atleta_2
+
+            if partida_id is None or (pontos_atleta_1 is None and pontos_atleta_2 is None):
+                continue
+
+            update_data = {}
+            if pontos_atleta_1 is not None:
+                update_data['pontos_atleta_1'] = pontos_atleta_1
+            if pontos_atleta_2 is not None:
+                update_data['pontos_atleta_2'] = pontos_atleta_2
+
+            if pontos_atleta_1 > pontos_atleta_2:
+                update_data['vencedor_id'] = partida.inscricao_atleta1_id
+            elif pontos_atleta_1 < pontos_atleta_2:
+                update_data['vencedor_id'] = partida.inscricao_atleta2_id
+
+            updated_partida: PartidaModel = self.repository.update(partida_id, update_data)
+
+            updated_partidas.append(updated_partida)
 
         return updated_partidas
+
+    @staticmethod
+    def determine_winner(partida, update_data):
+        if not partida or partida.pontos_atleta_1 is None or partida.pontos_atleta_2 is None:
+            return
+
+        if partida.pontos_atleta_1 > partida.pontos_atleta_2:
+            update_data['vencedor_id'] = partida.inscricao_atleta1_id
+        elif partida.pontos_atleta_1 < partida.pontos_atleta_2:
+            update_data['vencedor_id'] = partida.inscricao_atleta2_id
+        print(update_data['vencedor_id'])

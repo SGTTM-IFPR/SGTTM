@@ -10,9 +10,12 @@ import {
 const { Sider } = Layout;
 import type { MenuProps } from 'antd';
 import { AutheticationContext, useAuth } from "../autenticacao/context/AuthenticationContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
-export const AppSidebar = () => {
+export interface IAppSidebarProps {
+  collapsed: boolean;
+}
+export const AppSidebar = ( { collapsed }: IAppSidebarProps ) => {
 
   const { identity } = useAuth();
   type MenuItem = Required<MenuProps>['items'][number];
@@ -47,7 +50,7 @@ export const AppSidebar = () => {
   }
 
   return (
-    <Sider width={200} collapsible >
+    <Sider trigger={null} width={200} collapsedWidth={0} collapsible collapsed={collapsed} >
       <div className="logo" />
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
     </Sider>

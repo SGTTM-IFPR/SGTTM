@@ -6,6 +6,7 @@ export class InscricaoData {
     usuario?: UsuarioData;
     torneio_id?: number;
     condicao?: string;
-    // vitorias: number = 0;
-    // derrotas: number = 0;
+    partidas_jogadas: number = 0;
+    vitorias: number = 0;
+    derrotas: number = 0;
 }

@@ -28,7 +28,7 @@ export const GrupoCard = ({ grupo }: IGrupoCardProps) => {
             <div>t</div>
         )
     return (
-        <Card title={<div>{grupo.nome}</div>}>
+        <Card style={{ width: '100%'}} title={<div>{grupo.nome}</div>}>
             <div>
                 <InscricaoPointsTable inscricoes={inscricoes} />
             </div>

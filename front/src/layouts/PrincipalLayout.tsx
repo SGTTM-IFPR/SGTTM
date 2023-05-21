@@ -2,8 +2,8 @@ import { Button, Col, Layout, Popconfirm, Row } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import { AppSidebar } from "../paginas/AppSidebar";
 import { Outlet } from "react-router";
-import { useContext } from "react";
-import { LogoutOutlined } from "@ant-design/icons";
+import { useContext, useState } from "react";
+import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { VerificarNomeUsuario } from "../componentes/autenticacao/VerificarNomeUsuario";
 import { AutheticationContext } from "../autenticacao/context/AuthenticationContext";
 
@@ -11,9 +11,10 @@ export const MainLayout = () => {
 
   const { logout } = useContext(AutheticationContext);
   const { identity } = useContext(AutheticationContext);
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <AppSidebar />
+    <Layout style={{ minHeight: "100vh" }} >
+      <AppSidebar collapsed={ collapsed } />
       <Layout>
         <Header
           style={{ background: "#4fdf29", position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', height: '50px', paddingInline: '10px' }}
@@ -26,7 +27,11 @@ export const MainLayout = () => {
               lineHeight: "10px", // Vertically center the text
             }}>
             <Col>
-              {/* <h2 style={{ color: "white", margin: 0 }}>Your Title</h2> */}
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+              />
             </Col>
             <Col>
               {/* <Button size="small" style={{ marginRight: 10, fontSize: '11px' }}>

@@ -5,7 +5,7 @@ import { UsuarioData } from "../../datas/UsuarioData";
 import { BotaoExcluirInscricao } from "./BotaoExcluirInscricao";
 import { AlignType } from 'rc-table/lib/interface'
 import { useEffect } from "react";
-
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 interface IInscricaoPointsTableProps {
     inscricoes?: InscricaoData[] | null;
@@ -16,8 +16,8 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
         if(!inscricoes)
          return;
          inscricoes.forEach(inscricao => {
-            inscricao.vitorias = 0;
-            inscricao.derrotas = 0;
+             if(inscricao?.vitorias ?? 0 > 0)
+                console.log(inscricao)
          })
     }, [inscricoes])
 
@@ -34,12 +34,25 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
         { title: 'Numero de inscrição', dataIndex: 'id', key: 'id', align: 'center' as AlignType },
         { title: 'Nome', dataIndex: 'usuario', key: 'usuario', render: renderNome },
         { title: 'Condição', dataIndex: 'condicao', key: 'condicao' },
-        { title: 'Vitorias', dataIndex: 'vitorias', align: 'center' as AlignType},
-        { title: 'Derrotas', dataIndex: 'derrotas', align: 'center' as AlignType},
+        { title: 'jogadas', dataIndex: 'partidas_jogadas', key: 'partidas_jogadas', align: 'center' as AlignType },
+        { title:  (
+            <span style={{ color: "green" }}>
+              <CheckCircleOutlined /> Vitorias
+            </span>
+          ), dataIndex: 'vitorias', align: 'center' as AlignType},
+        { title: (
+            <span style={{ color: "red" }}>
+              <CloseCircleOutlined /> Derrotas
+            </span>
+          ), dataIndex: 'derrotas', align: 'center' as AlignType},
     ];
 
     return (
-        <Table dataSource={inscricoes} columns={columns} rowKey="id" pagination={false} >
+        <Table
+            dataSource={inscricoes}
+            columns={columns}
+            rowKey="id"
+            pagination={false}>
         </Table>
     )
 } 

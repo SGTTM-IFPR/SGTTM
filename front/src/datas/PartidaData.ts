@@ -10,4 +10,5 @@ export interface PartidaData {
   inscricao_atleta2: InscricaoData;
   pontos_atleta_1: number ;
   pontos_atleta_2: number ;
+  vendedor: InscricaoData;
 }

@@ -3,20 +3,19 @@ import { getTorneioById } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
-import { useState, useEffect, useContext } from 'react';
-import { Row, Descriptions } from 'antd';
-import { format } from 'date-fns';
+import { useState, useEffect } from 'react';
+import { Descriptions } from 'antd';
 import { InscricaoData } from '../../datas/InscricaoData';
 import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
 import { Collapse } from 'antd';
-import { Divider, Steps } from 'antd';
+import { Steps } from 'antd';
 import { BotaoCriarInscricao } from '../../componentes/inscricao/BotaoCriarInscricao';
 import { BotaoCriarGrupo } from '../../componentes/grupo/BotaoCriarGrupo';
 import { FaseGrupo } from '../../componentes/fase/FaseGrupo';
 import { GrupoData } from '../../datas/GrupoData';
 import { DataFormatada } from '../../componentes/data/FormatarData';
 import { VerificarIdUsuario } from '../../componentes/autenticacao/VerificarIdUsuario';
-import { AutheticationContext, useAuth } from '../../autenticacao/context/AuthenticationContext';
+import { useAuth } from '../../autenticacao/context/AuthenticationContext';
 import { BotaoSelecionarUsuario } from '../../componentes/inscricao/BotaoSelecionarUsuario';
 
 const { Panel } = Collapse;
@@ -49,7 +48,6 @@ export const TorneioPage = () => {
         let timeExpirated: ITimeExpirated = {};
         if (!torneio?.data_inicio)
             return timeExpirated;
-        let year = new Date().getFullYear();
         const tournamentStartDate = new Date(torneio.data_inicio);
         const timeDifferenceInMilliseconds = tournamentStartDate.getTime() - new Date().getTime();
         timeExpirated = {
@@ -160,11 +158,6 @@ export const TorneioPage = () => {
             description,
             content: <div style={{ height: '700px', backgroundColor: 'green', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white', borderRadius: "15px", margin: "10px" }}>Fazer um componente para Eliminatórias</div>
         },
-        // {
-        //     title: 'Terceiro Lugar',
-        //     description,
-        //     content: <div style={{ height: '700px', backgroundColor: '#f5ff3b', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Fazer um componente para disputa de terceiro lugar</div>
-        // },
     ];
     {
         if (usuarioEncontrado || torneio.status !== "Aberto") {

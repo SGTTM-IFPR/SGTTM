@@ -4,11 +4,12 @@ from functools import wraps
 from flask_restx import abort
 from extension.security import SECRET_KEY
 
+
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
-        print(request.headers)
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
 

@@ -57,9 +57,9 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
     return (
         <>
             <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
-                <Row gutter={[2, 2]}>
+                <Row gutter={[24, 0]} style={{ width: '100%'}}>
                     {grupos.map((grupo: GrupoData) => (
-                        <Col style={{ width: "48%", paddingTop: '10px' }} span={24} key={grupo.id}>
+                        <Col style={{ width: "100%", paddingTop: '10px' }} span={12} key={grupo.id}>
 
                             <a onClick={() => showDrawer(grupo.id)} >
                                 <GrupoCard key={grupo.id} grupo={grupo} />
