@@ -135,8 +135,8 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorne
                         optionFilterProp="children"
 
                     >
-                        {results.map((result) => (
-                            <Option key={result} value={result}>
+                        {results.map((result, index) => (
+                            <Option key={index} value={result}>
                                 {result}
                             </Option>
                         ))}

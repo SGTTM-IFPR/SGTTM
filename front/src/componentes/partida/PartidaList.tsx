@@ -59,7 +59,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                     </Form.Item>
                                     <Form.Item
                                         name={['partidas', partida.id, 'pontos_atleta_1']}
-                                        // initialValue={partida.pontos_atleta_1}
+                                        initialValue={partida.pontos_atleta_1}
                                         style={{ padding: '' }}
                                     >
                                         <InputNumber
@@ -68,7 +68,6 @@ export const PartidaList = (props: IPartidaListProps) => {
                                             max={7}
                                             size="small"
                                             disabled={!identity.isAdmin}
-                                            defaultValue={partida.pontos_atleta_1}
                                         />
                                     </Form.Item>
                                     <Form.Item>
@@ -76,8 +75,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                     </Form.Item>
                                     <Form.Item
                                         name={['partidas', partida.id, 'pontos_atleta_2']}
-                                    // initialValue={partida.pontos_atleta_2}
-                                    // defaultValue={partida.pontos_atleta_2 ?? 0}
+                                        initialValue={partida.pontos_atleta_2}
                                     >
                                         <InputNumber
                                             style={{ padding: '5px', margin: '10px' }}

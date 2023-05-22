@@ -135,7 +135,6 @@ export const TorneioPage = () => {
     if (inscricoes !== null) {
         const encontrar = inscricoes!.some((item) => {
             if (item.usuario?.id === usuario_id) {
-                console.log(item.usuario);
                 return true;
             }
             return false;
@@ -161,9 +160,6 @@ export const TorneioPage = () => {
     ];
     {
         if (usuarioEncontrado || torneio.status !== "Aberto") {
-            console.log("entrou");
-            console.log(usuarioEncontrado);
-            console.log(torneio.status);
             visibleButtonInscricao = false;
         }
         if (torneio.status !== "Aberto") {

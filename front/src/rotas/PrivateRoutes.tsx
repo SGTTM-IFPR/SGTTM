@@ -8,7 +8,6 @@ interface PrivateRoutesProps {
 
 export const PrivateRoutes = ({ children }: PrivateRoutesProps) => {
   const { identity } = useAuth();
-  console.log(identity)
   return (
     <>
       {identity.isLoggedIn ? children : <Navigate to="/login" /> }

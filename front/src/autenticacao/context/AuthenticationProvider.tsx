@@ -25,8 +25,6 @@ export const AuthenticationProvider = ({ children }: AutheticationProviderProps)
       if (!token)
         return {} as Identity;
       const decodedToken: DecodedToken = jwt_decode(token);
-      console.log(decodedToken)
-      console.log(token)
       return {
         isLoggedIn: true,
         id: decodedToken.id,
@@ -49,10 +47,8 @@ export const AuthenticationProvider = ({ children }: AutheticationProviderProps)
         const response = await loginService(email, password);
         if (response.status === 200) {
           const identityJwt = getIdentity(response.data.token);
-          console.log(identityJwt)
           setIdentity(identityJwt);
           window.localStorage.setItem(TOKEN, response.data.token);
-          console.log(identity)
         }
         navigate('/home');
         return true;

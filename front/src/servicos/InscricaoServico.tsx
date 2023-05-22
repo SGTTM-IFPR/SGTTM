@@ -72,7 +72,6 @@ export const getInscricaoByGrupoId = async (id: number): Promise<InscricaoData[]
     const baseURL = "http://localhost:5000/";
     const endpoint = `inscricao/find-by-grupo/${id}`;
     const response = await axios.get<InscricaoData[]>(`${baseURL}/${endpoint}`);
-    console.log(response.data)
     return response.data;
 }
 

@@ -28,7 +28,8 @@ class PartidaService(GenericService[PartidaModel]):
             if pontos_atleta_2 is None:
                 pontos_atleta_2 = 0
 
-            if partida_id is None or (pontos_atleta_1 is None and pontos_atleta_2 is None):
+            if partida_id is None or pontos_atleta_1 is None or pontos_atleta_2 is None:
+                print('Entrou aqui')
                 continue
 
             update_data = {}

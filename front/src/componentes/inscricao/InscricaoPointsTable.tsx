@@ -15,10 +15,6 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
     useEffect(() => {
         if(!inscricoes)
          return;
-         inscricoes.forEach(inscricao => {
-             if(inscricao?.vitorias ?? 0 > 0)
-                console.log(inscricao)
-         })
     }, [inscricoes])
 
     if (!inscricoes || inscricoes.length === 0)

@@ -12,6 +12,10 @@ class UsuarioService(GenericService[UsuarioModel]):
         super().__init__(repository)
 
     def get_usuario_by_email(self, usuario_email):
+        """
+
+        :rtype: object
+        """
         usuario = self.repository.get_usuario_by_email(usuario_email)
         return usuario
 

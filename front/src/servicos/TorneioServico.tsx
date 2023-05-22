@@ -20,7 +20,6 @@ axios.interceptors.request.use(
 )
 
 export const createTournament = async (tournamentData: TorneioData): Promise<TorneioData> => {
-  console.log(tournamentData);
   const endpoint = "torneio/create";
   const response = await axios.post<any>(
     `${baseURL}/${endpoint}`,
