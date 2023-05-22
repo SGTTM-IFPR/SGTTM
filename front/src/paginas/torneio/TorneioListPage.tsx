@@ -72,7 +72,7 @@ export const TorneioListPage = () => {
             </Header>
             <Content>
                 <Table dataSource={data} size="small">
-                    <Column align="center" title="ID" dataIndex="id" key="id" />
+                    {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
 
                     <Column title="Nome" dataIndex="nome" key="nome" />
 

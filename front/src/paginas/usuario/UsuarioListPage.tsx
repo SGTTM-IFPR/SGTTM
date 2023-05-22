@@ -65,7 +65,7 @@ export const UsuarioListPage = () => {
       </Header>
       <Content>
         <Table dataSource={data} size="small">
-          <Column align="center" title="ID" dataIndex="id" key="id" />
+          {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
           <Column align="center" title="CPF" dataIndex="cpf" key="cpf" />
           <Column title="Nome" dataIndex="nome" key="nome" />
           <Column title="E-mail" dataIndex="email" key="email" />

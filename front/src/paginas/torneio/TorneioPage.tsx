@@ -174,7 +174,15 @@ export const TorneioPage = () => {
         <div >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
-
+                <div>
+                    {identity.isAdmin &&
+                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
+                    }
+                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                    {identity.isAdmin &&
+                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
+                    }
+                </div>
                 {/* <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
                 </div> */}
@@ -188,15 +196,6 @@ export const TorneioPage = () => {
                     <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                     <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
                 </Descriptions>
-                <div style={{ display: "flex" }}>
-                    {identity.isAdmin &&
-                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
-                    }
-                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
-                    {identity.isAdmin &&
-                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
-                    }
-                </div>
 
             </div>
             <div style={{ marginTop: '20px' }}>
