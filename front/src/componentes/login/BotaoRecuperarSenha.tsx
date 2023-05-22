@@ -28,11 +28,12 @@ export const BotaoRecuperarSenha = () => {
         setIsLoading(true);
         try {
             const usuario = await getUserByCpf(cpf);
-            if (!usuario || usuario.email !== email || usuario.data_de_nascimento !== data_de_nascimento) {
+            if (!usuario || (usuario as any).email !== email || (usuario as any).data_de_nascimento !== data_de_nascimento) {
                 message.error('Dados incorretos!');
                 setIsLoading(false);
                 return;
             }
+
             const response = await recuperar_senha(email);
             handleCancel();
             message.success('E-mail enviado com sucesso!');
