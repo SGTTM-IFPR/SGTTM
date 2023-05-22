@@ -4,6 +4,7 @@ import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponente } from './LoginComponente';
 import { BotaoCriarUsuario } from '../../componentes/usuario/BotaoCriarUsuario';
 import { UsuarioData } from '../../datas/UsuarioData';
+import { BotaoRecuperarSenha } from '../../componentes/login/BotaoRecuperarSenha';
 
 export const LoginPagina = () => {
     const [data, setData] = useState<UsuarioData[]>([]);

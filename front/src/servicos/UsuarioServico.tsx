@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UsuarioData } from "../datas/UsuarioData";
+import { get } from "react-hook-form";
 
 
 axios.interceptors.request.use(
@@ -47,6 +48,13 @@ export const getUserById = async (id: number): Promise<UsuarioData> => {
   return response.data[0];
 };
 
+export const getUserByCpf = async (cpf: string): Promise<UsuarioData[]> => {
+  const baseURL = "http://localhost:5000/";
+  const endpoint = `usuario/find-by-cpf/${cpf}`;
+  const response = await callApi(baseURL, endpoint);
+  return response.data;
+};
+
 export const updateUser = async (
   id: number,
   userData: UsuarioData
@@ -84,6 +92,6 @@ export const buscarIdPorNome = async (nome: string): Promise<number> => {
 export const recuperar_senha = async (email: string): Promise<string> => {
   const baseURL = "http://localhost:5000/";
   const endpoint = `usuario/recuperar-senha/${email}`;
-  const response = await axios.get(`${baseURL}/${endpoint}`);
+  const response = await axios.post(`${baseURL}/${endpoint}`);
   return response.data;
 }

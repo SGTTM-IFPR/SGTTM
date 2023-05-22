@@ -15,3 +15,7 @@ class UsuarioRepository(GenericRepository):
 
     def get_by_nome(self, nome):
         return UsuarioModel.query.filter_by(nome=nome).first()
+    
+    def update_usuario_by_email(self, usuario_email, usuario):
+        usuario = UsuarioModel.query.filter_by(email=usuario_email).update(usuario)
+        return usuario

@@ -21,6 +21,12 @@ class PartidaService(GenericService[PartidaModel]):
             partida_id = partida.id
             pontos_atleta_1 = partida.pontos_atleta_1
             pontos_atleta_2 = partida.pontos_atleta_2
+            
+            if pontos_atleta_1 is None:
+                pontos_atleta_1 = 0
+                
+            if pontos_atleta_2 is None:
+                pontos_atleta_2 = 0
 
             if partida_id is None or (pontos_atleta_1 is None and pontos_atleta_2 is None):
                 continue

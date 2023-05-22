@@ -22,5 +22,9 @@ class UsuarioService(GenericService[UsuarioModel]):
     def get_by_nome(self, nome):
         usuario = self.repository.get_by_nome(nome)
         return usuario
+    
+    def update_usuario_by_email(self, usuario_email, usuario):
+        usuario = self.repository.update_usuario_by_email(usuario_email, usuario)
+        return usuario
 
 
