@@ -21,16 +21,16 @@ class PartidaService(GenericService[PartidaModel]):
             partida_id = partida.id
             pontos_atleta_1 = partida.pontos_atleta_1
             pontos_atleta_2 = partida.pontos_atleta_2
-            
+
+            if partida_id is None:
+                print('Entrou aqui')
+                continue
+
             if pontos_atleta_1 is None:
                 pontos_atleta_1 = 0
                 
             if pontos_atleta_2 is None:
                 pontos_atleta_2 = 0
-
-            if partida_id is None or pontos_atleta_1 is None or pontos_atleta_2 is None:
-                print('Entrou aqui')
-                continue
 
             update_data = {}
             if pontos_atleta_1 is not None:
@@ -42,7 +42,7 @@ class PartidaService(GenericService[PartidaModel]):
                 update_data['vencedor_id'] = partida.inscricao_atleta1_id
             elif pontos_atleta_1 < pontos_atleta_2:
                 update_data['vencedor_id'] = partida.inscricao_atleta2_id
-
+            print(update_data)
             updated_partida: PartidaModel = self.repository.update(partida_id, update_data)
 
             updated_partidas.append(updated_partida)

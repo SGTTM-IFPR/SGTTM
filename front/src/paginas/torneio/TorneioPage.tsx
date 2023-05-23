@@ -4,7 +4,7 @@ import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
 import { useState, useEffect } from 'react';
-import { Descriptions } from 'antd';
+import { Button, Col, Descriptions, Layout, Row } from 'antd';
 import { InscricaoData } from '../../datas/InscricaoData';
 import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
 import { Collapse } from 'antd';
@@ -17,6 +17,9 @@ import { DataFormatada } from '../../componentes/data/FormatarData';
 import { VerificarIdUsuario } from '../../componentes/autenticacao/VerificarIdUsuario';
 import { useAuth } from '../../autenticacao/context/AuthenticationContext';
 import { BotaoSelecionarUsuario } from '../../componentes/inscricao/BotaoSelecionarUsuario';
+import { Content, Header } from 'antd/es/layout/layout';
+import './TorneioPage.css'
+import { StepForwardOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -167,55 +170,73 @@ export const TorneioPage = () => {
         }
     }
     return (
-        <div >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
-                <h1 style={{ margin: 0 }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
-                <div>
+        <Layout >
+            <Header style={{ paddingInline: '10px', backgroundColor: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
+                <h1 style={{ margin: 0, color: 'white' }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
+                <Row gutter={18}>
+                    <Col>
                     {identity.isAdmin &&
                         <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
                     }
+                    </Col>
+                    <Col>
                     <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                    </Col>
+                    <Col>
                     {identity.isAdmin &&
                         <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
                     }
-                </div>
+                    </Col>
+                    <Col>
+                        <Button size='middle'
+                            type="default"
+                            className="hover-effect" >
+                                <span>Proxima fase</span>
+                                <StepForwardOutlined />
+                                </Button>
+                    </Col>
+                </Row>
                 {/* <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
                 </div> */}
-            </div>
-            <div style={{ marginTop: '20px' }}>
-                <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >
-                    <Descriptions.Item label="Data inicial"><DataFormatada data={torneio?.data_inicio?.toString()!} /></Descriptions.Item>
-                    <Descriptions.Item label="Data final"><DataFormatada data={torneio?.data_final?.toString()!} /></Descriptions.Item>
-                </Descriptions>
-                <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
-                    <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
-                    <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
-                </Descriptions>
+            </Header>
+            <Content style={{ paddingInline: '10px'}}>
+                <div style={{ marginTop: '20px' }}>
+                    <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >
+                        <Descriptions.Item label="Data inicial"><DataFormatada data={torneio?.data_inicio?.toString()!} /></Descriptions.Item>
+                        <Descriptions.Item label="Data final"><DataFormatada data={torneio?.data_final?.toString()!} /></Descriptions.Item>
+                    </Descriptions>
+                    <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
+                        <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
+                        <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
+                    </Descriptions>
 
-            </div>
-            <div style={{ marginTop: '20px' }}>
-                <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
-                    <Panel header={<span >Inscritos ({inscricoes?.length})</span>} key="1" style={{ color: 'white' }}>
-                        <div style={{ width: '80%', margin: '0 auto' }}>
-                            {<InscricaoTable inscricoes={inscricoes} />}
-                        </div>
-                    </Panel>
-                </Collapse>
-                <div style={{ justifyContent: 'center', width: '100%', textAlign: 'center' }}>
-                    <h2>Fases</h2>
                 </div>
+                <div style={{ marginTop: '20px' }}>
+                    <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
+                        <Panel header={<span >Inscritos ({inscricoes?.length})</span>} key="1" style={{ color: 'white' }}>
+                            <div style={{ width: '80%', margin: '0 auto' }}>
+                                {<InscricaoTable inscricoes={inscricoes} />}
+                            </div>
+                        </Panel>
+                    </Collapse>
+                    <div style={{ justifyContent: 'center', width: '100%', textAlign: 'center' }}>
+                        <h2>Fases</h2>
+                    </div>
 
-            </div>
-
-            <Steps
-                current={current}
-                onChange={onChange}
-                items={fases}
-            />
-            <div>
-                {fases[current].content}
-            </div>
-        </div >
+                </div>
+                <div style={{alignItems: 'center', justifyContent:  'center', display: 'flex' }}>
+                    <Steps
+                        style={{ width: '80%', colorScheme: 'red' }}
+                        current={current}
+                        onChange={onChange}
+                        items={fases}
+                    />
+                </div>
+                <div style={{ margin: '10px' }}>
+                    {fases[current].content}
+                </div>
+            </Content>
+        </Layout >
     );
 };

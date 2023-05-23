@@ -1,0 +1,12 @@
+.hover-effect:hover {
+    background: #3ad2d0 !important;  
+    transition: background .2s linear;
+    transition-delay: .5s;
+    
+}
+
+.hover-effect:hover:after {
+      border-radius: 0 0 50% 50% ;
+      transform: translateY(-100%) scaleY(.5);
+      transition-delay: 0;
+}

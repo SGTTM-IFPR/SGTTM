@@ -14,8 +14,6 @@ class PartidaRepository(GenericRepository):
     def get_partidas_jogadas(self, jogador_id) -> List[PartidaModel]:
         return self.model.query.filter(
             ((self.model.inscricao_atleta1_id == jogador_id) | (self.model.inscricao_atleta2_id == jogador_id))
-            & (self.model.pontos_atleta_1 != 0)
-            & (self.model.pontos_atleta_2 != 0)
         ).all()
 
     def get_vitorias(self, jogador_id) -> List[PartidaModel]:

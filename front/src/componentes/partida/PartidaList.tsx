@@ -65,7 +65,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         <InputNumber
                                             style={{ padding: '5px', margin: '10px' }}
                                             min={0}
-                                            max={7}
+                                            max={3}
                                             size="small"
                                             disabled={!identity.isAdmin}
                                         />
@@ -80,17 +80,21 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         <InputNumber
                                             style={{ padding: '5px', margin: '10px' }}
                                             min={0}
-                                            max={7}
+                                            max={3}
                                             size="small"
                                             disabled={!identity.isAdmin}
-                                            defaultValue={partida.pontos_atleta_2}
                                         />
-                                        <UserOutlined />
                                     </Form.Item>
-
-                                    <Form.Item>{partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}</Form.Item>
+                                    <Form.Item>
+                                    {partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}
+                                    <UserOutlined style={{ marginLeft: "10px" }} />
+                                    </Form.Item>
                                 </Space>
                             </Card>
+                        </Col>
+                        <Col>
+                                    {partida.pontos_atleta_1}
+                                    {partida.pontos_atleta_2}
                         </Col>
                     </Row>
                 )}

@@ -68,8 +68,8 @@ export const MainLayout = () => {
             </Col>
           </Row>
         </Header>
-        <Content style={{ margin: "0 16px" }}>
-          <main style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+        <Content style={{ margin: " 0px 0px" }}>
+          <main style={{ background: "#fff", minHeight: 360 }}>
             <Outlet />
           </main>
         </Content>

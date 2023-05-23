@@ -44,6 +44,7 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
                 ...values.partidas[partida.id]
             };
         });
+        console.log(newPartidas)
         await updateAllPartidas(newPartidas).then((partidasData) => setPartidas(partidasData))
         .finally(() => setOpen(false));
     }
@@ -56,7 +57,7 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
 
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", marginTop: "20px", margin: '20px 20px' }}>
                 <Row gutter={[24, 0]} style={{ width: '100%'}}>
                     {grupos.map((grupo: GrupoData) => (
                         <Col style={{ width: "100%", paddingTop: '10px' }} span={12} key={grupo.id}>
