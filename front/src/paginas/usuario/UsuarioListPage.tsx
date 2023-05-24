@@ -67,8 +67,8 @@ export const UsuarioListPage = () => {
         <Table dataSource={data} size="small">
           {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
           <Column align="center" title="CPF" dataIndex="cpf" key="cpf" />
-          <Column title="Nome" dataIndex="nome" key="nome" />
-          <Column title="E-mail" dataIndex="email" key="email" />
+          <Column align="center" title="Nome" dataIndex="nome" key="nome" />
+          <Column align="center" title="E-mail" dataIndex="email" key="email" />
           <Column
             align="center"
             title="Data de Nascimento"
@@ -90,9 +90,9 @@ export const UsuarioListPage = () => {
             key="atleta"
             render={(text, record) => <span>{text ? "Sim" : "Não"}</span>}
           />
-          <Column title="Clube" dataIndex="clube" key="clube" />
-          <Column title="Federação" dataIndex="federacao" key="federacao" />
-          <Column title="Sexo" dataIndex="sexo" key="sexo" />
+          <Column align="center" title="Clube" dataIndex="clube" key="clube" />
+          <Column align="center" title="Federação" dataIndex="federacao" key="federacao" />
+          <Column align="center" title="Sexo" dataIndex="sexo" key="sexo" />
           <Column
             align="center"
             title="Ações"

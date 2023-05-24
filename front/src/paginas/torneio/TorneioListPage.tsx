@@ -74,7 +74,7 @@ export const TorneioListPage = () => {
                 <Table dataSource={data} size="small">
                     {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
 
-                    <Column title="Nome" dataIndex="nome" key="nome" />
+                    <Column align="center" title="Nome" dataIndex="nome" key="nome" />
 
                     <Column
                         align="center"
@@ -92,11 +92,11 @@ export const TorneioListPage = () => {
                         render={(text) => moment(text).format('DD/MM/YYYY')}
                     />
 
-                    <Column title="Local" dataIndex="local" key="local" />
+                    <Column align="center" title="Local" dataIndex="local" key="local" />
 
-                    <Column title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
+                    <Column align="center" title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
-                    <Column title="Status" dataIndex="status" key="status" />
+                    <Column align="center" title="Status" dataIndex="status" key="status" />
 
                     <Column
                         align="center"
