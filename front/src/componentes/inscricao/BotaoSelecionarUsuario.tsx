@@ -83,7 +83,10 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorne
 
     if (!visibleButton) {
         return (
-            <Button disabled>
+            <Button size='middle'
+            type="primary"
+            style={{ background: "red", color: "white", fontWeight: "bold" }}
+            disabled>
                 Incluir usuários indisponível
             </Button>
         );
