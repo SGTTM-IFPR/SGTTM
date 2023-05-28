@@ -2,19 +2,43 @@ import { Button, Col, Layout, Popconfirm, Row } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 import { AppSidebar } from "../paginas/AppSidebar";
 import { Outlet } from "react-router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { VerificarNomeUsuario } from "../componentes/autenticacao/VerificarNomeUsuario";
 import { AutheticationContext } from "../autenticacao/context/AuthenticationContext";
+import { BotaoEditarUsuario } from "../componentes/usuario/BotaoEditarUsuario";
+import { UsuarioData } from "../datas/UsuarioData";
+import { getUserById } from "../servicos/UsuarioServico";
+import { record } from "zod";
+import { BotaoEditarUsuarioLogado } from "../componentes/usuario/BotaoEditarUsuarioLogado";
 
 export const MainLayout = () => {
 
   const { logout } = useContext(AutheticationContext);
   const { identity } = useContext(AutheticationContext);
   const [collapsed, setCollapsed] = useState(false);
+  const [data, setData] = useState([new UsuarioData()]);
+  const [data2, setData2] = useState(new UsuarioData());
+
+  // const [user, setUser] = useState<UsuarioData>();
+
+  const getResults = async () => {
+    const userData = await getUserById(identity.id);
+    setData(userData);
+    setData2(userData as UsuarioData);
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      getResults();
+    };
+    fetchData();
+  }, []);
+
   return (
     <Layout style={{ minHeight: "100vh" }} >
-      <AppSidebar collapsed={ collapsed } />
+      <AppSidebar collapsed={collapsed} />
       <Layout>
         <Header
           style={{ background: "#4fdf29", position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', height: '50px', paddingInline: '10px' }}
@@ -32,6 +56,7 @@ export const MainLayout = () => {
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => setCollapsed(!collapsed)}
               />
+              <BotaoEditarUsuarioLogado setData={setData} userUpdate={data2} />
             </Col>
             <Col>
               {/* <Button size="small" style={{ marginRight: 10, fontSize: '11px' }}>

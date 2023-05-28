@@ -15,7 +15,7 @@ import { useContext, useState } from "react";
 export interface IAppSidebarProps {
   collapsed: boolean;
 }
-export const AppSidebar = ( { collapsed }: IAppSidebarProps ) => {
+export const AppSidebar = ({ collapsed }: IAppSidebarProps) => {
 
   const { identity } = useAuth();
   type MenuItem = Required<MenuProps>['items'][number];
@@ -38,7 +38,7 @@ export const AppSidebar = ( { collapsed }: IAppSidebarProps ) => {
 
   const items: MenuItem[] = [
     getItem('Pagina Inicial', '1', <Link to="home"><HomeFilled /></Link>),
-    getItem('Ranking', '4', <Link to="ranking"><TrophyOutlined/></Link>),
+    getItem('Ranking', '4', <Link to="ranking"><TrophyOutlined /></Link>),
   ];
   //adicionar rank depois
 

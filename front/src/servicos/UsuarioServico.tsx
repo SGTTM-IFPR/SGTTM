@@ -41,11 +41,11 @@ export const getAllUsers = async (): Promise<UsuarioData[]> => {
   return response.data;
 };
 
-export const getUserById = async (id: number): Promise<UsuarioData> => {
+export const getUserById = async (id: number): Promise<UsuarioData[]> => {
   const baseURL = "http://localhost:5000/";
   const endpoint = `usuario/${id}`;
   const response = await callApi(baseURL, endpoint);
-  return response.data[0];
+  return response.data;
 };
 
 export const getUserByCpf = async (cpf: string): Promise<UsuarioData[]> => {
