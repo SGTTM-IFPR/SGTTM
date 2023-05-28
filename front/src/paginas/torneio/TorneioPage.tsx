@@ -175,32 +175,32 @@ export const TorneioPage = () => {
                 <h1 style={{ margin: 0, color: 'white' }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
                 <Row gutter={18}>
                     <Col>
-                    {identity.isAdmin &&
-                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
-                    }
+                        {identity.isAdmin &&
+                            <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
+                        }
                     </Col>
                     <Col>
-                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                        <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
                     </Col>
                     <Col>
-                    {identity.isAdmin &&
-                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
-                    }
+                        {identity.isAdmin &&
+                            <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
+                        }
                     </Col>
                     <Col>
                         <Button size='middle'
                             type="default"
                             className="hover-effect" >
-                                <span>Proxima fase</span>
-                                <StepForwardOutlined />
-                                </Button>
+                            <span>Proxima fase</span>
+                            <StepForwardOutlined />
+                        </Button>
                     </Col>
                 </Row>
                 {/* <div style={{ fontSize: '20px', color: 'gray' }}>
                     {timeExpiratedCompost.length ? timeExpiratedCompost : null}
                 </div> */}
             </Header>
-            <Content style={{ paddingInline: '10px'}}>
+            <Content style={{ paddingInline: '10px' }}>
                 <div style={{ marginTop: '20px' }}>
                     <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }} >
                         <Descriptions.Item label="Data inicial"><DataFormatada data={torneio?.data_inicio?.toString()!} /></Descriptions.Item>
@@ -208,7 +208,7 @@ export const TorneioPage = () => {
                     </Descriptions>
                     <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                         <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
-                        <Descriptions.Item label="Status">{torneio?.status}</Descriptions.Item>
+                        <Descriptions.Item label="Status">{torneio?.status === "EM_ANDAMENTO" ? "Em andamento" : torneio?.status}</Descriptions.Item>
                     </Descriptions>
 
                 </div>
@@ -225,7 +225,7 @@ export const TorneioPage = () => {
                     </div>
 
                 </div>
-                <div style={{alignItems: 'center', justifyContent:  'center', display: 'flex' }}>
+                <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
                     <Steps
                         style={{ width: '80%', colorScheme: 'red' }}
                         current={current}
