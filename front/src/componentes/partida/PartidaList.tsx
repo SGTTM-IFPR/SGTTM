@@ -86,16 +86,16 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         />
                                     </Form.Item>
                                     <Form.Item>
-                                    {partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}
-                                    <UserOutlined style={{ marginLeft: "10px" }} />
+                                        {partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}
+                                        <UserOutlined style={{ marginLeft: "10px" }} />
                                     </Form.Item>
                                 </Space>
                             </Card>
                         </Col>
-                        <Col>
+                        {/* <Col>
                                     {partida.pontos_atleta_1}
                                     {partida.pontos_atleta_2}
-                        </Col>
+                        </Col> */}
                     </Row>
                 )}
             />

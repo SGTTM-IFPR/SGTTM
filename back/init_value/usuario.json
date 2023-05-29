@@ -1,0 +1,62 @@
+[
+    {
+        "cpf": "12083339924",
+        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "nome": "Administrador",
+        "email": "admin@admin.com",
+        "data_de_nascimento": "1993-04-04",
+        "administrador": 1,
+        "atleta": 0,
+        "clube": "Clube 4",
+        "federacao": "Federação 4",
+        "sexo": "MASCULINO"
+    },
+    {
+        "cpf": "11111111111",
+        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "nome": "Usuário 1",
+        "email": "usuario1@example.com",
+        "data_de_nascimento": "1990-01-01",
+        "administrador": 0,
+        "atleta": 1,
+        "clube": "Clube 1",
+        "federacao": "Federação 1",
+        "sexo": "MASCULINO"
+    },
+    {
+        "cpf": "22222222222",
+        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "nome": "Usuário 2",
+        "email": "usuario2@example.com",
+        "data_de_nascimento": "1991-02-02",
+        "administrador": 1,
+        "atleta": 0,
+        "clube": "Clube 2",
+        "federacao": "Federação 2",
+        "sexo": "FEMININO"
+    },
+    {
+        "cpf": "33333333333",
+        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "nome": "Usuário 3",
+        "email": "usuario3@example.com",
+        "data_de_nascimento": "1992-03-03",
+        "administrador": 1,
+        "atleta": 1,
+        "clube": "Clube 3",
+        "federacao": "Federação 3",
+        "sexo": "OUTROS"
+    },
+    {
+        "cpf": "44444444444",
+        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "nome": "Usuário 4",
+        "email": "usuario4@example.com",
+        "data_de_nascimento": "1993-04-04",
+        "administrador": 0,
+        "atleta": 1,
+        "clube": "Clube 4",
+        "federacao": "Federação 4",
+        "sexo": "MASCULINO"
+    }
+]

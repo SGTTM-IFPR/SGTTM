@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import axios from 'axios';
 import React from 'react';
+import { Header } from 'antd/es/layout/layout';
 
 interface Ranking {
   nome: string;
@@ -37,26 +38,31 @@ export const RankingPage = () => {
         title: 'Posição',
         dataIndex: 'position',
         key: 'position',
+        align: 'center',
       },
       {
         title: 'Usuário',
         dataIndex: 'nome',
         key: 'nome',
+        align: 'center',
       },
       {
         title: 'Clube',
         dataIndex: 'clube',
         key: 'clube',
+        align: 'center',
       },
       {
         title: 'Federação',
         dataIndex: 'federacao',
         key: 'federacao',
+        align: 'center',
       },
       {
         title: 'Pontuação',
         dataIndex: 'pontos',
         key: 'pontos',
+        align: 'center',
       },
     ];
 
@@ -71,20 +77,34 @@ export const RankingPage = () => {
 
     return (
       <div key={torneio}>
-        <h2>Torneio {torneio}</h2>
-        <Table columns={columns} dataSource={data} />
+        <h2 style={{ textAlign: 'center' }}>{torneio}</h2>
+        <Table
+          columns={columns as any}
+          dataSource={data}
+          pagination={false}
+          size="middle"
+          bordered
+        />
       </div>
     );
   };
 
   return (
-    <div>
-      <h1>Ranking</h1>
+    <>
+      <Header
+        style={{
+          color: "white",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          fontSize: "20px",
+        }}
+      >
+        <h1 style={{ marginRight: "auto" }}>Ranking</h1>
+      </Header>
       {rankingData.map((data) =>
         renderRankingTable(data.torneio, data.ranking)
       )}
-    </div>
+    </>
   );
 };
-
-export default RankingPage;
