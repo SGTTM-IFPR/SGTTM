@@ -65,7 +65,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         <InputNumber
                                             style={{ padding: '5px', margin: '10px' }}
                                             min={0}
-                                            max={3}
+                                            max={4}
                                             size="small"
                                             disabled={!identity.isAdmin}
                                         />
@@ -80,7 +80,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         <InputNumber
                                             style={{ padding: '5px', margin: '10px' }}
                                             min={0}
-                                            max={3}
+                                            max={4}
                                             size="small"
                                             disabled={!identity.isAdmin}
                                         />
