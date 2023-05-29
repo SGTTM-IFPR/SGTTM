@@ -21,27 +21,13 @@ class PartidaService(GenericService[PartidaModel]):
             partida_id = partida.id
             pontos_atleta_1 = partida.pontos_atleta_1
             pontos_atleta_2 = partida.pontos_atleta_2
-
+            print(partida_id, pontos_atleta_1, pontos_atleta_2)
             if partida_id is None:
-                print('Entrou aqui')
                 continue
 
-            if pontos_atleta_1 is None:
-                pontos_atleta_1 = 0
-                
-            if pontos_atleta_2 is None:
-                pontos_atleta_2 = 0
-
             update_data = {}
-            if pontos_atleta_1 is not None:
-                update_data['pontos_atleta_1'] = pontos_atleta_1
-            if pontos_atleta_2 is not None:
-                update_data['pontos_atleta_2'] = pontos_atleta_2
 
-            if pontos_atleta_1 > pontos_atleta_2:
-                update_data['vencedor_id'] = partida.inscricao_atleta1_id
-            elif pontos_atleta_1 < pontos_atleta_2:
-                update_data['vencedor_id'] = partida.inscricao_atleta2_id
+            self.determine_winner(partida, update_data)
             print(update_data)
             updated_partida: PartidaModel = self.repository.update(partida_id, update_data)
 
@@ -51,11 +37,19 @@ class PartidaService(GenericService[PartidaModel]):
 
     @staticmethod
     def determine_winner(partida, update_data):
-        if not partida or partida.pontos_atleta_1 is None or partida.pontos_atleta_2 is None:
+        if partida.pontos_atleta_1 is None or partida.pontos_atleta_2 is None:
+            return
+
+        update_data['pontos_atleta_1'] = partida.pontos_atleta_1
+        update_data['pontos_atleta_2'] = partida.pontos_atleta_2
+
+        if partida.pontos_atleta_1 == partida.pontos_atleta_2:
+            update_data['vencedor_id'] = None
+            update_data['concluida'] = False
             return
 
         if partida.pontos_atleta_1 > partida.pontos_atleta_2:
             update_data['vencedor_id'] = partida.inscricao_atleta1_id
         elif partida.pontos_atleta_1 < partida.pontos_atleta_2:
             update_data['vencedor_id'] = partida.inscricao_atleta2_id
-        print(update_data['vencedor_id'])
+        update_data['concluida'] = True

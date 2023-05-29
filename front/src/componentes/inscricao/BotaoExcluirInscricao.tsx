@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { deleteInscricao } from '../../servicos/InscricaoServico';
+import { deleteInscricao, getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { Button, Modal, message } from 'antd';
+import { InscricaoData } from '../../datas/InscricaoData';
+import { useTorneioContext } from '../../paginas/torneio/context/TorneioContext';
 
 type Props = {
     idInscricao?: number;
@@ -9,6 +11,7 @@ type Props = {
 export const BotaoExcluirInscricao: React.FC<Props> = ({
     idInscricao: idInscricao,
 }) => {
+    const {inscricoes, setInscricoes, torneio} = useTorneioContext();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -19,6 +22,8 @@ export const BotaoExcluirInscricao: React.FC<Props> = ({
         try {
             const response = await deleteInscricao(idInscricao!)
             setIsModalOpen(false);
+            const inscricoesAtualizadas = await getInscricaoByTorneioId(torneio!.id!);
+            setInscricoes(inscricoesAtualizadas);
             message.success('Inscrição excluída com sucesso!');
         } catch (error) {
             message.error('Erro ao excluir inscrição!');

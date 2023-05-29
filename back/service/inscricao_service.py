@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from dependency_injector.wiring import inject
 from model.Enums import EtapaEnum
@@ -16,6 +16,14 @@ class InscricaoService(GenericService[InscricaoModel]):
     def __init__(self, repository: InscricaoRepository, partida_repository: PartidaRepository):
         super().__init__(repository)
         self.partida_repository = partida_repository
+
+    def create(self, data) -> Union[InscricaoModel, str]:
+        existing_inscricao = self.repository.get_by_user_and_torneio_ids(data['usuario_id'], data['torneio_id'])
+        if existing_inscricao:
+            return 'A inscrição já existe.'
+
+        model = self.repository.create(data)
+        return model
 
     def get_by_torneio_id(self, id) -> List[InscricaoModel]:
         return self.repository.get_by_torneio_id(id)

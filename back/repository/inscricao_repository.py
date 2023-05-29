@@ -11,3 +11,7 @@ class InscricaoRepository(GenericRepository):
 
     def get_by_grupo_id(self, grupo_id):
         return InscricaoModel.query.filter_by(grupo_id=grupo_id).all()
+
+    def get_by_user_and_torneio_ids(self, usuario_id, torneio_id):
+        return InscricaoModel.query.filter_by(usuario_id=usuario_id, torneio_id=torneio_id).first()
+

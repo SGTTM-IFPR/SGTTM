@@ -5,6 +5,7 @@ import { Button, Form, Modal, message } from 'antd';
 import { SelecaoEnum } from './SelecaoEnum';
 import { MyEnum, enumOpcoes } from './EnumOpcao';
 import { VerificarIdUsuario } from '../autenticacao/VerificarIdUsuario';
+import { useTorneioContext } from '../../paginas/torneio/context/TorneioContext';
 
 type Props = {
     idTournament?: number;
@@ -15,6 +16,7 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
     idTournament: idTournament,
     visibleButton: visibleButton,
 }) => {
+    const {torneio} = useTorneioContext();
     const usuario_id = VerificarIdUsuario();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(MyEnum.PROFESSOR_IFPR);
@@ -32,10 +34,13 @@ export const BotaoCriarInscricao: React.FC<Props> = ({
     };
 
     async function handleOk(idTournament?: number) {
+        if(!torneio)
+            return;
+        const torneio_id = torneio.id;
         try {
             // criar estrutura de inscrição
             const inscricao: InscricaoData = {
-                torneio_id: idTournament,
+                torneio_id : torneio_id!,
                 usuario_id: usuario_id,
                 condicao: selectedOption,
             };

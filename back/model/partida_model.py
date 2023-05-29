@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, Enum
+from sqlalchemy import Column, Integer, ForeignKey, Date, Enum, Boolean
 from sqlalchemy_serializer import SerializerMixin
-from model.Enums.etapa_enum import EtapaEnum
+
 from extension.database import database
+from model.Enums.etapa_enum import EtapaEnum
 
 
 class PartidaModel(database.Model, SerializerMixin):
@@ -20,3 +21,4 @@ class PartidaModel(database.Model, SerializerMixin):
     pontos_atleta_2 = Column(Integer, default=0)
     vencedor_id = Column(Integer, ForeignKey('inscricao.id'), nullable=True)
     vencedor = database.relationship("InscricaoModel", foreign_keys=[vencedor_id])
+    concluida = Column(Boolean, default=False)

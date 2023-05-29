@@ -6,6 +6,7 @@ import { AppSidebar } from "../paginas/AppSidebar";
 import { MainLayout } from "../layouts/PrincipalLayout";
 import { TorneioPage } from "../paginas/torneio/TorneioPage";
 import { RankingPage } from "../paginas/ranking/RankingPage";
+import { TorneioProvider } from "../paginas/torneio/context/TorneioProvider";
 
 export const ConteudoRotas = () => {
   return (
@@ -14,7 +15,7 @@ export const ConteudoRotas = () => {
         <Route index path="/home" element={<HomePage />} />
         <Route path="/user" element={<UsuarioListPage />} />
         <Route path="/tournament" element={<TorneioListPage />} />
-        <Route path="/torneio/:id" element={<TorneioPage />} />
+        <Route path="/torneio/:id" element={<TorneioProvider><TorneioPage /></TorneioProvider>} />
         <Route path="/ranking" element={<RankingPage />} />
       </Route>
     </Routes>

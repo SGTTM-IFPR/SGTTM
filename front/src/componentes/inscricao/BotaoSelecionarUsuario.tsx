@@ -5,16 +5,17 @@ import { MyEnum, enumOpcoes } from './EnumOpcao';
 import { buscarIdPorNome, getAllUsers } from '../../servicos/UsuarioServico';
 import { InscricaoData } from '../../datas/InscricaoData';
 import { createInscricao, getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
+import { useTorneioContext } from '../../paginas/torneio/context/TorneioContext';
 
 const { Option } = Select;
 
 type Props = {
     visibleButton: boolean;
-    idTorneio: number;
 };
 
-export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorneio }) => {
+export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
     let id_usuario: Promise<number>;
+    const { torneio,  findInscricoes } = useTorneioContext();
     const [searchText, setSearchText] = useState('');
     const [results, setResults] = useState<string[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -34,7 +35,10 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorne
     };
 
     const performSearch = async (text: string): Promise<string[]> => {
-        const lista_inscritos = await getInscricaoByTorneioId(idTorneio);
+        if(!torneio)
+            return [];
+
+        const lista_inscritos = await getInscricaoByTorneioId(torneio.id!);
         const lista_inscritos_id = lista_inscritos.map((inscricao) => inscricao.usuario_id);
 
         const users = await getAllUsers(); // Chamada ao serviço para obter os usuários
@@ -63,17 +67,20 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorne
     };
 
     const handleOk = async () => {
+        if(!torneio || !torneio.id)
+            return;
         try {
             const usuario = buscarIdPorNome(searchText);
 
             const inscricao: InscricaoData = {
-                torneio_id: idTorneio,
+                torneio_id: torneio.id!,
                 usuario_id: (await usuario).valueOf(),
                 condicao: selectedOption,
             };
 
             await createInscricao(inscricao)
             setModalVisible(false);
+            findInscricoes();
             message.success('Inscrição realizada com sucesso!');
         } catch (error) {
             message.error('Erro ao realizar inscrição!');
@@ -97,7 +104,6 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton, idTorne
             <Button onClick={handleOpenModal}
                 size='middle'
                 type="primary"
-                style={{ background: "green", marginLeft: "10px" }}
             >
                 Incluir Usuário
             </Button >

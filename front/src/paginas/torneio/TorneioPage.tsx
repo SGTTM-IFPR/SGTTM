@@ -3,7 +3,7 @@ import { getTorneioById } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { Button, Col, Descriptions, Layout, Row } from 'antd';
 import { InscricaoData } from '../../datas/InscricaoData';
 import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
@@ -20,6 +20,8 @@ import { BotaoSelecionarUsuario } from '../../componentes/inscricao/BotaoSelecio
 import { Content, Header } from 'antd/es/layout/layout';
 import './TorneioPage.css'
 import { StepForwardOutlined } from '@ant-design/icons';
+import { TorneioProvider } from './context/TorneioProvider';
+import { useTorneioContext } from './context/TorneioContext';
 
 const { Panel } = Collapse;
 
@@ -35,9 +37,9 @@ export const TorneioPage = () => {
     const usuario_id = VerificarIdUsuario();
     let usuarioEncontrado = false;
     const { id } = useParams<{ id: string }>();
-    const [torneio, setTorneio] = useState<TorneioData | null>(null);
-    const [inscricoes, setInscricoes] = useState<InscricaoData[] | null>(null);
-    const [grupos, setGrupos] = useState<GrupoData[] | null>(null);
+    const {torneio, fetchTorneio } = useTorneioContext();
+    const {inscricoes, setInscricoes} = useTorneioContext();
+    const {grupos, setGrupos, findGrupos} = useTorneioContext();
     let visibleButtonInscricao = true;
     let visibleButtonGrupo = true;
     const millisecondsPerSecond = 1000;
@@ -96,30 +98,9 @@ export const TorneioPage = () => {
         return () => clearTimeout(timer);
     });
 
-    useEffect(() => {
-        const fetchTorneio = async () => {
-            if (!id)
-                return;
-            const parsedId = parseInt(id);
-            if (isNaN(parsedId)) {
-                console.error(`Invalid id: ${id}`);
-                return;
-            }
-
-            try {
-                setTorneio(await getTorneioById(parsedId));
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchTorneio();
-    }, [id]);
-
-
     const fetchGrupos = async () => {
-        if (!torneio || !torneio.id)
-            return;
-        await getGruposByTorneioId(torneio.id).then((grupoList) => setGrupos(grupoList));
+        await fetchTorneio();
+        findGrupos();
     };
 
     useEffect(() => {
@@ -129,7 +110,7 @@ export const TorneioPage = () => {
             await getInscricaoByTorneioId(torneio.id).then((inscricaoData) => setInscricoes(inscricaoData))
         };
         fetchInscricoes();
-        fetchGrupos();
+        findGrupos();
     }, [torneio]);
 
     if (!torneio) {
@@ -152,7 +133,7 @@ export const TorneioPage = () => {
         {
             title: 'Fase de Grupos',
             description,
-            content: <FaseGrupo grupos={grupos} />
+            content: <FaseGrupo/>
 
         },
         {
@@ -170,22 +151,17 @@ export const TorneioPage = () => {
         }
     }
     return (
-        <Layout >
+        <Layout>
             <Header style={{ paddingInline: '10px', backgroundColor: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
                 <h1 style={{ margin: 0, color: 'white' }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
                 <Row gutter={18}>
                     <Col>
-                        {identity.isAdmin &&
-                            <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
-                        }
+                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
                     </Col>
                     <Col>
-                        <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
-                    </Col>
-                    <Col>
-                        {identity.isAdmin &&
-                            <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} idTorneio={torneio?.id!} />
-                        }
+                    {identity.isAdmin &&
+                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} />
+                    }
                     </Col>
                     <Col>
                         <Button size='middle'
@@ -194,6 +170,11 @@ export const TorneioPage = () => {
                             <span>Proxima fase</span>
                             <StepForwardOutlined />
                         </Button>
+                    </Col>
+                    <Col>
+                    {identity.isAdmin &&
+                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
+                    }
                     </Col>
                 </Row>
                 {/* <div style={{ fontSize: '20px', color: 'gray' }}>
@@ -215,8 +196,9 @@ export const TorneioPage = () => {
                 <div style={{ marginTop: '20px' }}>
                     <Collapse ghost style={{ backgroundColor: '#f0f8ff' }}>
                         <Panel header={<span >Inscritos ({inscricoes?.length})</span>} key="1" style={{ color: 'white' }}>
+
                             <div style={{ width: '80%', margin: '0 auto' }}>
-                                {<InscricaoTable inscricoes={inscricoes} />}
+                                {<InscricaoTable />}
                             </div>
                         </Panel>
                     </Collapse>

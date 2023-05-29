@@ -4,6 +4,7 @@ from ..auth_decorator import token_required
 from model import InscricaoModel
 from rest_controller.inscricao.abstract_inscricao_rest_controller import AbstractInscricaoRestController
 
+
 @api.route('/create')
 class InscricaoCreateController(AbstractInscricaoRestController):
     @token_required
@@ -14,4 +15,4 @@ class InscricaoCreateController(AbstractInscricaoRestController):
         if isinstance(inscricao, InscricaoModel):
             return inscricao.to_dict(), 201
         else:
-            return {'error': str(inscricao)}
+            return {'error': str(inscricao)}, 400

@@ -7,14 +7,13 @@ import { getAllPartidasByGrupoId, updateAllPartidas } from "../../servicos/Parti
 import { PartidaData } from "../../datas/PartidaData";
 import { PartidaList } from "../partida/PartidaList";
 import { useAuth } from "../../autenticacao/context/AuthenticationContext";
+import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
 
 interface IFaseGrupoProps {
-    grupos?: GrupoData[] | null;
 }
-export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
+export const FaseGrupo = ({ }: IFaseGrupoProps) => {
 
-    useEffect(() => {
-    }, [grupos])
+    const { grupos, findGrupos } = useTorneioContext();
 
     const { identity } = useAuth();
 
@@ -46,7 +45,10 @@ export const FaseGrupo = ({ grupos }: IFaseGrupoProps) => {
         });
         console.log(newPartidas)
         await updateAllPartidas(newPartidas).then((partidasData) => setPartidas(partidasData))
-        .finally(() => setOpen(false));
+        .finally(async () => {
+            await findGrupos();
+            setOpen(false);
+        });
     }
 
     if (!grupos)
