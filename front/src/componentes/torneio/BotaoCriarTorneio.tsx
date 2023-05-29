@@ -1,12 +1,14 @@
 import { gray } from "@ant-design/colors";
-import { Button, DatePicker, Form, Input, Modal, Radio, Switch, message } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Radio, message } from "antd";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { TorneioData } from "../../datas/TorneioData";
 import { createTournament, getAllTournaments } from "../../servicos/TorneioServico";
 import locale from 'antd/es/date-picker/locale/pt_BR';
+import type { RangePickerProps } from 'antd/es/date-picker';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 type Props = {
     setData: React.Dispatch<React.SetStateAction<TorneioData[]>>;
@@ -15,6 +17,10 @@ type Props = {
 export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [output, setOutput] = useState("");
+
+    const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+        return current && current < dayjs().startOf('day');
+    };
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -73,11 +79,11 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
                     </Form.Item>
 
                     <Form.Item name="data_inicio" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale}  disabledDate={disabledDate}/>
                     </Form.Item>
 
                     <Form.Item name="data_final" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate}/>
                     </Form.Item>
 
                     <Form.Item name="local" label="Local" rules={[{ required: true, message: "Campo obrigatório" }]}>

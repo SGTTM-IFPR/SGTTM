@@ -27,10 +27,10 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
     }
 
     const columns = [
-        { title: 'Numero de inscrição', dataIndex: 'id', key: 'id', align: 'center' as AlignType },
-        { title: 'Nome', dataIndex: 'usuario', key: 'usuario', render: renderNome },
-        { title: 'Condição', dataIndex: 'condicao', key: 'condicao' },
-        { title: 'jogadas', dataIndex: 'partidas_jogadas', key: 'partidas_jogadas', align: 'center' as AlignType },
+        { title: 'N.º Inscrição', dataIndex: 'id', key: 'id', align: 'center' as AlignType },
+        { title: 'Nome', dataIndex: 'usuario', key: 'usuario', align: 'center', render: renderNome },
+        { title: 'Condição', dataIndex: 'condicao', key: 'condicao', align: 'center'},
+        { title: 'Jogadas', dataIndex: 'partidas_jogadas', key: 'partidas_jogadas', align: 'center' as AlignType },
         { title:  (
             <span style={{ color: "green" }}>
               <CheckCircleOutlined /> Vitorias
@@ -46,7 +46,7 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
     return (
         <Table
             dataSource={inscricoes}
-            columns={columns}
+            columns={columns as any}
             rowKey="id"
             pagination={false}>
         </Table>

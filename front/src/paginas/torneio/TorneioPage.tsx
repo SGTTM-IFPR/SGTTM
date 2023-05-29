@@ -152,8 +152,14 @@ export const TorneioPage = () => {
     }
     return (
         <Layout>
-            <Header style={{ paddingInline: '10px', backgroundColor: 'black', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '24px' }}>
-                <h1 style={{ margin: 0, color: 'white' }}><strong>{torneio?.nome?.toUpperCase()}</strong></h1>
+            <Header style={{
+                color: "white",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontSize: "20px",
+                }}>
+                <h2 style={{ color: 'white', marginRight: "auto" }}>{torneio?.nome?.toUpperCase()}</h2>
                 <Row gutter={18}>
                     <Col>
                     <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />

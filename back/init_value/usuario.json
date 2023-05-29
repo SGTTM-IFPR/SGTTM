@@ -1,7 +1,7 @@
 [
     {
-        "cpf": "12083339924",
-        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "cpf": "53305081007",
+        "senha": "minha_senha",
         "nome": "Administrador",
         "email": "admin@admin.com",
         "data_de_nascimento": "1993-04-04",
@@ -13,7 +13,7 @@
     },
     {
         "cpf": "11111111111",
-        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "senha": "minha_senha",
         "nome": "Usuário 1",
         "email": "usuario1@example.com",
         "data_de_nascimento": "1990-01-01",
@@ -25,7 +25,7 @@
     },
     {
         "cpf": "22222222222",
-        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "senha": "minha_senha",
         "nome": "Usuário 2",
         "email": "usuario2@example.com",
         "data_de_nascimento": "1991-02-02",
@@ -37,7 +37,7 @@
     },
     {
         "cpf": "33333333333",
-        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "senha": "minha_senha",
         "nome": "Usuário 3",
         "email": "usuario3@example.com",
         "data_de_nascimento": "1992-03-03",
@@ -49,7 +49,7 @@
     },
     {
         "cpf": "44444444444",
-        "senha": "f9b88ac71caec840be639a8eb18e68728744252316456ce9b3cf6b58d82bb7cd",
+        "senha": "minha_senha",
         "nome": "Usuário 4",
         "email": "usuario4@example.com",
         "data_de_nascimento": "1993-04-04",

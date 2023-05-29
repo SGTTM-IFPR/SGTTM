@@ -6,6 +6,9 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TorneioData } from "../../datas/TorneioData";
 import { getAllTournaments, updateTournament } from "../../servicos/TorneioServico";
 import locale from 'antd/es/date-picker/locale/pt_BR';
+import type { RangePickerProps } from 'antd/es/date-picker';
+
+dayjs.extend(customParseFormat);
 
 type Props = {
     setData: React.Dispatch<React.SetStateAction<TorneioData[]>>;
@@ -20,6 +23,10 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
     const [output, setOutput] = useState("");
     dayjs.extend(customParseFormat);
     const dateFormat = "YYYY-MM-DD";
+
+    const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+        return current && current < dayjs().startOf('day');
+    };
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -107,11 +114,11 @@ export const BotaoEditarTorneio: React.FC<Props> = ({
                     </Form.Item>
 
                     <Form.Item name="data_inicio" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.data_inicio, dateFormat)}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate}/>
                     </Form.Item>
 
                     <Form.Item name="data_final" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(tournamentUpdate.data_final, dateFormat)}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate}/>
                     </Form.Item>
 
                     <Form.Item name="local" label="Local" rules={[{ required: true, message: "Campo obrigatório" }]}>

@@ -7,6 +7,9 @@ import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers, updateUser } from "../../servicos/UsuarioServico";
 import { cpf } from 'cpf-cnpj-validator';
 import locale from 'antd/es/date-picker/locale/pt_BR';
+import type { RangePickerProps } from 'antd/es/date-picker';
+
+dayjs.extend(customParseFormat);
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
@@ -23,6 +26,12 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
   dayjs.extend(customParseFormat);
   const dateFormat: string = "YYYY-MM-DD";
   const [cpfValido, setCpfValido] = useState(true);
+
+  const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+    const today = dayjs();
+    const tenYearsAgo = today.subtract(10, 'year').startOf('day');
+    return current && current > tenYearsAgo;
+  };
 
   const handleCPFChange = (e: { target: { value: string } }) => {
     const cpf_inserido = e.target.value; // remove caracteres não numéricos
@@ -128,7 +137,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
             <Input />
           </Form.Item>
           <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(userUpdate.data_de_nascimento, dateFormat)}>
-            <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
+            <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate}/>
           </Form.Item>
           <Form.Item
             name="administrador"
