@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TorneioData } from "../../datas/TorneioData";
 import { createTournament, getAllTournaments } from "../../servicos/TorneioServico";
+import locale from 'antd/es/date-picker/locale/pt_BR';
 
 type Props = {
     setData: React.Dispatch<React.SetStateAction<TorneioData[]>>;
@@ -72,11 +73,11 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
                     </Form.Item>
 
                     <Form.Item name="data_inicio" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
                     </Form.Item>
 
                     <Form.Item name="data_final" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" />
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
                     </Form.Item>
 
                     <Form.Item name="local" label="Local" rules={[{ required: true, message: "Campo obrigatório" }]}>

@@ -6,6 +6,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers, updateUser } from "../../servicos/UsuarioServico";
 import { cpf } from 'cpf-cnpj-validator';
+import locale from 'antd/es/date-picker/locale/pt_BR';
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
@@ -127,7 +128,7 @@ export const BotaoEditarUsuario: React.FC<Props> = ({
             <Input />
           </Form.Item>
           <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório" }]} initialValue={dayjs(userUpdate.data_de_nascimento, dateFormat)}>
-            <DatePicker format={dateFormat} />
+            <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
           </Form.Item>
           <Form.Item
             name="administrador"

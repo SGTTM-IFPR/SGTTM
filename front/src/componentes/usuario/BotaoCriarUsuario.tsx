@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { UsuarioData } from "../../datas/UsuarioData";
 import { createUser, getAllUsers } from "../../servicos/UsuarioServico";
 import { cpf } from 'cpf-cnpj-validator';
+import locale from 'antd/es/date-picker/locale/pt_BR';
 
 type Props = {
   setData: React.Dispatch<React.SetStateAction<UsuarioData[]>>;
@@ -104,7 +105,7 @@ export const BotaoCriarUsuario: React.FC<Props> = ({ setData: setData, local: lo
             <Input />
           </Form.Item>
           <Form.Item name="data_de_nascimento" label="Data de Nasc." rules={[{ required: true, message: "Campo obrigatório" }]}>
-            <DatePicker placeholder="Insira a data" />
+            <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} />
           </Form.Item>
           {/* <Form.Item
             name="administrador"
