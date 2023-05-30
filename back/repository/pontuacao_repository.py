@@ -11,6 +11,9 @@ class PontuacaoRepository(GenericRepository):
 
         rankings = []  # Lista de rankings por torneio
 
+        # Criar um dicionário para armazenar as pontuações de cada torneio
+        pontuacoes_torneio = {}
+
         for torneio in torneios:
             # Obter todas as inscrições do torneio
             inscricoes = InscricaoModel.query.filter_by(torneio_id=torneio.id).all()
@@ -33,15 +36,13 @@ class PontuacaoRepository(GenericRepository):
                     usuario = UsuarioModel.query.get(usuario_id)
                     pontuacoes[usuario_id] = {
                         'nome': usuario.nome,
-                        'pontos': pontos,
                         'clube': usuario.clube,
                         'federacao': usuario.federacao,
                     }
-                else:
-                    pontuacoes[usuario_id]['pontos'] += pontos
+                pontuacoes[usuario_id][torneio.nome] = pontos  # Adicionar pontuação do usuário para o torneio atual
 
             # Ordenar o ranking por pontos para o torneio atual
-            ranking_torneio = sorted(pontuacoes.values(), key=lambda x: x['pontos'], reverse=True)
+            ranking_torneio = sorted(pontuacoes.values(), key=lambda x: x[torneio.nome], reverse=True)
 
             # Adicionar o ranking do torneio à lista de rankings
             rankings.append({
@@ -49,4 +50,30 @@ class PontuacaoRepository(GenericRepository):
                 'ranking': ranking_torneio,
             })
 
-        return rankings
+            # Adicionar as pontuações do torneio ao dicionário de pontuações por torneio
+            pontuacoes_torneio[torneio.nome] = pontuacoes
+
+        # Montar o ranking final com as colunas de pontuações por torneio
+        ranking_final = []
+
+        # Obter a lista de usuários
+        usuarios = UsuarioModel.query.all()
+
+        for usuario in usuarios:
+            # Criar um dicionário para armazenar as informações do usuário
+            info_usuario = {
+                'nome': usuario.nome,
+                'clube': usuario.clube,
+                'federacao': usuario.federacao,
+            }
+
+            # Preencher as colunas de pontuações por torneio para o usuário atual
+            for torneio, pontuacoes_usuario in pontuacoes_torneio.items():
+                if pontuacoes_usuario.get(usuario.id):
+                    info_usuario[torneio] = pontuacoes_usuario[usuario.id][torneio]
+                else:
+                    info_usuario[torneio] = 0
+
+            ranking_final.append(info_usuario)
+
+        return ranking_final, rankings
