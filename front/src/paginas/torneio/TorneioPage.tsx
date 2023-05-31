@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { getTorneioById } from '../../servicos/TorneioServico';
+import { nextFaseTournament as nextFaseService } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
@@ -22,6 +22,7 @@ import './TorneioPage.css'
 import { StepForwardOutlined } from '@ant-design/icons';
 import { TorneioProvider } from './context/TorneioProvider';
 import { useTorneioContext } from './context/TorneioContext';
+import { FaseEliminatoria } from '../../componentes/fase/FaseEliminatoria';
 
 const { Panel } = Collapse;
 
@@ -73,12 +74,20 @@ export const TorneioPage = () => {
 
 
     const onChange = (value: number) => {
-        console.log('onChange:', value);
         setCurrent(value);
     };
 
-    const description = '';
 
+    const nextFaseTournament = async () => {
+        if(current + 1 > 1)
+            return;
+        if(!torneio || !torneio.id)
+            return;
+        nextFaseService(torneio.id);
+        await fetchTorneio();
+        setCurrent(torneio.fase_grupo_concluida ? 1 : 0);
+    };
+    const description = '';
     Object.keys(timeExpirated).forEach((interval) => {
         const key = interval as keyof ITimeExpirated;
         if (!timeExpirated[key]) {
@@ -104,6 +113,7 @@ export const TorneioPage = () => {
     };
 
     useEffect(() => {
+        console.log(torneio);
         const fetchInscricoes = async () => {
             if (!torneio || !torneio.id)
                 return;
@@ -139,7 +149,7 @@ export const TorneioPage = () => {
         {
             title: 'Eliminatórias',
             description,
-            content: <div style={{ height: '700px', backgroundColor: 'green', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white', borderRadius: "15px", margin: "10px" }}>Fazer um componente para Eliminatórias</div>
+            content: <FaseEliminatoria/>
         },
     ];
     {
@@ -165,22 +175,25 @@ export const TorneioPage = () => {
                     <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
                     </Col>
                     <Col>
-                    {identity.isAdmin &&
-                        <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} />
-                    }
-                    </Col>
-                    <Col>
-                        <Button size='middle'
-                            type="default"
-                            className="hover-effect" >
-                            <span>Proxima fase</span>
-                            <StepForwardOutlined />
-                        </Button>
+                        {identity.isAdmin &&
+                            <BotaoSelecionarUsuario visibleButton={visibleButtonGrupo} />
+                        }
                     </Col>
                     <Col>
                     {identity.isAdmin &&
                         <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
                     }
+                    </Col>
+                    <Col>
+                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && torneio.fase_atual == 'Fase de grupos') &&
+                            <Button size='middle'
+                                type="default"
+                                className="hover-effect" 
+                                onClick={nextFaseTournament}>
+                                <span>Proxima fase</span>
+                                <StepForwardOutlined />
+                            </Button>
+                        }
                     </Col>
                 </Row>
                 {/* <div style={{ fontSize: '20px', color: 'gray' }}>
@@ -196,6 +209,7 @@ export const TorneioPage = () => {
                     <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                         <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                         <Descriptions.Item label="Status">{torneio?.status === "EM_ANDAMENTO" ? "Em andamento" : torneio?.status}</Descriptions.Item>
+                        <Descriptions.Item label="Fase">{torneio.fase_atual}</Descriptions.Item>
                     </Descriptions>
 
                 </div>
@@ -211,7 +225,6 @@ export const TorneioPage = () => {
                     <div style={{ justifyContent: 'center', width: '100%', textAlign: 'center' }}>
                         <h2>Fases</h2>
                     </div>
-
                 </div>
                 <div style={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
                     <Steps

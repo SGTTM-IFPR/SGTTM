@@ -7,4 +7,6 @@ export class TorneioData {
     status?: string;
     tipo_torneio?: string;
     tipo_formato?: string;
+    fase_atual? : string;
+    fase_grupo_concluida?: boolean;
 }

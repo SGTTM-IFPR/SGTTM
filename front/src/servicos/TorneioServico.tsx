@@ -55,6 +55,17 @@ export const updateTournament = async (
   return response.data;
 };
 
+export const nextFaseTournament = async (
+  id: number
+): Promise<TorneioData> => {
+  const endpoint = `torneio/next-fase/${id}`;
+  const response = await axios.post<TorneioData>(
+    `${baseURL}/${endpoint}`,
+  );
+
+  return response.data;
+};
+
 export const deleteTournament = async (id: number): Promise<string> => {
   ;
   const endpoint = `torneio/${id}`;

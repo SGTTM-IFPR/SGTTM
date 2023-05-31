@@ -87,4 +87,7 @@ class Container(containers.DeclarativeContainer):
     torneio_service = providers.Factory(
         TorneioService,
         repository=torneio_repository,
+        partida_service=partida_service,
+        grupo_service=grupo_service,
+        incricao_service=inscricao_service,
     )

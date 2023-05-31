@@ -46,6 +46,7 @@ class PartidaService(GenericService[PartidaModel]):
         if partida.pontos_atleta_1 == partida.pontos_atleta_2:
             update_data['vencedor_id'] = None
             update_data['concluida'] = False
+            print('empate')
             return
 
         if partida.pontos_atleta_1 > partida.pontos_atleta_2:

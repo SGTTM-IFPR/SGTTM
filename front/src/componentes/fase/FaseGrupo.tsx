@@ -13,7 +13,7 @@ interface IFaseGrupoProps {
 }
 export const FaseGrupo = ({ }: IFaseGrupoProps) => {
 
-    const { grupos, findGrupos } = useTorneioContext();
+    const { torneio, fetchTorneio, grupos, findGrupos } = useTorneioContext();
 
     const { identity } = useAuth();
 
@@ -46,6 +46,7 @@ export const FaseGrupo = ({ }: IFaseGrupoProps) => {
         console.log(newPartidas)
         await updateAllPartidas(newPartidas).then((partidasData) => setPartidas(partidasData))
         .finally(async () => {
+            await fetchTorneio();
             await findGrupos();
             setOpen(false);
         });
@@ -75,7 +76,7 @@ export const FaseGrupo = ({ }: IFaseGrupoProps) => {
                 title="Partidas"
                 extra={
                     identity.isAdmin ?
-                        <Button type="primary" onClick={form.submit}>
+                        <Button type="primary" onClick={form.submit} disabled={torneio?.fase_atual != 'Fase de Grupos'}>
                             <span>Salvar</span>
                         </Button>
                         : null

@@ -4,6 +4,7 @@ import { Content, Header } from "antd/es/layout/layout";
 import { useAuth } from "../../autenticacao/context/AuthenticationContext";
 import { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
+import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
 
 export interface IPartidaListProps {
     partidas?: PartidaData[] | null;
@@ -12,6 +13,7 @@ export interface IPartidaListProps {
 
 export const PartidaList = (props: IPartidaListProps) => {
     const [partidas, setPartidas] = useState<PartidaData[] | null>(null);
+    const {torneio} = useTorneioContext();
 
     const { identity } = useAuth();
 
@@ -67,7 +69,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                             min={0}
                                             max={4}
                                             size="small"
-                                            disabled={!identity.isAdmin}
+                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de Grupos'}
                                         />
                                     </Form.Item>
                                     <Form.Item>
@@ -82,7 +84,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                             min={0}
                                             max={4}
                                             size="small"
-                                            disabled={!identity.isAdmin}
+                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de Grupos'}
                                         />
                                     </Form.Item>
                                     <Form.Item>

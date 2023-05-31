@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Login.css';
+import './Login.scss';
 import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponente } from './LoginComponente';
 import { BotaoCriarUsuario } from '../../componentes/usuario/BotaoCriarUsuario';
@@ -25,7 +25,12 @@ export const LoginPagina = () => {
             </div>
             <div className="white">
                 <div className='div_titulo'>
-                    Bem-vindo! <br></br>
+                    Bem-vindo! 
+                </div>
+                <div style={{
+                    marginLeft: '50px',
+                    fontFamily: 'Roboto',
+                }} className='div_subtitulo'>
                     Insira suas credenciais de participante:
                 </div>
                 <div className='div_login'>

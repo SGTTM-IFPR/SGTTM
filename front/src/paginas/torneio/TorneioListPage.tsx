@@ -96,6 +96,8 @@ export const TorneioListPage = () => {
 
                     <Column align="center" title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
 
+                    <Column align="center" title="Fase atual" dataIndex="fase_atual" key="fase_atual" />
+
                     <Column align="center" title="Status" dataIndex="status" key="status" />
 
                     <Column

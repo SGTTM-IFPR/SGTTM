@@ -1,5 +1,6 @@
 from flask import request
 
+from model.Enums.fase_enum import FaseEnum
 from .torneio_namespace import torneio_namespace as api
 from .abstract_torneio_rest_controller import AbstractTorneioRestController
 from ..auth_decorator import token_required
@@ -13,7 +14,7 @@ class TorneioController(AbstractTorneioRestController):
         '''Obter informações de um torneio pelo ID'''
         torneio_data = self.service.get_by_id(torneio_id)
         if torneio_data:
-            # print(torneio_data.to_dict()) 
+            print(torneio_data.to_dict())
             return torneio_data.to_dict(), 200
         else:
             return {'error': 'Torneio não encontrado'}, 404
@@ -21,6 +22,13 @@ class TorneioController(AbstractTorneioRestController):
     def put(self, torneio_id):
         '''Atualizar informações de um torneio pelo ID'''
         torneio_data = request.json
+        if not torneio_data:
+            return {'error': 'Requisição sem corpo'}, 400
+        print(torneio_data['fase_atual'])
+        if torneio_data['fase_atual'] == 'Fase de grupos':
+            torneio_data['fase_atual'] =  FaseEnum.FASE_GRUPOS
+        if torneio_data['fase_atual'] == 'Fase eliminatória':
+            torneio_data['fase_ataul'] =  FaseEnum.FASE_ELIMINATORIA
         updated_torneio = self.service.update(torneio_id, torneio_data)
         if updated_torneio:
             return updated_torneio.to_dict(), 200

@@ -36,6 +36,7 @@ export const TorneioProvider = ({ children }: TorneioProviderProps) => {
     } catch (error) {
       console.error(error);
     } finally {
+      console.log(torneio);
       setLoading(false);
     }
   };
