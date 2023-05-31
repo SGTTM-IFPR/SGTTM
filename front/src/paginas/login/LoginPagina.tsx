@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Login.scss';
+import './Login.css';
 import { FaTableTennis } from 'react-icons/fa';
 import { LoginComponente } from './LoginComponente';
 import { BotaoCriarUsuario } from '../../componentes/usuario/BotaoCriarUsuario';

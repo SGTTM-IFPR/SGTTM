@@ -76,7 +76,7 @@ export const FaseGrupo = ({ }: IFaseGrupoProps) => {
                 title="Partidas"
                 extra={
                     identity.isAdmin ?
-                        <Button type="primary" onClick={form.submit} disabled={torneio?.fase_atual != 'Fase de Grupos'}>
+                        <Button type="primary" onClick={form.submit} disabled={torneio?.fase_atual != 'Fase de grupos'}>
                             <span>Salvar</span>
                         </Button>
                         : null

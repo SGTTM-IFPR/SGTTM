@@ -69,7 +69,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                             min={0}
                                             max={4}
                                             size="small"
-                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de Grupos'}
+                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de grupos'}
                                         />
                                     </Form.Item>
                                     <Form.Item>
@@ -84,7 +84,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                             min={0}
                                             max={4}
                                             size="small"
-                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de Grupos'}
+                                            disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de grupos'}
                                         />
                                     </Form.Item>
                                     <Form.Item>

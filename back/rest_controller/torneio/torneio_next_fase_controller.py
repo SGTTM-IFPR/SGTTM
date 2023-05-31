@@ -9,7 +9,7 @@ from ..auth_decorator import token_required
 @api.route('/next-fase/<int:torneio_id>')
 class TorneioNextFaseController(AbstractTorneioRestController):
 
-    @token_required
+    # @token_required
     def post(self, torneio_id):
         '''Gerar a próxima fase do torneio'''
         print('chegou aqui')

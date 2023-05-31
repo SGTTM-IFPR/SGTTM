@@ -7,6 +7,7 @@ from model import PartidaModel
 from repository.inscricao_repository import InscricaoRepository
 from repository.partida_repository import PartidaRepository
 from service.generic_service import GenericService
+from service.partida_service import PartidaService
 from service.service_tabela_grupo import *
 from service.service_distribuir_jogadores import *
 
@@ -14,9 +15,10 @@ from service.service_distribuir_jogadores import *
 class InscricaoService(GenericService[InscricaoModel]):
 
     @inject
-    def __init__(self, repository: InscricaoRepository, partida_repository: PartidaRepository):
+    def __init__(self, repository: InscricaoRepository, partida_repository: PartidaRepository, partida_service: PartidaService):
         super().__init__(repository)
         self.partida_repository = partida_repository
+        self.partida_service = partida_service
 
     def create(self, data) -> Union[InscricaoModel, str]:
         existing_inscricao = self.repository.get_by_user_and_torneio_ids(data['usuario_id'], data['torneio_id'])
@@ -117,8 +119,7 @@ class InscricaoService(GenericService[InscricaoModel]):
     def criar_partidas_dos_grupos(self, id_torneio):
         jogador_grupo = []
         partidas_por_grupo = []
-        from rest_controller.inscricao.abstract_inscricao_rest_controller import AbstractInscricaoRestController
-        inscricoes = AbstractInscricaoRestController().service.get_by_torneio_id(id_torneio)
+        inscricoes = self.get_by_torneio_id(id_torneio)
 
         for inscricao in inscricoes:
             jogador_grupo.append([inscricao.to_dict()['id'], inscricao.to_dict()['grupo_id']])
@@ -131,9 +132,9 @@ class InscricaoService(GenericService[InscricaoModel]):
 
             partidas_por_grupo.append(self.gerar_partidas(jogadores, grupo_id))
 
-        self.cadastrar_partidas(partidas_por_grupo)
+        self.cadastrar_partidas(partidas_por_grupo, id_torneio)
 
-    def cadastrar_partidas(self, partidas_por_grupo):
+    def cadastrar_partidas(self, partidas_por_grupo, torneio_id):
         for partidas in partidas_por_grupo:
             for partida in partidas:
                 print(partida)
@@ -141,10 +142,10 @@ class InscricaoService(GenericService[InscricaoModel]):
                     'inscricao_atleta1_id': partida[0],
                     'inscricao_atleta2_id': partida[1],
                     'grupo_id': partida[2],
-                    'etapa': EtapaEnum.PRIMEIRA_FASE
+                    'etapa': EtapaEnum.PRIMEIRA_FASE,
+                    'torneio_id': torneio_id
                 }
-                from rest_controller.partida.abstract_partida_rest_controller import AbstractPartidaRestController
-                AbstractPartidaRestController().service.create(partida_para_criar)
+                self.partida_service.create(partida_para_criar)
 
     def get_classificados(self, quantidade_inscritos):
         '''Retorna os inscritos classificados'''

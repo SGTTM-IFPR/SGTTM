@@ -1,11 +1,14 @@
+import math
 import random
+from datetime import date
 from typing import List
 
 from dependency_injector.wiring import inject
 
-from model import TorneioModel
-from model.Enums import TipoTorneioEnum
+from model import TorneioModel, InscricaoModel
+from model.Enums import TipoTorneioEnum, EtapaEnum
 from model.Enums.fase_enum import FaseEnum
+from model.partida_model import PartidaModel
 from repository.partida_repository import PartidaRepository
 from repository.torneio_repository import TorneioRepository
 from service.generic_service import GenericService
@@ -43,22 +46,16 @@ class TorneioService(GenericService[TorneioModel]):
 
     def get_by_id(self, id) -> TorneioModel:
         model: TorneioModel = self.repository.get_by_id(id)
-        print(model.fase_atual)
         if model.tipo_torneio == TipoTorneioEnum.COPA:
-            print('COPA')
             model.fase_grupo_concluida = self.verify_all_partidas_is_concluida_by_torneio_id(id)
 
         return model
 
     def next_fase(self, id) -> TorneioModel:
         if not self.verify_all_partidas_is_concluida_by_torneio_id(id):
-            print('Entrou aqui')
             return None
-        print('Passou aqui')
         torneio: TorneioModel = self.get_by_id(id)
-        if not torneio:
-            return None
-        if torneio.fase_atual == FaseEnum.FASE_ELIMINATORIA:
+        if not torneio or torneio.fase_atual == FaseEnum.FASE_ELIMINATORIA:
             return None
         update_data = {}
         # update_data['fase_atual'] = FaseEnum.FASE_ELIMINATORIA
@@ -86,18 +83,45 @@ class TorneioService(GenericService[TorneioModel]):
         if not grupos:
             return
         numero_jogadores_classificados = sum(grupo.quantidade_classificados for grupo in grupos)
-        print (numero_jogadores_classificados)
         inscricoes = self.inscricao_service.get_by_torneio_with_limit(torneio.id, numero_jogadores_classificados)
         if not inscricoes:
             return
-
         random.shuffle(inscricoes)
-        partidas = []
-        for i in range(0, len(inscricoes), 2):
-            partida = {}
-            partida['jogador1_id'] = inscricoes[i].jogador_id
-            partida['jogador2_id'] = inscricoes[i+1].jogador_id
-            partida['torneio_id'] = torneio.id
-            partidas.append(partida)
+        partidas = self.generate_partidas_mata_mata(torneio, inscricoes)
+        tabela = "Tabelas.txt"
+        with open(tabela, "a") as arq:
+            for round_num, matches in enumerate(partidas, start=1):
+                print(f"Round {round_num}:")
+                arq.write("--------------- Round " + str(round_num)+ "-------------------")
+                for match_num, (player1, player2) in enumerate(matches, start=1):
+                    arq.write(f"\n Match {match_num} ")
+                    arq.write(f"\n {player1} ----------+")
+                    arq.write(f"\n             |------------+")
+                    arq.write(f"\n {player2} ----------+\n")
+                    print(f"Match {match_num}: {player1} vs {player2}")
         pass
 
+    def generate_partidas_mata_mata(self,torneio, inscricoes: list[InscricaoModel] ):
+            if not torneio or not inscricoes:
+                return []
+
+            numero_inscricoes = len(inscricoes)
+            numero_rounds = int(math.log2(numero_inscricoes))
+            print("numero de rounds " + str(numero_rounds))
+            print("numero de jogadores " + str(numero_inscricoes))
+            print('Mata Mata Partidas')
+            partidas = []
+
+            for round_num in range(1, numero_rounds + 1):
+                matches = []
+                num_matches = numero_inscricoes // 2
+
+                for match_num in range(1, num_matches + 1):
+                    player1 = inscricoes[(match_num - 1) * 2].id
+                    player2 = inscricoes[(match_num - 1) * 2 + 1].id
+                    matches.append((player1, player2))
+
+                partidas.append(matches)
+                numero_inscricoes //= 2
+
+            return partidas

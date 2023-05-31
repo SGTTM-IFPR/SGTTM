@@ -63,15 +63,17 @@ class Container(containers.DeclarativeContainer):
         repository=grupo_repository,
     )
 
-    inscricao_service = providers.Factory(
-        InscricaoService,
-        repository=inscricao_repository,
-        partida_repository=partida_repository,
-    )
 
     partida_service = providers.Factory(
         PartidaService,
         repository=partida_repository,
+    )
+
+    inscricao_service = providers.Factory(
+        InscricaoService,
+        repository=inscricao_repository,
+        partida_repository=partida_repository,
+        partida_service=partida_service
     )
 
     pontuacao_service = providers.Factory(
