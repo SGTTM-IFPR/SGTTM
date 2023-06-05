@@ -31,7 +31,7 @@ class InscricaoService(GenericService[InscricaoModel]):
     def get_by_torneio_id(self, id) -> List[InscricaoModel]:
         return self.repository.get_by_torneio_id(id)
 
-    def get_by_torneio_with_limit(self, torneio_id: int, limit: int) -> list[InscricaoModel]:
+    def get_by_torneio_with_limit(self, torneio_id: int, limit: int) -> List[InscricaoModel]:
         inscricoes = self.get_by_torneio_id(torneio_id)
         if not inscricoes:
             return []

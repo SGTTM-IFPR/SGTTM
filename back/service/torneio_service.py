@@ -101,9 +101,12 @@ class TorneioService(GenericService[TorneioModel]):
                     print(f"Match {match_num}: {player1} vs {player2}")
         pass
 
-    def generate_partidas_mata_mata(self,torneio, inscricoes: list[InscricaoModel] ):
+    def generate_partidas_mata_mata(self, torneio, inscricoes: List[InscricaoModel] ):
             if not torneio or not inscricoes:
                 return []
+            
+            for i in inscricoes:
+                torneio_id = i.torneio_id
 
             numero_inscricoes = len(inscricoes)
             numero_rounds = int(math.log2(numero_inscricoes))
@@ -111,6 +114,35 @@ class TorneioService(GenericService[TorneioModel]):
             print("numero de jogadores " + str(numero_inscricoes))
             print('Mata Mata Partidas')
             partidas = []
+
+            # dicionario de fases conforme numero de round
+            
+            # dicionario de fases, tenho que arrumar o nome das fases, etapa_enum retorna o nome incorreto
+            dict_fases = {
+                16: EtapaEnum.DECIMA_SEXTAS_FINAL.value,
+                8: EtapaEnum.OITAVAS_FINAL.value,
+                4: EtapaEnum.QUARTAS_FINAL.value,
+                2: "SEMIFINALS",
+                1: EtapaEnum.FINAL.value,
+            }
+            # ordenada as inscricoes por id
+            inscricoes_ordenadas = sorted([inscricao.id for inscricao in inscricoes])
+
+            # cria as partidas da fase especifica
+            # no caso de SEMI-FINAL
+            # criar duas partidas
+            # [primeiro x ultimo]
+            # [segundo x penultimo]
+            for i in range(int(len(inscricoes_ordenadas) / 2)):
+                partida_para_criar = {
+                    'inscricao_atleta1_id': inscricoes_ordenadas[i],
+                    'inscricao_atleta2_id': inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i],
+                    'etapa': dict_fases[numero_rounds],
+                    'torneio_id': torneio_id
+                }
+                self.partida_service.create(partida_para_criar)
+
+
 
             for round_num in range(1, numero_rounds + 1):
                 matches = []
