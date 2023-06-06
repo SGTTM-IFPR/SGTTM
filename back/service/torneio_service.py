@@ -101,6 +101,40 @@ class TorneioService(GenericService[TorneioModel]):
                     print(f"Match {match_num}: {player1} vs {player2}")
         pass
 
+    def calcular_partidas_jogadores(self, num_jogadores):
+        if num_jogadores == 2:
+            jogadores_fase_seguinte = 2 - num_jogadores
+            partidas_fase_atual = 1
+            fase = "FINAL"
+        elif num_jogadores <= 4:
+            jogadores_fase_seguinte = 4 - num_jogadores
+            partidas_fase_atual = 2
+            fase = "SEMIFINALS"
+        elif num_jogadores <= 8:
+            jogadores_fase_seguinte = 8 - num_jogadores
+            partidas_fase_atual = 4
+            fase = "QUARTAS_FINAL"
+        elif num_jogadores <= 16:
+            jogadores_fase_seguinte = 16 - num_jogadores
+            partidas_fase_atual = 8
+            fase = "OITAVAS_FINAL"
+        else:
+            jogadores_fase_seguinte = 32 - num_jogadores
+            partidas_fase_atual = 16
+            fase = "DECIMA_SEXTAS_FINAL"
+        
+        return int(partidas_fase_atual), jogadores_fase_seguinte, fase
+
+    def criar_partidas_da_fase_atual(self, inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id):
+        for i in range(partidas_fase_atual):
+                partida_para_criar = {
+                    'inscricao_atleta1_id': inscricoes_ordenadas[i],
+                    'inscricao_atleta2_id': inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i],
+                    'etapa': fase,
+                    'torneio_id': torneio_id
+                }
+                self.partida_service.create(partida_para_criar)
+
     def generate_partidas_mata_mata(self, torneio, inscricoes: List[InscricaoModel] ):
             if not torneio or not inscricoes:
                 return []
@@ -109,40 +143,23 @@ class TorneioService(GenericService[TorneioModel]):
                 torneio_id = i.torneio_id
 
             numero_inscricoes = len(inscricoes)
+            partidas_fase_atual, jogadores_fase_seguinte, fase = self.calcular_partidas_jogadores(numero_inscricoes)
+            
+            print("Numero de partidas da fase atual: " + str(partidas_fase_atual))
+            print("Numero de jogadores da fase seguinte: " + str(jogadores_fase_seguinte))
+            print("Fase atual: " + fase)
+
+            
+            # ordenada as inscricoes por id
+            inscricoes_ordenadas = sorted([inscricao.id for inscricao in inscricoes])
+
+            self.criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id)
+
             numero_rounds = int(math.log2(numero_inscricoes))
             print("numero de rounds " + str(numero_rounds))
             print("numero de jogadores " + str(numero_inscricoes))
             print('Mata Mata Partidas')
-            partidas = []
-
-            # dicionario de fases conforme numero de round
-            
-            # dicionario de fases, tenho que arrumar o nome das fases, etapa_enum retorna o nome incorreto
-            dict_fases = {
-                16: EtapaEnum.DECIMA_SEXTAS_FINAL.value,
-                8: EtapaEnum.OITAVAS_FINAL.value,
-                4: EtapaEnum.QUARTAS_FINAL.value,
-                2: "SEMIFINALS",
-                1: EtapaEnum.FINAL.value,
-            }
-            # ordenada as inscricoes por id
-            inscricoes_ordenadas = sorted([inscricao.id for inscricao in inscricoes])
-
-            # cria as partidas da fase especifica
-            # no caso de SEMI-FINAL
-            # criar duas partidas
-            # [primeiro x ultimo]
-            # [segundo x penultimo]
-            for i in range(int(len(inscricoes_ordenadas) / 2)):
-                partida_para_criar = {
-                    'inscricao_atleta1_id': inscricoes_ordenadas[i],
-                    'inscricao_atleta2_id': inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i],
-                    'etapa': dict_fases[numero_rounds],
-                    'torneio_id': torneio_id
-                }
-                self.partida_service.create(partida_para_criar)
-
-
+            partidas = [] 
 
             for round_num in range(1, numero_rounds + 1):
                 matches = []
