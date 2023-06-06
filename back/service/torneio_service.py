@@ -125,15 +125,82 @@ class TorneioService(GenericService[TorneioModel]):
         
         return int(partidas_fase_atual), jogadores_fase_seguinte, fase
 
-    def criar_partidas_da_fase_atual(self, inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id):
-        for i in range(partidas_fase_atual):
-                partida_para_criar = {
+    def criar_partidas_da_fase_atual(self, inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte):
+        # DADOS PARA TESTE, DEPOIS REMOVER
+        # inscricoes_ordenadas = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+        # 14, 15, 16, 17, 18, 19, 20]
+        # partidas_fase_atual = 5
+        # jogadores_fase_seguinte = 11
+        # fase = "DECIMA_SEXTAS_FINAL"
+        print("------------------")
+        dicionario_proxima_fase = {
+            "SEMIFINALS" : "FINAL",
+            "QUARTAS_FINAL" : "SEMIFINAL",
+            "OITAVAS_FINAL" : "QUARTAS_FINAL",
+            "DECIMA_SEXTAS_FINAL" : "OITAVAS_FINAL"
+        }
+
+        partidas_ideais_fases = [2, 4, 8, 16]
+        ids_inscricoes_cadastrados = []
+        print("CRIANDO PARTIDAS DA FASE ATUAL")
+        # CASO IDEAL, COM NUMERO DE JOGADORES PAR
+        if len(inscricoes_ordenadas) in partidas_ideais_fases:
+            for i in range(partidas_fase_atual):
+                    partida_para_criar = {
+                        'inscricao_atleta1_id': inscricoes_ordenadas[i],
+                        'inscricao_atleta2_id': inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i],
+                        'etapa': fase,
+                        'torneio_id': torneio_id
+                    }
+                    print(partida_para_criar)
+                    self.partida_service.create(partida_para_criar)
+        
+        # CASO NÃO IDEAL, COM NUMERO DE JOGADORES IMPAR
+        else:
+            # CADASTRA AS PARTIDAS IDEAIS DA FASE ATUAL E GUARDA OS IDS DAS INSCRIÇÕES NAO CADASTRADAS
+            for i in range(partidas_fase_atual):
+                partidas_para_criar = {
                     'inscricao_atleta1_id': inscricoes_ordenadas[i],
                     'inscricao_atleta2_id': inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i],
                     'etapa': fase,
                     'torneio_id': torneio_id
                 }
-                self.partida_service.create(partida_para_criar)
+                print(partidas_para_criar)
+                # self.partida_service.create(partidas_para_criar)
+                ids_inscricoes_cadastrados.append(inscricoes_ordenadas[i])
+                ids_inscricoes_cadastrados.append(inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i])
+            ids_restantes = list(set(inscricoes_ordenadas) - set(ids_inscricoes_cadastrados))
+            
+            print("CRIANDO PARTIDAS DA PROXIMA FASE COM JOGADORES RESTANTES")
+            # CASO IDEAL, TOTAL DE JOGADORES RESTANTES SAO PAR
+            if jogadores_fase_seguinte % 2 == 0:
+                for i in range(int(jogadores_fase_seguinte) // 2):
+                    partidas_para_criar = {
+                        'inscricao_atleta1_id': ids_restantes[i],
+                        'inscricao_atleta2_id': ids_restantes[len(ids_restantes) - 1 - i],
+                        'etapa': dicionario_proxima_fase[fase],
+                        'torneio_id': torneio_id
+                    }
+                    print(partidas_para_criar)
+
+            # CASO NÃO IDEAL, TOTAL DE JOGADORES RESTANTES SAO IMPAR
+            else:
+                for i in range(int(jogadores_fase_seguinte) // 2):
+                    partidas_para_criar = {
+                        'inscricao_atleta1_id': ids_restantes[i],
+                        'inscricao_atleta2_id': ids_restantes[len(ids_restantes) - 1 - i],
+                        'etapa': dicionario_proxima_fase[fase],
+                        'torneio_id': torneio_id
+                    }
+                    print(partidas_para_criar)
+                partidas_para_criar = {
+                    'inscricao_atleta1_id': ids_restantes[int(jogadores_fase_seguinte) // 2],
+                    'inscricao_atleta2_id': None,
+                    'etapa': dicionario_proxima_fase[fase],
+                    'torneio_id': torneio_id
+                }
+                print(partidas_para_criar)
+    print("------------------")
 
     def generate_partidas_mata_mata(self, torneio, inscricoes: List[InscricaoModel] ):
             if not torneio or not inscricoes:
@@ -143,22 +210,20 @@ class TorneioService(GenericService[TorneioModel]):
                 torneio_id = i.torneio_id
 
             numero_inscricoes = len(inscricoes)
+
+            # CALCULA O NUMERO DE PARTIDAS DA FASE ATUAL E O NUMERO DE JOGADORES DA FASE SEGUINTE
             partidas_fase_atual, jogadores_fase_seguinte, fase = self.calcular_partidas_jogadores(numero_inscricoes)
             
-            print("Numero de partidas da fase atual: " + str(partidas_fase_atual))
-            print("Numero de jogadores da fase seguinte: " + str(jogadores_fase_seguinte))
-            print("Fase atual: " + fase)
-
-            
-            # ordenada as inscricoes por id
+            # ORDENA AS INSCRIÇÕES PELO ID
             inscricoes_ordenadas = sorted([inscricao.id for inscricao in inscricoes])
 
-            self.criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id)
+            # CRIA AS PARTIDAS DA FASE ATUAL E DA FASE SEGUINTE SE TIVER JOGADORES RESTANTES
+            self.criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte)
 
             numero_rounds = int(math.log2(numero_inscricoes))
-            print("numero de rounds " + str(numero_rounds))
-            print("numero de jogadores " + str(numero_inscricoes))
-            print('Mata Mata Partidas')
+            # print("numero de rounds " + str(numero_rounds))
+            # print("numero de jogadores " + str(numero_inscricoes))
+            # print('Mata Mata Partidas')
             partidas = [] 
 
             for round_num in range(1, numero_rounds + 1):
