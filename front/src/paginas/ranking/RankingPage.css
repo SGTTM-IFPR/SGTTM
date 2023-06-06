@@ -1,0 +1,23 @@
+/* RankingPage.css */
+
+.animate-enter {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  
+  .animate-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .animate-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .animate-exit-active {
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 500ms, transform 500ms;
+  }
