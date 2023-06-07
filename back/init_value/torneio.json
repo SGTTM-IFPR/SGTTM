@@ -1,0 +1,10 @@
+[
+    {
+        "nome": "IFPR",
+        "data_inicio": "2024-02-01",
+        "data_final": "2024-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    }
+]

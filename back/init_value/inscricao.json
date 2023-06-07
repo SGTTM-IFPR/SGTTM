@@ -1,0 +1,102 @@
+[
+    {
+        "usuario_id": 1,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 2,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 3,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 4,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 5,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 6,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 7,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 8,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 9,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 10,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 11,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 12,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 13,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 14,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 15,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 16,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 17,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 18,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 19,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    },
+    {
+        "usuario_id": 20,
+        "torneio_id": 1,
+        "condicao": "PROFESSOR_IFPR"
+    }
+]
