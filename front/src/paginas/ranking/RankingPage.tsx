@@ -1,6 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Table, Layout, Select } from 'antd';
 import axios from 'axios';
+import moment from 'moment';
+
+const { Column } = Table;
+const { Header, Content } = Layout;
+const { Option } = Select;
 
 interface Ranking {
   nome: string;
@@ -12,14 +17,17 @@ interface Ranking {
 export const RankingPage = () => {
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [columns, setColumns] = useState<any[]>([]);
+  const [selectedYear, setSelectedYear] = useState(moment().year());
 
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/pontuacao/ranking');
+
+        let response = await axios.get(`http://localhost:5000/pontuacao/ranking?ano=${selectedYear}`);
+        if(selectedYear == null) response = await axios.get(`http://localhost:5000/pontuacao/ranking?ano=2023`);
         const data = response.data;
 
-        // Extrair colunas de torneios e criar o conjunto de colunas dinâmicas
+        // Extract tournament columns and create dynamic column set
         const torneios = data[1]?.map((record: any) => record.torneio);
         const dataSource = data[0]?.map((record: any) => {
           const { nome, clube, federacao } = record;
@@ -70,13 +78,41 @@ export const RankingPage = () => {
     };
 
     fetchRankings();
-  }, []);
+  }, [selectedYear]);
+
+  const handleYearChange = (year: number) => {
+    setSelectedYear(year);
+  };
 
   return (
-    <div>
-      <h1>Ranking</h1>
-      <Table columns={columns} dataSource={rankings} pagination={false} />
-    </div>
+    <Layout>
+      <div>
+        <Header
+          style={{
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: '20px',
+          }}
+        >
+          <h1 style={{ marginRight: 'auto' }}>Ranking</h1>
+          <Select defaultValue={selectedYear} onChange={handleYearChange}>
+            <Option value={moment().year()}>{moment().year()}</Option>
+            <Option value={moment().year() - 1}>{moment().year() - 1}</Option>
+            {/* Add more options for different years */}
+          </Select>
+        </Header>
+
+        <Content>
+          <Table dataSource={rankings} pagination={false}>
+            {columns.map((column) => (
+              <Column {...column} />
+            ))}
+          </Table>
+        </Content>
+      </div>
+    </Layout>
   );
 };
 

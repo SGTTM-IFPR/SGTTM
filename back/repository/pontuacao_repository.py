@@ -1,13 +1,19 @@
 from model import InscricaoModel, UsuarioModel, TorneioModel, PontuacaoModel
 from repository.generic_repository import GenericRepository
+from sqlalchemy import extract
+
+# Restante do código...
 
 class PontuacaoRepository(GenericRepository):
     def __init__(self):
         super().__init__(PontuacaoModel)
     
-    def get_ranking(self):
-        # Obter todos os torneios
-        torneios = TorneioModel.query.all()
+    def get_ranking(self, year=None):
+        # Converter o ano fornecido para string
+        year_str = str(year) if year is not None else None
+
+        # Obter todos os torneios do ano especificado
+        torneios = TorneioModel.query.filter(extract('year', TorneioModel.data_inicio) == year_str).all()
 
         rankings = []  # Lista de rankings por torneio
 
@@ -38,6 +44,7 @@ class PontuacaoRepository(GenericRepository):
                         'nome': usuario.nome,
                         'clube': usuario.clube,
                         'federacao': usuario.federacao,
+                        'ano': torneio.data_inicio
                     }
                 pontuacoes[usuario_id][torneio.nome] = pontos  # Adicionar pontuação do usuário para o torneio atual
 
@@ -48,6 +55,7 @@ class PontuacaoRepository(GenericRepository):
             rankings.append({
                 'torneio': torneio.nome,
                 'ranking': ranking_torneio,
+                
             })
 
             # Adicionar as pontuações do torneio ao dicionário de pontuações por torneio
