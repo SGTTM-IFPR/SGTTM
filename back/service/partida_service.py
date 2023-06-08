@@ -14,6 +14,9 @@ class PartidaService(GenericService[PartidaModel]):
     def get_by_grupo_id(self, grupo_id):
         return self.repository.get_by_grupo_id(grupo_id)
 
+    def get_partida_by_etapa_and_id_torneio(self, etapa, torneio_id):
+        return self.repository.get_partida_by_etapa_and_id_torneio(etapa, torneio_id)
+
     def update_all(self, partidas):
         updated_partidas = []
 

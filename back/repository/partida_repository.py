@@ -19,3 +19,6 @@ class PartidaRepository(GenericRepository):
 
     def get_vitorias(self, jogador_id) -> List[PartidaModel]:
         return self.model.query.filter((PartidaModel.vencedor_id == jogador_id)).all()
+    
+    def get_partida_by_etapa_and_id_torneio(self, etapa, torneio_id) -> List[PartidaModel]:
+        return self.model.query.filter_by(etapa=etapa, torneio_id=torneio_id).all()

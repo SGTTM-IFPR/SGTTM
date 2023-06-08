@@ -16,6 +16,7 @@ from service.grupo_service import GrupoService
 from service.inscricao_service import InscricaoService
 from service.partida_service import PartidaService
 from service.service_criar_partidas_eliminatorias import *
+from service.service_atualizar_partida_origem import *
 
 
 class TorneioService(GenericService[TorneioModel]):
@@ -120,7 +121,33 @@ class TorneioService(GenericService[TorneioModel]):
 
             # CRIA AS PARTIDAS DA FASE ATUAL E DA FASE SEGUINTE SE TIVER JOGADORES RESTANTES
             # E DEPOIS CRIA AS PARTIDAS ATE A FINAL
-            criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte)
+            # criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte)
+            # Exemplo de lista de registros para atualizar
+            final = partida_service.get_partida_by_etapa_and_id_torneio("FINAL", torneio_id)
+            registros_final = []
+            for i in final:
+                registros_final.append((i.id, i.etapa.value.upper(), i.inscricao_atleta1_id, i.inscricao_atleta2_id))
+
+            semifinal = partida_service.get_partida_by_etapa_and_id_torneio("SEMIFINALS", torneio_id)
+            registros_semifinals = []
+            for i in semifinal:
+                registros_semifinals.append((i.id, "SEMIFINALS", i.inscricao_atleta1_id, i.inscricao_atleta2_id))
+
+            quartas = partida_service.get_partida_by_etapa_and_id_torneio("QUARTAS_FINAL", torneio_id)
+            registros_quartas = []
+            for i in quartas:
+                registros_quartas.append((i.id, "QUARTAS_FINAL", i.inscricao_atleta1_id, i.inscricao_atleta2_id))
+            
+            oitavas = partida_service.get_partida_by_etapa_and_id_torneio("OITAVAS_FINAL", torneio_id)
+            registros_oitavas = []
+            for i in oitavas:
+                registros_oitavas.append((i.id, "OITAVAS_FINAL", i.inscricao_atleta1_id, i.inscricao_atleta2_id))
+
+
+            atualizar_registro_final(registros_final, torneio_id)
+            atualizar_registro_semifinals(registros_semifinals, torneio_id)
+            atualizar_registro_quartas(registros_quartas, torneio_id)
+
 
             numero_rounds = int(math.log2(numero_inscricoes))
             # print("numero de rounds " + str(numero_rounds))
