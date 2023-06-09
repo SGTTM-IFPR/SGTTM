@@ -181,8 +181,8 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
         partida_service.create(partida_para_criar)
         
         fase_atual = proxima_fase
-
-    criar_partidas_ate_a_final(fase, torneio_id)
+    if proxima_fase != "FINAL":
+        criar_partidas_ate_a_final(fase, torneio_id)
 
 def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte):
     global partida_service

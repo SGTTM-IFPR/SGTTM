@@ -11,105 +11,201 @@ partida_service = PartidaService(partida_repository)
 
 def atualizar_registro_final(registros, torneio_id):
     k = 0
+    registros = registros[::-1]
     for registro in registros:
         id_partida = registro[0]
         etapa = registro[1]
         partida_origem_id_atleta_1 = registro[2]
         partida_origem_id_atleta_2 = registro[3]
+        # inscricao_id_atleta_1 = registro[4]
+        # inscricao_id_atleta_2 = registro[5]
+
+        if registro[2] == None and registro[3] == None:   
+            partidas_semifinal = obter_partida_semifinal(torneio_id)
+
+            if k < len(partidas_semifinal):
+                partida_origem_id_atleta_1 = partidas_semifinal[k]
+            if k + 1 < len(partidas_semifinal):
+                partida_origem_id_atleta_2 = partidas_semifinal[k + 1]
+
+            k += 2
         
-        partidas_semifinal = obter_partida_semifinal(torneio_id)
+        if registro[2] != None and registro[3] == None:
+            partidas_semifinal = obter_partida_semifinal(torneio_id)
 
-        partida_origem_id_atleta_1 = partidas_semifinal[k]
-        partida_origem_id_atleta_2 = partidas_semifinal[k + 1]
+            if k + 1 <= len(partidas_semifinal):
+                partida_origem_id_atleta_2 = partidas_semifinal[k]
 
-        k += 2
-    atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
+            k += 2
+
+        if registro[2] == None and registro[3] != None:
+            partidas_semifinal = obter_partida_semifinal(torneio_id)
+
+            if k + 1 <= len(partidas_semifinal):
+                partida_origem_id_atleta_1 = partidas_semifinal[k]
+
+            k += 2
+
+        if registro[2] != None and registro[3] != None:
+            partidas_semifinal = obter_partida_semifinal(torneio_id)
+
+            continue
+            # partida_origem_id_atleta_1 = partidas_semifinal[k]
+            # partida_origem_id_atleta_2 = partidas_semifinal[k + 1]
+
+            k += 2
+
+        atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
     print()
 
 def atualizar_registro_semifinals(registros, torneio_id):
     k = 0
+    registros = registros[::-1]
     for registro in registros:
         id_partida = registro[0]
         etapa = registro[1]
         partida_origem_id_atleta_1 = registro[2]
         partida_origem_id_atleta_2 = registro[3]
+        # inscricao_id_atleta_1 = registro[4]
+        # inscricao_id_atleta_2 = registro[5]
+
+        if registro[2] == None and registro[3] == None:
+            partidas_quartas = obter_partida_quartas(torneio_id)
+
+            if k < len(partidas_quartas):
+                partida_origem_id_atleta_1 = partidas_quartas[k]
+            if k + 1 < len(partidas_quartas):
+                partida_origem_id_atleta_2 = partidas_quartas[k + 1]
+
+            k += 2
         
-        partidas_quartas = obter_partida_quartas(torneio_id)
+        if registro[2] != None and registro[3] == None:
+            partidas_quartas = obter_partida_quartas(torneio_id)
 
-        partida_origem_id_atleta_1 = partidas_quartas[k]
-        partida_origem_id_atleta_2 = partidas_quartas[k + 1]
+            if k + 1 <= len(partidas_quartas):
+                partida_origem_id_atleta_2 = partidas_quartas[k]
 
-        k += 2
+            k += 2
+
+        if registro[2] == None and registro[3] != None:
+            partidas_quartas = obter_partida_quartas(torneio_id)
+
+            if k + 1 <= len(partidas_quartas):
+                partida_origem_id_atleta_1 = partidas_quartas[k]
+
+            k += 2
+
+        if registro[2] != None and registro[3] != None:
+            partidas_quartas = obter_partida_quartas(torneio_id)
+
+            continue
+            # partida_origem_id_atleta_1 = partidas_quartas[k]
+            # partida_origem_id_atleta_2 = partidas_quartas[k + 1]
+
+            k += 2
+
 
         atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
     print()
 
 def atualizar_registro_quartas(registros, torneio_id):
     k = 0
-    registros = sorted(registros, key=lambda x: (x[2] is None and x[3] is None, x[2] if x[2] is not None else float('inf'), x[3] if x[3] is not None else float('inf')))
-    print(registros)
-    for registro in registros:
-        if registro[2] == None and registro[3] == None:
-            id_partida = registro[0]
-            etapa = registro[1]
-            partida_origem_id_atleta_1 = registro[2]
-            partida_origem_id_atleta_2 = registro[3]
-            
-            partidas_oitavas = obter_partida_oitavas(torneio_id)
-
-            if k < len(partidas_oitavas):
-                partida_origem_id_atleta_1 = partidas_oitavas[k]
-            if k + 1 < len(partidas_oitavas):
-                partida_origem_id_atleta_2 = partidas_oitavas[k + 1]
-
-            k += 2
-        
-        if registro[2] != None and registro[3] == None:
-            id_partida = registro[0]
-            etapa = registro[1]
-            partida_origem_id_atleta_1 = registro[2]
-            partida_origem_id_atleta_2 = registro[3]
-            
-            partidas_oitavas = obter_partida_oitavas(torneio_id)
-
-            if k + 1 < len(partidas_oitavas):
-                partida_origem_id_atleta_2 = partidas_oitavas[k + 1]
-
-            k += 2
-
-        if registro[2] == None and registro[3] != None:
-            id_partida = registro[0]
-            etapa = registro[1]
-            partida_origem_id_atleta_1 = registro[2]
-            partida_origem_id_atleta_2 = registro[3]
-            
-            partidas_oitavas = obter_partida_oitavas(torneio_id)
-
-            if k < len(partidas_oitavas):
-                partida_origem_id_atleta_1 = partidas_oitavas[k]
-
-            k += 2
-
-        atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
-    
-    print()
-
-
-def atualizar_registro_oitavas(registros, torneio_id):
-    k = 0
+    # registros = sorted(registros, key=lambda x: (x[2] is None and x[3] is None, x[2] if x[2] is not None else float('inf'), x[3] if x[3] is not None else float('inf')))
+    registros = registros[::-1]
     for registro in registros:
         id_partida = registro[0]
         etapa = registro[1]
         partida_origem_id_atleta_1 = registro[2]
         partida_origem_id_atleta_2 = registro[3]
-        
-        partidas_decimas = obter_partida_decimas(torneio_id)
+        inscricao_id_atleta_1 = registro[4]
+        inscricao_id_atleta_2 = registro[5]
 
-        partida_origem_id_atleta_1 = partidas_decimas[k]
-        partida_origem_id_atleta_2 = partidas_decimas[k + 1]
+        if registro[4] == None and registro[5] == None:
+            partidas_oitavas = obter_partida_oitavas(torneio_id)
 
-        k += 2
+            if k < len(partidas_oitavas):
+                partida_origem_id_atleta_1 = partidas_oitavas[k]
+            if k + 1 < len(partidas_oitavas):
+                partida_origem_id_atleta_2 = partidas_oitavas[k + 1]
+
+            k += 2
         
+        if registro[4] != None and registro[5] == None:
+            partidas_oitavas = obter_partida_oitavas(torneio_id)
+
+            if k + 1 <= len(partidas_oitavas):
+                partida_origem_id_atleta_2 = partidas_oitavas[k]
+
+            k += 2
+
+        if registro[4] == None and registro[5] != None:
+            partidas_oitavas = obter_partida_oitavas(torneio_id)
+
+            if k + 1 <= len(partidas_oitavas):
+                partida_origem_id_atleta_1 = partidas_oitavas[k]
+
+            k += 2
+
+        if registro[4] != None and registro[5] != None:
+            partidas_oitavas = obter_partida_oitavas(torneio_id)
+
+            continue
+            # partida_origem_id_atleta_1 = partidas_oitavas[k]
+            # partida_origem_id_atleta_2 = partidas_oitavas[k + 1]
+
+            k += 2
+
+
+        atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
+    
+    print()
+
+def atualizar_registro_oitavas(registros, torneio_id):
+    k = 0
+    registros = registros[::-1]
+    for registro in registros:
+        id_partida = registro[0]
+        etapa = registro[1]
+        partida_origem_id_atleta_1 = registro[2]
+        partida_origem_id_atleta_2 = registro[3]
+        # inscricao_id_atleta_1 = registro[4]
+        # inscricao_id_atleta_2 = registro[5]
+
+        if registro[2] == None and registro[3] == None:
+            partidas_decimas = obter_partida_decimas(torneio_id)
+
+            if k < len(partidas_decimas):
+                partida_origem_id_atleta_1 = partidas_decimas[k]
+            if k + 1 < len(partidas_decimas):
+                partida_origem_id_atleta_2 = partidas_decimas[k + 1]
+
+            k += 2
+        
+        if registro[2] != None and registro[3] == None:
+            partidas_decimas = obter_partida_decimas(torneio_id)
+
+            if k + 1 <= len(obter_partida_decimas):
+                partida_origem_id_atleta_2 = obter_partida_decimas[k]
+
+            k += 2
+
+        if registro[2] == None and registro[3] != None:
+            partidas_decimas = obter_partida_decimas(torneio_id)
+
+            if k + 1 <= len(partidas_decimas):
+                partida_origem_id_atleta_1 = partidas_decimas[k]
+
+            k += 2
+
+        if registro[2] != None and registro[3] != None:
+            partidas_decimas = obter_partida_decimas(torneio_id)
+
+            continue
+            # partida_origem_id_atleta_1 = partidas_decimas[k]
+            # partida_origem_id_atleta_2 = partidas_decimas[k + 1]
+
+            k += 2
+
         atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id_atleta_2, etapa)
     print()
 
@@ -153,8 +249,11 @@ def atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id
     print(f"partida_origem_id_atleta_2 = {partida_origem_id_atleta_2}")
     print(f"etapa = {etapa}")
 
-# Chamar a função para atualizar os registros
-# atualizar_registro_final(registros_final)
-# atualizar_registro_semifinals(registros_semifinals)
-# atualizar_registro_quartas(registros_quartas)
-# atualizar_registro_oitavas(registros_oitavas)
+    partida_para_atualizar = {
+        "id": id_partida,
+        "partida_origem_id_atleta_1": partida_origem_id_atleta_1,
+        "partida_origem_id_atleta_2": partida_origem_id_atleta_2,
+    }
+
+    # atualizar registro no banco
+    partida_service.update(id_partida, partida_para_atualizar)
