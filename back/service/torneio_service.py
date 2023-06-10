@@ -121,7 +121,7 @@ class TorneioService(GenericService[TorneioModel]):
 
             # CRIA AS PARTIDAS DA FASE ATUAL E DA FASE SEGUINTE SE TIVER JOGADORES RESTANTES
             # E DEPOIS CRIA AS PARTIDAS ATE A FINAL
-            criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte)
+            # criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte)
             
             # Exemplo de lista de registros para atualizar
             final = partida_service.get_partida_by_etapa_and_id_torneio("FINAL", torneio_id)

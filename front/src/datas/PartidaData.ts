@@ -8,7 +8,11 @@ export interface PartidaData {
   grupo_id: number;
   inscricao_atleta1: InscricaoData;
   inscricao_atleta2: InscricaoData;
-  pontos_atleta_1: number ;
-  pontos_atleta_2: number ;
-  vendedor: InscricaoData;
+  partida_origem_atleta1: number;
+  partida_origem_atleta2: number;
+  pontos_atleta_1: number;
+  pontos_atleta_2: number;
+  vencedor_id: number;
+  concluida: number;
+  round: number;
 }

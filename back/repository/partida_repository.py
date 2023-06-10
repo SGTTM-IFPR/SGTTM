@@ -22,3 +22,6 @@ class PartidaRepository(GenericRepository):
     
     def get_partida_by_etapa_and_id_torneio(self, etapa, torneio_id) -> List[PartidaModel]:
         return self.model.query.filter_by(etapa=etapa, torneio_id=torneio_id).all()
+    
+    def get_all_partidas_by_torneio_id(self, torneio_id) -> List[PartidaModel]:
+        return self.model.query.filter_by(torneio_id=torneio_id).all()

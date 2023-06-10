@@ -30,3 +30,17 @@ export const updateAllPartidas = async (partidas: PartidaData[]) => {
     const response = await axios.put<PartidaData[]>(`${baseURL}/${endpoint}`, partidas);
     return response.data;
 }
+
+export const getPartidaByEtapaAndTorneioId = async (etapa: string, torneioId: number): Promise<PartidaData[]> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `partida/find-by-etapa-torneio/${etapa}/${torneioId}`;
+    const response = await axios.get<PartidaData[]>(`${baseURL}/${endpoint}`);
+    return response.data;
+}
+
+export const getAllPartidasByTorneioId = async (torneioId: number): Promise<PartidaData[]> => {
+    const baseURL = "http://localhost:5000/";
+    const endpoint = `partida/find-by-torneio/${torneioId}`;
+    const response = await axios.get<PartidaData[]>(`${baseURL}/${endpoint}`);
+    return response.data;
+}
