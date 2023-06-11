@@ -12,7 +12,7 @@ class PartidaByEtapaTorneioController(AbstractPartidaRestController):
 
         partidas = self.service.get_partida_by_etapa_and_id_torneio(etapa, torneio_id)
         partidas_dicts = [partida.to_dict() for partida in partidas]
-        print(partidas_dicts)
+        # print(partidas_dicts)
         if partidas:
             return partidas_dicts, 200
         else:

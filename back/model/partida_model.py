@@ -20,6 +20,7 @@ class PartidaModel(database.Model, SerializerMixin):
     inscricao_atleta2 = database.relationship("InscricaoModel", foreign_keys=[inscricao_atleta2_id])
     partida_origem_id_atleta_1 = Column(Integer, ForeignKey('partida.id'), nullable=True)
     partida_origem_id_atleta_2 = Column(Integer, ForeignKey('partida.id'), nullable=True)
+    id_proxima_partida = Column(Integer, ForeignKey('partida.id'), nullable=True)
     pontos_atleta_1 = Column(Integer, default=0)
     pontos_atleta_2 = Column(Integer, default=0)
     vencedor_id = Column(Integer, ForeignKey('inscricao.id'), nullable=True)

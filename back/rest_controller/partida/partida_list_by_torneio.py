@@ -12,7 +12,7 @@ class PartidaByTorneioController(AbstractPartidaRestController):
 
         partidas = self.service.get_all_partidas_by_torneio_id(torneio_id)
         partidas_dicts = [partida.to_dict() for partida in partidas]
-        print(partidas_dicts)
+        # print(partidas_dicts)
         if partidas:
             return partidas_dicts, 200
         else:

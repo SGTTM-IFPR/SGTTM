@@ -10,7 +10,7 @@ class InscricaoListByGrupoController(AbstractInscricaoRestController):
         inscricoes = self.service.get_by_grupo_id(grupo_id)
         inscricao_dicts = [inscricao.to_dict() for inscricao in inscricoes]
         try:
-            print(inscricao_dicts)
+            # print(inscricao_dicts)
             return inscricao_dicts, 200
         except Exception:
             print(Exception)

@@ -10,6 +10,7 @@ export interface PartidaData {
   inscricao_atleta2: InscricaoData;
   partida_origem_atleta1: number;
   partida_origem_atleta2: number;
+  id_proxima_partida: number;
   pontos_atleta_1: number;
   pontos_atleta_2: number;
   vencedor_id: number;

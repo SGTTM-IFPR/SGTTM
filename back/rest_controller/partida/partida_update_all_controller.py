@@ -22,7 +22,7 @@ class PartidaUpdateAllController(AbstractPartidaRestController):
         # Convert JSON data to PartidaModel instances
         partidas = []
         for partida_data in partidas_data:
-            print(partida_data)
+            # print(partida_data)
             partida = PartidaModel(**partida_data)
             partidas.append(partida)
 

@@ -24,7 +24,8 @@ function montar_partida(partidas: any[]) {
                 "name": partida.etapa.toUpperCase(),
                 // buscar o id da proxima partida
                 // buscar o id da partida que tem o partida.inscricao_atleta1.id ou partida.inscricao_atleta2.id
-                "nextMatchId": null,
+                // primeiro tentar adicionar o id da proxima partidas nas partidas
+                "nextMatchId": partida.id_proxima_partida,
                 // "tournamentRoundText": "4",
                 "startTime": "09/06/2023",
                 "state": estado_partida,
@@ -79,6 +80,7 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         fetchPartidas();
     }, [torneioId]);
     // console.log("match_todas", match_todas);
+
     return (
         <>
             <div
@@ -91,21 +93,23 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                     margin: "20px 20px",
                 }}
             >
-                <Row gutter={[24, 0]} style={{ width: "100%" }}>
-                    {match_todas.length > 0 ? (
-                        <SingleEliminationBracket
-                            matches={match_todas}
-                            matchComponent={Match}
-                            svgWrapper={({ children, ...props }) => (
-                                <SVGViewer width={800} height={800} {...props}>
-                                    {children}
-                                </SVGViewer>
-                            )}
-                        />
-                    ) : (
-                        <Spin size="large" />
-                    )}
-                </Row>
+                {/* <Row gutter={[24, 0]} style={{ width: "100%", height: "800px" }}> */}
+                {match_todas.length > 0 ? (
+                    <SingleEliminationBracket
+                        matches={match_todas}
+                        matchComponent={Match}
+                        svgWrapper={({ children, ...props }) => (
+                            // background={'#0b0d12'} SVGBackground={'#0b0d12'} para mudar cor de fundo
+                            <SVGViewer width={3000} height={900}{...props}>
+                                {children}
+                            </SVGViewer>
+                        )}
+                    />
+                ) : (
+                    <Spin size="large" />
+                )}
+                {/* </Row> */}
+
             </div>
         </>
     );

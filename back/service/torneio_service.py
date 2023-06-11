@@ -17,6 +17,7 @@ from service.inscricao_service import InscricaoService
 from service.partida_service import PartidaService
 from service.service_criar_partidas_eliminatorias import *
 from service.service_atualizar_partida_origem import *
+from service.service_id_proxima_partida import *
 
 
 class TorneioService(GenericService[TorneioModel]):
@@ -149,7 +150,8 @@ class TorneioService(GenericService[TorneioModel]):
             atualizar_registro_semifinals(registros_semifinals, torneio_id)
             atualizar_registro_quartas(registros_quartas, torneio_id)
             atualizar_registro_oitavas(registros_oitavas, torneio_id)
-
+            
+            # atualizar_id_proxima_partida(torneio_id)
 
             numero_rounds = int(math.log2(numero_inscricoes))
             # print("numero de rounds " + str(numero_rounds))
