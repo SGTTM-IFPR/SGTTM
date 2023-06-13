@@ -1,6 +1,7 @@
 import { TorneioLista } from '../componentes/torneio/TorneioLista';
 import { FlagStatusTorneio } from '../componentes/torneio/FlagStatusTorneio';
 import { SetStateAction, useState } from 'react';
+import { FaseEliminatoria } from '../componentes/fase/FaseEliminatoria';
 
 export const HomePage = () => {
   const [status, setStatus] = useState('Aberto');
@@ -15,6 +16,8 @@ export const HomePage = () => {
     <>
       <FlagStatusTorneio onStatusChange={handleStatusChange} />
       <TorneioLista status={status} />
+      <FaseEliminatoria />
     </>
+
   );
 };
