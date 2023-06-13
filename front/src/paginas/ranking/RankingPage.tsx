@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Layout, Select } from 'antd';
+import { Table, Layout, Select, Collapse } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 
 const { Column } = Table;
 const { Header, Content } = Layout;
 const { Option } = Select;
+const { Panel } = Collapse;
 
 interface Ranking {
   nome: string;
@@ -15,63 +16,33 @@ interface Ranking {
 }
 
 export const RankingPage = () => {
-  const [rankings, setRankings] = useState<Ranking[]>([]);
-  const [columns, setColumns] = useState<any[]>([]);
-  const [selectedYear, setSelectedYear] = useState(moment().year());
+  const [rankings, setRankings] = useState<{ torneio: string; rankings: Ranking[] }[]>([]);
+  const [selectedYear, setSelectedYear] = useState<number>(moment().year());
 
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-
         let response = await axios.get(`http://localhost:5000/pontuacao/ranking?ano=${selectedYear}`);
-        if(selectedYear == null) response = await axios.get(`http://localhost:5000/pontuacao/ranking?ano=2023`);
+        if (selectedYear === null) {
+          response = await axios.get(`http://localhost:5000/pontuacao/ranking?ano=2023`);
+        }
         const data = response.data;
 
-        // Extract tournament columns and create dynamic column set
+        // Group rankings by torneio
         const torneios = data[1]?.map((record: any) => record.torneio);
-        const dataSource = data[0]?.map((record: any) => {
-          const { nome, clube, federacao } = record;
-          const pontuacoes: any = {};
-
-          data[1]?.forEach((item: any) => {
-            pontuacoes[item.torneio] =
-              item.ranking.find((r: any) => r.nome === nome)?.[item.torneio] || 0;
+        const dataSource: any[] = [];
+        torneios.forEach((torneio: string) => {
+          const torneioRankings = data[0]?.map((record: any) => {
+            const { nome, clube, federacao } = record;
+            const pontuacao =
+              data[1]?.find((item: any) => item.torneio === torneio)?.ranking.find((r: any) => r.nome === nome)?.[torneio] || 0;
+            return { nome, clube, federacao, pontuacao };
           });
 
-          return {
-            nome,
-            clube,
-            federacao,
-            ...pontuacoes,
-          };
+          dataSource.push({ torneio, rankings: torneioRankings });
         });
 
-        const columns = [
-          {
-            title: 'Nome',
-            dataIndex: 'nome',
-            key: 'nome',
-          },
-          {
-            title: 'Clube',
-            dataIndex: 'clube',
-            key: 'clube',
-          },
-          {
-            title: 'Federação',
-            dataIndex: 'federacao',
-            key: 'federacao',
-          },
-          ...(torneios || []).map((torneio: string) => ({
-            title: torneio,
-            dataIndex: torneio,
-            key: torneio,
-            render: (text: number) => (text ? text : 0),
-          })),
-        ];
-
         setRankings(dataSource);
-        setColumns(columns);
       } catch (error) {
         console.error(error);
       }
@@ -105,11 +76,23 @@ export const RankingPage = () => {
         </Header>
 
         <Content>
-          <Table dataSource={rankings} pagination={false}>
-            {columns.map((column) => (
-              <Column {...column} />
+          <Collapse>
+            {rankings.map((torneioRanking) => (
+              <Panel header={torneioRanking.torneio} key={torneioRanking.torneio}>
+                <Table dataSource={torneioRanking.rankings} pagination={false}>
+                  <Column title="Nome" dataIndex="nome" key="nome" />
+                  <Column title="Clube" dataIndex="clube" key="clube" />
+                  <Column title="Federação" dataIndex="federacao" key="federacao" />
+                  <Column
+                    title="Ranking"
+                    dataIndex="pontuacao"
+                    key="pontuacao"
+                    render={(text: number) => (text ? text : 0)}
+                  />
+                </Table>
+              </Panel>
             ))}
-          </Table>
+          </Collapse>
         </Content>
       </div>
     </Layout>
