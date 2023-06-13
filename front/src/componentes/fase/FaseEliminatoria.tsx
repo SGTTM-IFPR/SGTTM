@@ -56,8 +56,7 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         };
         fetchPartidas();
     }, [torneioId]);
-
-
+    const [printProps, setPrintProps] = useState<any>(null);
     return (
         <>
             <div
@@ -84,17 +83,21 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                         }}
                         matches={match_todas}
                         matchComponent={Match}
-                        svgWrapper={({ children, ...props }) => (
+                        svgWrapper={({
+                            children,
+                        }) => (
+                            // console.log("props", props),
                             // background={'#0b0d12'} SVGBackground={'#0b0d12'} para mudar cor de fundo
-                            <SVGViewer width={3000} height={1000} {...props}>
+                            <SVGViewer width={1250} height={1000} bracketWidth={1250} bracketHeight={1000} startAt={[0, 0]}>
                                 {children}
                             </SVGViewer>
+
                         )}
                     />
                 ) : (
                     <Spin size="large" />
                 )}
-            </div>
+            </div >
         </>
     );
 };
