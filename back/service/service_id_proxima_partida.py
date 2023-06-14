@@ -1,5 +1,6 @@
 from repository.partida_repository import PartidaRepository
 from service.partida_service import PartidaService
+from collections import Counter
 
 partida_repository = PartidaRepository()
 partida_service = PartidaService(partida_repository)
@@ -19,7 +20,7 @@ def criar_dicionario_id_proxima_partida(partidas):
 
 def atualizar_id_proxima_partida(torneio_id, fase):
     dicionario_fases = {
-        "DECIMA_SEXTA_FINAL": 16,
+        "DECIMA_SEXTAS_FINAL": 16,
         "OITAVAS_FINAL": 8,
         "QUARTAS_FINAL": 4,
         "SEMIFINALS": 2
@@ -67,13 +68,18 @@ def atualizar_id_proxima_partida(torneio_id, fase):
         ids_partida_da_proxima_fase.append(p.id)
     ids_partida_da_proxima_fase = ids_partida_da_proxima_fase[dicionario_fases[fase]:]    
 
-    ids_final_para_referenciar = [x for x in ids_partida_da_proxima_fase if x not in ids_proxima_partida]
+    contador = Counter(ids_proxima_partida)
+
+    ids_proxima_partida2 = [x for x in ids_proxima_partida if contador[x] > 1]
+
+    ids_final_para_referenciar = [x for x in ids_partida_da_proxima_fase if x not in ids_proxima_partida2]
 
     ids_final_para_referenciar2 = [x for x in ids_final_para_referenciar for _ in range(2)]
     indice = 0 
 
     for p in partidas:
-        if p.id_proxima_partida == None:
+        print(p.etapa.value)
+        if p.id_proxima_partida == None and p.etapa.value != "FinaL":
             if indice > len(ids_final_para_referenciar2) - 1:
                 break
             partidas_para_atualizar = {
