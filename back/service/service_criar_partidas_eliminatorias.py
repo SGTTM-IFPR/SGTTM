@@ -199,6 +199,13 @@ def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase
         "OITAVAS_FINAL" : "QUARTAS_FINAL",
         "DECIMA_SEXTAS_FINAL" : "OITAVAS_FINAL"
     }
+    quantidade_jogos = {
+        "FINAL": 1,
+        "SEMIFINALS" : 2,
+        "QUARTAS_FINAL" : 4,
+        "OITAVAS_FINAL" : 8,
+        "DECIMA_SEXTAS_FINAL" : 16
+    }
 
     partidas_ideais_fases = [2, 4, 8, 16]
     ids_inscricoes_cadastrados = []
@@ -233,6 +240,20 @@ def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase
             ids_inscricoes_cadastrados.append(inscricoes_ordenadas[len(inscricoes_ordenadas) - 1 - i])
         ids_restantes = list(set(inscricoes_ordenadas) - set(ids_inscricoes_cadastrados))
         
+    # COMPLETAR PARTIDAS FALTANTES DA FASE ATUAL, QUESTAO DA BIBLIOTECA
+    partidas_faltantes = quantidade_jogos[fase] - partidas_fase_atual
+    print("CRIANDO PARTIDAS FALTANTES DA FASE ATUAL")
+    for i in range(partidas_faltantes):
+        partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': fase,
+                'torneio_id': torneio_id
+            }
+        print(partida_para_criar)
+        partida_service.create(partida_para_criar)
+
+
     print("CRIANDO PARTIDAS DA PROXIMA FASE COM JOGADORES RESTANTES")
     # CASO IDEAL, TOTAL DE JOGADORES RESTANTES SAO PAR
     if jogadores_fase_seguinte % 2 == 0:

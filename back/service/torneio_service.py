@@ -151,7 +151,7 @@ class TorneioService(GenericService[TorneioModel]):
             atualizar_registro_quartas(registros_quartas, torneio_id)
             atualizar_registro_oitavas(registros_oitavas, torneio_id)
             
-            atualizar_id_proxima_partida(torneio_id)
+            atualizar_id_proxima_partida(torneio_id, fase)
 
             numero_rounds = int(math.log2(numero_inscricoes))
             # print("numero de rounds " + str(numero_rounds))
