@@ -181,7 +181,7 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
             partida_service.create(partida_para_criar)
             
             fase_atual = proxima_fase
-    if proxima_fase != "FINAL":
+    if fase != "FINAL":
         criar_partidas_ate_a_final(fase, torneio_id)
 
 def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte):
@@ -195,7 +195,7 @@ def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase
     print("------------------")
     dicionario_proxima_fase = {
         "SEMIFINALS" : "FINAL",
-        "QUARTAS_FINAL" : "SEMIFINAL",
+        "QUARTAS_FINAL" : "SEMIFINALS",
         "OITAVAS_FINAL" : "QUARTAS_FINAL",
         "DECIMA_SEXTAS_FINAL" : "OITAVAS_FINAL"
     }
@@ -242,16 +242,17 @@ def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase
         
     # COMPLETAR PARTIDAS FALTANTES DA FASE ATUAL, QUESTAO DA BIBLIOTECA
     partidas_faltantes = quantidade_jogos[fase] - partidas_fase_atual
-    print("CRIANDO PARTIDAS FALTANTES DA FASE ATUAL")
-    for i in range(partidas_faltantes):
-        partida_para_criar = {
-                'inscricao_atleta1_id': None,
-                'inscricao_atleta2_id': None,
-                'etapa': fase,
-                'torneio_id': torneio_id
-            }
-        print(partida_para_criar)
-        partida_service.create(partida_para_criar)
+    if partidas_faltantes > 0:
+        print("CRIANDO PARTIDAS FALTANTES DA FASE ATUAL")
+        for i in range(partidas_faltantes):
+            partida_para_criar = {
+                    'inscricao_atleta1_id': None,
+                    'inscricao_atleta2_id': None,
+                    'etapa': fase,
+                    'torneio_id': torneio_id
+                }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
 
 
     print("CRIANDO PARTIDAS DA PROXIMA FASE COM JOGADORES RESTANTES")

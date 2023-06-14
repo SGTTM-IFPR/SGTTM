@@ -3,6 +3,7 @@ import { SingleEliminationBracket, Match, SVGViewer } from '@g-loot/react-tourna
 import { getAllPartidasByTorneioId } from "../../servicos/PartidaService";
 import { useEffect, useState } from "react";
 import { useWindowSize } from 'usehooks-ts';
+import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
 
 function montar_partida(partidas: any[]) {
     const matches = [];
@@ -15,7 +16,7 @@ function montar_partida(partidas: any[]) {
                 "id": partida.id,
                 "name": partida.etapa.toUpperCase(),
                 "nextMatchId": partida.id_proxima_partida ?? null,
-                "tournamentRoundText": "Eliminatório",
+                "tournamentRoundText": partida.etapa,
                 "startTime": "09/06/2023",
                 "state": "DONE",
                 "participants": [
@@ -46,18 +47,18 @@ interface IFaseEliminatoriaProps { }
 
 export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
     const [match_todas, setMatch_todas] = useState<any[]>([]);
-    const torneioId = 1;
+    const {torneio, fetchTorneio } = useTorneioContext();
     const { width, height } = useWindowSize()
 
     useEffect(() => {
         const fetchPartidas = async () => {
-            if (!torneioId) return;
-            await getAllPartidasByTorneioId(torneioId).then((partidaData) => {
+            if (!torneio?.id) return;
+            await getAllPartidasByTorneioId(torneio?.id).then((partidaData) => {
                 setMatch_todas(montar_partida(partidaData));
             });
         };
         fetchPartidas();
-    }, [torneioId]);
+    }, [torneio?.id]);
 
 
 
