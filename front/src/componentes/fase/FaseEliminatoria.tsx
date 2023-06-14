@@ -2,6 +2,7 @@ import { Divider, Spin } from "antd";
 import { SingleEliminationBracket, Match, SVGViewer } from '@g-loot/react-tournament-brackets';
 import { getAllPartidasByTorneioId } from "../../servicos/PartidaService";
 import { useEffect, useState } from "react";
+import { useWindowSize } from 'usehooks-ts';
 
 function montar_partida(partidas: any[]) {
     const matches = [];
@@ -46,6 +47,7 @@ interface IFaseEliminatoriaProps { }
 export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
     const [match_todas, setMatch_todas] = useState<any[]>([]);
     const torneioId = 1;
+    const { width, height } = useWindowSize()
 
     useEffect(() => {
         const fetchPartidas = async () => {
@@ -56,7 +58,9 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         };
         fetchPartidas();
     }, [torneioId]);
-    const [printProps, setPrintProps] = useState<any>(null);
+
+
+
     return (
         <>
             <div
@@ -85,10 +89,11 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                         matchComponent={Match}
                         svgWrapper={({
                             children,
+                            ...props
                         }) => (
                             // console.log("props", props),
                             // background={'#0b0d12'} SVGBackground={'#0b0d12'} para mudar cor de fundo
-                            <SVGViewer width={1250} height={1000} bracketWidth={1250} bracketHeight={1000} startAt={[0, 0]}>
+                            <SVGViewer width={width} height={height} {...props}>
                                 {children}
                             </SVGViewer>
 
