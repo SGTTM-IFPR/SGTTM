@@ -1,9 +1,11 @@
-import { Divider, Spin } from "antd";
+import { Card, Col, Divider, Form, InputNumber, Modal, Row, Space, Spin } from "antd";
 import { SingleEliminationBracket, Match, SVGViewer } from '@g-loot/react-tournament-brackets';
 import { getAllPartidasByTorneioId } from "../../servicos/PartidaService";
 import { useEffect, useState } from "react";
 import { useWindowSize } from 'usehooks-ts';
 import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
+import { UserOutlined } from "@ant-design/icons";
+import { Match as MatchData, Participant} from "../../datas/MatchData"
 
 function montar_partida(partidas: any[]) {
     const matches = [];
@@ -48,7 +50,9 @@ interface IFaseEliminatoriaProps { }
 export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
     const [match_todas, setMatch_todas] = useState<any[]>([]);
     const {torneio, fetchTorneio } = useTorneioContext();
-    const { width, height } = useWindowSize()
+    const { width, height } = useWindowSize();
+    const [modalOpen, setModalOpen] = useState<boolean>();
+    const [partidaSelected, setPartidaSelected] = useState<MatchData>();
 
     useEffect(() => {
         const fetchPartidas = async () => {
@@ -60,6 +64,16 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         fetchPartidas();
     }, [torneio?.id]);
 
+
+    const clickMatch = (event: any) => {
+        console.log(event.match)
+        setPartidaSelected(event.match);
+        setModalOpen(true);
+    }
+
+    const closeModal = (event: any) => {
+        setModalOpen(false);
+    } 
 
 
     return (
@@ -99,11 +113,59 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                             </SVGViewer>
 
                         )}
+                        onMatchClick={clickMatch}
                     />
                 ) : (
                     <Spin size="large" />
                 )}
             </div >
+            <Modal open={modalOpen} onCancel={closeModal} width={700}>
+                <div style={{width: '100%'}}>
+                {partidaSelected && 
+                        <Row>
+                            <Col style={{ textAlign: 'center' }} span={24}>
+                                    <Space wrap>
+                                        <Form.Item>
+                                            <UserOutlined style={{ marginRight: "10px" }} />
+                                            {partidaSelected.participants[0].name?.toUpperCase()}
+                                        </Form.Item>
+                                        <Form.Item
+                                            name={['partidas', partidaSelected.id, 'pontos_atleta_1']}
+                                            initialValue={partidaSelected.participants[0].resultText}
+                                            style={{ padding: '' }}
+                                        >
+                                            <InputNumber
+                                                style={{ padding: '5px', margin: '10px' }}
+                                                min={0}
+                                                max={4}
+                                                size="small"
+                                            />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <div>x</div>
+                                        </Form.Item>
+                                        <Form.Item
+                                            name={['partidas', partidaSelected.id, 'pontos_atleta_2']}
+                                            initialValue={partidaSelected.participants[1].resultText}
+                                        >
+                                            <InputNumber
+                                                style={{ padding: '5px', margin: '10px' }}
+                                                min={0}
+                                                max={4}
+                                                size="small"
+                                            // disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de grupos'}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            {partidaSelected.participants[1].name?.toUpperCase()}
+                                            <UserOutlined style={{ marginLeft: "10px" }} />
+                                        </Form.Item>
+                                    </Space>
+                            </Col>
+                        </Row>
+                    }
+                </div>
+            </Modal>
         </>
     );
 };
