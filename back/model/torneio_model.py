@@ -11,7 +11,7 @@ class TorneioModel(database.Model, SerializerMixin):
     __tablename__ = "torneio"
 
     id = Column(Integer, primary_key=True)
-    nome = Column(String(100), nullable=False)
+    nome = Column(String(100), nullable=False, unique=True)
     data_inicio = Column(Date, nullable=False)
     data_final = Column(Date, nullable=False)
     local = Column(String(100), nullable=False)

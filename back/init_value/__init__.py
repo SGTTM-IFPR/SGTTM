@@ -45,11 +45,17 @@ def create_usuario(data, service: UsuarioService = Provide[Container.usuario_ser
 @inject
 def create_torneio(data, service: TorneioService = Provide[Container.torneio_service]):
     print(data)
+    torneio_existente = service.get_torneio_by_nome(data['nome'])
+    if torneio_existente:
+        return
     service.create(data)
 
 @inject
 def create_inscricao(data, service: InscricaoService = Provide[Container.inscricao_service]):
     print(data)
+    inscricao_existente = service.get_inscricao_by_id(data['id'])
+    if inscricao_existente:
+        return
     service.create(data)
 
 

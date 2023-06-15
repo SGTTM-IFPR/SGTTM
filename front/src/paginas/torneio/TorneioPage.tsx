@@ -38,9 +38,9 @@ export const TorneioPage = () => {
     const usuario_id = VerificarIdUsuario();
     let usuarioEncontrado = false;
     const { id } = useParams<{ id: string }>();
-    const {torneio, fetchTorneio } = useTorneioContext();
-    const {inscricoes, setInscricoes} = useTorneioContext();
-    const {grupos, setGrupos, findGrupos} = useTorneioContext();
+    const { torneio, fetchTorneio } = useTorneioContext();
+    const { inscricoes, setInscricoes } = useTorneioContext();
+    const { grupos, setGrupos, findGrupos } = useTorneioContext();
     let visibleButtonInscricao = true;
     let visibleButtonGrupo = true;
     const millisecondsPerSecond = 1000;
@@ -79,9 +79,9 @@ export const TorneioPage = () => {
 
 
     const nextFaseTournament = async () => {
-        if(current + 1 > 1)
+        if (current + 1 > 1)
             return;
-        if(!torneio || !torneio.id)
+        if (!torneio || !torneio.id)
             return;
         nextFaseService(torneio.id);
         await fetchTorneio();
@@ -100,12 +100,12 @@ export const TorneioPage = () => {
         );
     });
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setTimeExpirated(calculateExpirated());
-        }, 100);
-        return () => clearTimeout(timer);
-    });
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setTimeExpirated(calculateExpirated());
+    //     }, 100);
+    //     return () => clearTimeout(timer);
+    // });
 
     const fetchGrupos = async () => {
         await fetchTorneio();
@@ -143,13 +143,13 @@ export const TorneioPage = () => {
         {
             title: 'Fase de Grupos',
             description,
-            content: <FaseGrupo/>
+            content: <FaseGrupo />
 
         },
         {
             title: 'Eliminatórias',
             description,
-            content: <FaseEliminatoria/>
+            content: <FaseEliminatoria />
         },
     ];
     {
@@ -168,11 +168,11 @@ export const TorneioPage = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 fontSize: "20px",
-                }}>
+            }}>
                 <h2 style={{ color: 'white', marginRight: "auto" }}>{torneio?.nome?.toUpperCase()}</h2>
                 <Row gutter={18}>
                     <Col>
-                    <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
+                        <BotaoCriarInscricao idTournament={torneio?.id} visibleButton={visibleButtonInscricao} />
                     </Col>
                     <Col>
                         {identity.isAdmin &&
@@ -180,15 +180,15 @@ export const TorneioPage = () => {
                         }
                     </Col>
                     <Col>
-                    {identity.isAdmin &&
-                        <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
-                    }
+                        {identity.isAdmin &&
+                            <BotaoCriarGrupo idTournament={torneio?.id} torneioData={torneio} onCreateGrupo={fetchGrupos} quantidade_inscritos={inscricoes?.length} visibleButton={visibleButtonGrupo} />
+                        }
                     </Col>
                     <Col>
                         {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && torneio.fase_atual == 'Fase de grupos') &&
                             <Button size='middle'
                                 type="default"
-                                className="hover-effect" 
+                                className="hover-effect"
                                 onClick={nextFaseTournament}>
                                 <span>Proxima fase</span>
                                 <StepForwardOutlined />

@@ -1,23 +1,42 @@
 /* RankingPage.css */
 
+.golden-row {
+  background-color: #ffd700;
+  /* Cor dourada fraca */
+  font-weight: bold;
+}
+
+.silver-row {
+  background-color: #c0c0c0;
+  /* Cor prata fraca */
+  font-weight: bold;
+}
+
+.bronze-row {
+  background-color: #cd7f32;
+  /* Cor bronze fraco */
+  font-weight: bold;
+}
+
+
 .animate-enter {
-    opacity: 0;
-    transform: translateX(-50%);
-  }
-  
-  .animate-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 500ms, transform 500ms;
-  }
-  
-  .animate-exit {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .animate-exit-active {
-    opacity: 0;
-    transform: translateX(-50%);
-    transition: opacity 500ms, transform 500ms;
-  }
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.animate-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.animate-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-exit-active {
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 500ms, transform 500ms;
+}

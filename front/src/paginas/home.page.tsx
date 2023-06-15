@@ -16,7 +16,6 @@ export const HomePage = () => {
     <>
       <FlagStatusTorneio onStatusChange={handleStatusChange} />
       <TorneioLista status={status} />
-      <FaseEliminatoria />
     </>
 
   );

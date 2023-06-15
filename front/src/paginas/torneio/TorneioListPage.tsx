@@ -74,33 +74,34 @@ export const TorneioListPage = () => {
                 <Table dataSource={data} size="small">
                     {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
 
-                    <Column align="center" title="Nome" dataIndex="nome" key="nome" />
+                    <Column key="nome" align="center" title="Nome" dataIndex="nome" />
 
                     <Column
+                        key="data_inicio"
                         align="center"
                         title="Data de início"
                         dataIndex="data_inicio"
-                        key="data_inicio"
                         render={(text) => moment(text).format('DD/MM/YYYY')}
                     />
 
                     <Column
+                        key="data_final"
                         align="center"
                         title="Data de término"
                         dataIndex="data_final"
-                        key="data_final"
                         render={(text) => moment(text).format('DD/MM/YYYY')}
                     />
 
-                    <Column align="center" title="Local" dataIndex="local" key="local" />
+                    <Column key="local" align="center" title="Local" dataIndex="local" />
 
-                    <Column align="center" title="Tipo do torneio" dataIndex="tipo_torneio" key="tipo_torneio" />
+                    <Column key="tipo_torneio" align="center" title="Tipo do torneio" dataIndex="tipo_torneio" />
 
-                    <Column align="center" title="Fase atual" dataIndex="fase_atual" key="fase_atual" />
+                    <Column key="fase_atual" align="center" title="Fase atual" dataIndex="fase_atual" />
 
-                    <Column align="center" title="Status" dataIndex="status" key="status" />
+                    <Column key="status" align="center" title="Status" dataIndex="status" />
 
                     <Column
+                        key="acoes"
                         align="center"
                         title="Ações"
                         render={(record: TorneioData) => (

@@ -22,13 +22,16 @@ class TorneioController(AbstractTorneioRestController):
     def put(self, torneio_id):
         '''Atualizar informações de um torneio pelo ID'''
         torneio_data = request.json
+        print(torneio_data)
         if not torneio_data:
             return {'error': 'Requisição sem corpo'}, 400
-        print(torneio_data['fase_atual'])
-        if torneio_data['fase_atual'] == 'Fase de grupos':
-            torneio_data['fase_atual'] =  FaseEnum.FASE_GRUPOS
-        if torneio_data['fase_atual'] == 'Fase eliminatória':
-            torneio_data['fase_ataul'] =  FaseEnum.FASE_ELIMINATORIA
+        # print(torneio_data['fase_atual'])
+        if "fase_atual" in torneio_data:
+            if torneio_data['fase_atual'] == 'Fase de grupos':
+                torneio_data['fase_atual'] =  FaseEnum.FASE_GRUPOS
+            if torneio_data['fase_atual'] == 'Fase eliminatória':
+                torneio_data['fase_ataul'] =  FaseEnum.FASE_ELIMINATORIA
+
         updated_torneio = self.service.update(torneio_id, torneio_data)
         if updated_torneio:
             return updated_torneio.to_dict(), 200

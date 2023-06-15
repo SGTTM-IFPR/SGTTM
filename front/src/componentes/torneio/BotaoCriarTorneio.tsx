@@ -17,14 +17,25 @@ type Props = {
 export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [output, setOutput] = useState("");
+    const [torneios, setTorneios] = useState<TorneioData[]>([]);
+    const [isNomeDuplicado, setIsNomeDuplicado] = useState(false);
+    const [nomeDuplicado, setNomeDuplicado] = useState("");
+
 
     const disabledDate: RangePickerProps['disabledDate'] = (current) => {
         return current && current < dayjs().startOf('day');
     };
 
-    const showModal = () => {
-        setIsModalOpen(true);
+    const showModal = async () => {
+        try {
+            const tournaments = await getAllTournaments();
+            setTorneios(tournaments);
+            setIsModalOpen(true);
+        } catch (error) {
+            console.error("Erro ao obter os torneios", error);
+        }
     };
+
 
     async function onSubmit(data: TorneioData) {
         if (data.data_inicio) {
@@ -53,6 +64,16 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
     const modalStyle = {
         backgroundColor: gray[6],
     }
+    const validateNome = (_: any, value: React.SetStateAction<string> | undefined) => {
+        if (value && torneios.some((torneio) => torneio.nome === value)) {
+            setIsNomeDuplicado(true);
+            setNomeDuplicado(value);
+            return Promise.reject("Esse nome já está em uso por outro torneio");
+        }
+        setIsNomeDuplicado(false);
+        return Promise.resolve();
+    };
+
 
     return (
         <>
@@ -74,16 +95,17 @@ export const BotaoCriarTorneio: React.FC<Props> = ({ setData: setData }) => {
                     wrapperCol={{ span: 16 }}
                     onFinish={onSubmit}
                 >
-                    <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                    <Form.Item name="nome" label="Nome" rules={[{ required: true, message: "Campo obrigatório" }, { validator: validateNome }]} validateStatus={isNomeDuplicado ? "error" : ""}
+                        help={isNomeDuplicado ? `O nome '${nomeDuplicado}' já está em uso por outro torneio` : ""}>
                         <Input />
                     </Form.Item>
 
                     <Form.Item name="data_inicio" label="Data de início" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale}  disabledDate={disabledDate}/>
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate} />
                     </Form.Item>
 
                     <Form.Item name="data_final" label="Data de término" rules={[{ required: true, message: "Campo obrigatório" }]}>
-                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate}/>
+                        <DatePicker placeholder="Insira a data" format={"DD/MM/YYYY"} locale={locale} disabledDate={disabledDate} />
                     </Form.Item>
 
                     <Form.Item name="local" label="Local" rules={[{ required: true, message: "Campo obrigatório" }]}>
