@@ -1,6 +1,8 @@
 from flask_restx import Namespace, Resource
 from dependency_injector.wiring import inject, Provide
 from service.pontuacao_service import PontuacaoService
+from service.partida_service import PartidaService
+from repository.partida_repository import PartidaRepository
 from container.container import Container
 
 
