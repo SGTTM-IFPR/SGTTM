@@ -185,11 +185,13 @@ export const TorneioPage = () => {
                         }
                     </Col>
                     <Col>
-                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && torneio.fase_atual == 'Fase de grupos') &&
+                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin) &&
                             <Button size='middle'
                                 type="default"
                                 className="hover-effect"
-                                onClick={nextFaseTournament}>
+                                onClick={nextFaseTournament}
+                            >
+
                                 <span>Proxima fase</span>
                                 <StepForwardOutlined />
                             </Button>

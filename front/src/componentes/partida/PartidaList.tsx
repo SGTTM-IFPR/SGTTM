@@ -13,7 +13,7 @@ export interface IPartidaListProps {
 
 export const PartidaList = (props: IPartidaListProps) => {
     const [partidas, setPartidas] = useState<PartidaData[] | null>(null);
-    const {torneio} = useTorneioContext();
+    const { torneio } = useTorneioContext();
 
     const { identity } = useAuth();
 
