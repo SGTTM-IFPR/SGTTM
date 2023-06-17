@@ -57,7 +57,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                 <Space wrap>
                                     <Form.Item>
                                         <UserOutlined style={{ marginRight: "10px" }} />
-                                        {partida.inscricao_atleta1.usuario?.nome?.toUpperCase()}
+                                        {partida.inscricao_atleta1?.usuario?.nome?.toUpperCase()}
                                     </Form.Item>
                                     <Form.Item
                                         name={['partidas', partida.id, 'pontos_atleta_1']}
@@ -88,7 +88,7 @@ export const PartidaList = (props: IPartidaListProps) => {
                                         />
                                     </Form.Item>
                                     <Form.Item>
-                                        {partida.inscricao_atleta2.usuario?.nome?.toUpperCase()}
+                                        {partida.inscricao_atleta2?.usuario?.nome?.toUpperCase()}
                                         <UserOutlined style={{ marginLeft: "10px" }} />
                                     </Form.Item>
                                 </Space>

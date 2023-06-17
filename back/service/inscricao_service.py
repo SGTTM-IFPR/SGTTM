@@ -22,9 +22,9 @@ class InscricaoService(GenericService[InscricaoModel]):
 
     def create(self, data) -> Union[InscricaoModel, str]:
         existing_inscricao = self.repository.get_by_user_and_torneio_ids(data['usuario_id'], data['torneio_id'])
+        print(' ja existe ')
         if existing_inscricao:
             return 'A inscrição já existe.'
-
         model = self.repository.create(data)
         return model
 

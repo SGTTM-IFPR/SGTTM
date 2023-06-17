@@ -49,6 +49,8 @@ class TorneioService(GenericService[TorneioModel]):
 
     def get_by_id(self, id) -> TorneioModel:
         model: TorneioModel = self.repository.get_by_id(id)
+        if model is None:
+            return model
         if model.tipo_torneio == TipoTorneioEnum.COPA:
             model.fase_grupo_concluida = self.verify_all_partidas_is_concluida_by_torneio_id(id)
 

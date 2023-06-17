@@ -1,12 +1,15 @@
 import { Card, Col, Divider, Form, InputNumber, Modal, Row, Space, Spin } from "antd";
 import { SingleEliminationBracket, Match, SVGViewer } from '@g-loot/react-tournament-brackets';
-import { getAllPartidasByTorneioId, updateAllPartidas } from "../../servicos/PartidaService";
+import { getAllPartidasByTorneioId, getPartidaById, updateAllPartidas, updatePartida } from "../../servicos/PartidaService";
 import { useEffect, useState } from "react";
 import { useWindowSize } from 'usehooks-ts';
 import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
 import { UserOutlined } from "@ant-design/icons";
 import { Match as MatchData, Participant } from "../../datas/MatchData"
 import { useAuth } from '../../autenticacao/context/AuthenticationContext';
+import { PartidaData } from "../../datas/PartidaData";
+import { Match as MathType } from "@g-loot/react-tournament-brackets/dist/src/types";
+import { InscricaoData } from "../../datas/InscricaoData";
 
 function montar_partida(partidas: any[]) {
     const matches = [];
@@ -15,14 +18,14 @@ function montar_partida(partidas: any[]) {
         const partida = partidas[i];
 
         if (partida.etapa.toUpperCase() !== "PRIMEIRA FASE") {
-            const match = {
-                "id": partida.id,
-                "name": partida.etapa.toUpperCase(),
-                "nextMatchId": partida.id_proxima_partida ?? null,
-                "tournamentRoundText": partida.etapa,
-                "startTime": "09/06/2023",
-                "state": "DONE",
-                "participants": [
+            const match: MathType = {
+                id: partida.id,
+                name: partida.etapa.toUpperCase(),
+                nextMatchId: partida.id_proxima_partida ?? null,
+                tournamentRoundText: partida.etapa,
+                startTime: "09/06/2023",
+                state: "DONE",
+                participants: [
                     {
                         "id": partida.inscricao_atleta1?.id ?? 0,
                         "resultText": partida.pontos_atleta_1.toString(),
@@ -49,7 +52,7 @@ function montar_partida(partidas: any[]) {
 interface IFaseEliminatoriaProps { }
 
 export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
-    const [match_todas, setMatch_todas] = useState<any[]>([]);
+    const [match_todas, setMatch_todas] = useState<MathType[]>([]);
     const { torneio, fetchTorneio } = useTorneioContext();
     const { width, height } = useWindowSize();
     const [modalOpen, setModalOpen] = useState<boolean>();
@@ -62,34 +65,50 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         const fetchPartidas = async () => {
             if (!torneio?.id) return;
             await getAllPartidasByTorneioId(torneio?.id).then((partidaData) => {
+                console.log('busco denovo')
                 setMatch_todas(montar_partida(partidaData));
             });
         };
         fetchPartidas();
-    }, [torneio?.id]);
+    }, [torneio]);
 
-    const resultadoPartida = async () => {
+    const onConfirmResultMatch = async () => {
         const values = form.getFieldsValue(['partidas']);
-        const partidas = [];
+        console.log("values", values);
 
-        for (let i = 0; i < match_todas.length; i++) {
-            const match = match_todas[i];
-            const pontosAtleta1 = parseInt(values.partidas[match.id]?.pontos_atleta_1 || '', 10);
-            const pontosAtleta2 = parseInt(values.partidas[match.id]?.pontos_atleta_2 || '', 10);
-            const partida = {
-                "id": match.id,
-                "pontos_atleta_1": isNaN(pontosAtleta1) ? 0 : pontosAtleta1,
-                "pontos_atleta_2": isNaN(pontosAtleta2) ? 0 : pontosAtleta2,
-                "vencedor_id": pontosAtleta1 > pontosAtleta2 ? match.participants[0].id : match.participants[1].id,
-                "concluida": 1,
+            const match = partidaSelected;
+            if (!match) {
+              setModalOpen(false);
+              return;
+            }
+            const pontosAtleta1 = parseInt(
+              values.partidas[match.id]?.pontos_atleta_1 || "",
+              10
+            );
+            const pontosAtleta2 = parseInt(
+              values.partidas[match.id]?.pontos_atleta_2 || "",
+              10
+            );
+            const partida = await getPartidaById(match.id);
+            
+            const partidaChanges: PartidaData = {
+              id: match.id,
+              pontos_atleta_1: isNaN(pontosAtleta1) ? 0 : pontosAtleta1,
+              pontos_atleta_2: isNaN(pontosAtleta2) ? 0 : pontosAtleta2,
+              vencedor_id:
+                pontosAtleta1 > pontosAtleta2
+                  ? match.participants[0].id
+                  : match.participants[1].id,
+              concluida: 1,
             };
+            partida.pontos_atleta_1 = partidaChanges.pontos_atleta_1;
+            partida.pontos_atleta_2 = partidaChanges.pontos_atleta_2;
+            partida.concluida = partidaChanges.concluida;
 
-            partidas.push(partida);
-        }
-
-        console.log("partidas", partidas);
-        // await updateAllPartidas(partidas);
-        setModalOpen(false);
+        await updatePartida(partida).finally(() => {
+            fetchTorneio();
+            setModalOpen(false);
+        });
     };
 
 
@@ -97,7 +116,11 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
     const clickMatch = (event: any) => {
         console.log(event.match)
         setPartidaSelected(event.match);
-        if (identity.isAdmin) {
+        const participant_1_is_null = !event.match.participants[0].id || event.match.participants[0].id === 0;
+        const participant_2_is_null = !event.match.participants[1].id || event.match.participants[1].id === 0;
+        if(participant_1_is_null || participant_2_is_null)
+            return;
+        if (identity.isAdmin ) {
             setModalOpen(true);
         }
     }
@@ -149,7 +172,7 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                     <Spin size="large" />
                 )}
             </div >
-            <Modal open={modalOpen} onCancel={closeModal} onOk={resultadoPartida} width={700}>
+            <Modal open={modalOpen} onCancel={closeModal} onOk={onConfirmResultMatch} width={700}>
                 <div style={{ width: '100%' }}>
                     <Form form={form}>
                         {partidaSelected &&
