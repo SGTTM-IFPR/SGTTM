@@ -182,7 +182,7 @@ class PontuacaoCreateController(AbstractPontuacaoRestController):
             PontuacaoRepository().create(dicionario[i])
             
 
-        return resultado, 200
+        return 200, "Pontuação criada com sucesso"
 
         # if pontuacao:
         #     return pontuacao.to_dict(), 200

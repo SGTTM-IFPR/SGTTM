@@ -63,7 +63,7 @@ class TorneioService(GenericService[TorneioModel]):
         if not torneio or torneio.fase_atual == FaseEnum.FASE_ELIMINATORIA:
             return None
         update_data = {}
-        # update_data['fase_atual'] = FaseEnum.FASE_ELIMINATORIA
+        update_data['fase_atual'] = FaseEnum.FASE_ELIMINATORIA
         torneio = self.repository.update(id, update_data)
         self.generate_mata_mata(torneio)
         return torneio

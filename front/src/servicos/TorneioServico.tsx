@@ -6,8 +6,8 @@ const baseURL = "http://localhost:5000/";
 axios.interceptors.request.use(
   config => {
     if (config.url?.includes('/login')) {
-        return config 
-      }
+      return config
+    }
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
@@ -72,3 +72,9 @@ export const deleteTournament = async (id: number): Promise<string> => {
   const response = await axios.delete<string>(`${baseURL}/${endpoint}`);
   return response.data;
 };
+
+export const criarPontuacao = async (id: number): Promise<string> => {
+  const endpoint = `pontuacao/create/${id}`;
+  const response = await axios.get<string>(`${baseURL}/${endpoint}`);
+  return response.data;
+}

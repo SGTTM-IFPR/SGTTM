@@ -37,6 +37,11 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
     };
 
     const showModal = async () => {
+        if (quantidade_inscritos === undefined || typeof quantidade_inscritos !== 'number' || quantidade_inscritos < 4) {
+            message.error('Quantidade de inscritos insuficiente para iniciar o torneio!');
+            return;
+        }
+
         const grupos = await getNumeroClassificados(quantidade_inscritos!.valueOf());
         setGrupos(grupos);
         setVisible(true);

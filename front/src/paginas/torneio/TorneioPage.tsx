@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { nextFaseTournament as nextFaseService } from '../../servicos/TorneioServico';
+import { criarPontuacao, nextFaseTournament as nextFaseService } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
@@ -87,6 +87,14 @@ export const TorneioPage = () => {
         await fetchTorneio();
         setCurrent(torneio.fase_grupo_concluida ? 1 : 0);
     };
+
+    const finalizarTorneio = async () => {
+        if (!torneio || !torneio.id)
+            return;
+        await criarPontuacao(torneio.id);
+        await fetchTorneio();
+    };
+
     const description = '';
     Object.keys(timeExpirated).forEach((interval) => {
         const key = interval as keyof ITimeExpirated;
@@ -160,6 +168,7 @@ export const TorneioPage = () => {
             visibleButtonGrupo = false;
         }
     }
+
     return (
         <Layout>
             <Header style={{
@@ -185,7 +194,7 @@ export const TorneioPage = () => {
                         }
                     </Col>
                     <Col>
-                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin) &&
+                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin && torneio.fase_atual == "Fase de grupos") &&
                             <Button size='middle'
                                 type="default"
                                 className="hover-effect"
@@ -193,6 +202,19 @@ export const TorneioPage = () => {
                             >
 
                                 <span>Proxima fase</span>
+                                <StepForwardOutlined />
+                            </Button>
+                        }
+                    </Col>
+                    <Col>
+                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin && torneio.fase_atual != "Fase de grupos") &&
+                            <Button size='middle'
+                                type="default"
+                                className="hover-effect"
+                                onClick={finalizarTorneio}
+                            >
+
+                                <span>Finalizar Torneio</span>
                                 <StepForwardOutlined />
                             </Button>
                         }
