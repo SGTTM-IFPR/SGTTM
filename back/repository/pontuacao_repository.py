@@ -83,3 +83,9 @@ class PontuacaoRepository(GenericRepository):
             ranking_final.append(info_usuario)
 
         return ranking_final, rankings
+
+
+    def criar_pontuacao(self, pontuacao):
+        pontuacao = self.model(id_inscricao=pontuacao.id_inscricao, pontos=pontuacao.pontos, descricao=pontuacao.descricao)
+        self.save(pontuacao)
+        return pontuacao
