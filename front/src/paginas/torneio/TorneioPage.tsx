@@ -147,7 +147,7 @@ export const TorneioPage = () => {
 
         },
         {
-            title: 'Eliminatórias',
+            title: 'Fase Eliminatória',
             description,
             content: <FaseEliminatoria />
         },

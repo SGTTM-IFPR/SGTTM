@@ -9,7 +9,13 @@ import { Match as MatchData, Participant } from "../../datas/MatchData"
 import { useAuth } from '../../autenticacao/context/AuthenticationContext';
 import { PartidaData } from "../../datas/PartidaData";
 import { Match as MathType } from "@g-loot/react-tournament-brackets/dist/src/types";
-import { InscricaoData } from "../../datas/InscricaoData";
+
+const currentDate = new Date();
+const day = String(currentDate.getDate()).padStart(2, '0');
+const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+const year = currentDate.getFullYear();
+const formattedDate = `${day}/${month}/${year}`;
+
 
 function montar_partida(partidas: any[]) {
     const matches = [];
@@ -23,7 +29,7 @@ function montar_partida(partidas: any[]) {
                 name: partida.etapa.toUpperCase(),
                 nextMatchId: partida.id_proxima_partida ?? null,
                 tournamentRoundText: partida.etapa,
-                startTime: "09/06/2023",
+                startTime: formattedDate,
                 state: "DONE",
                 participants: [
                     {
@@ -76,34 +82,34 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         const values = form.getFieldsValue(['partidas']);
         console.log("values", values);
 
-            const match = partidaSelected;
-            if (!match) {
-              setModalOpen(false);
-              return;
-            }
-            const pontosAtleta1 = parseInt(
-              values.partidas[match.id]?.pontos_atleta_1 || "",
-              10
-            );
-            const pontosAtleta2 = parseInt(
-              values.partidas[match.id]?.pontos_atleta_2 || "",
-              10
-            );
-            const partida = await getPartidaById(match.id);
-            
-            const partidaChanges: PartidaData = {
-              id: match.id,
-              pontos_atleta_1: isNaN(pontosAtleta1) ? 0 : pontosAtleta1,
-              pontos_atleta_2: isNaN(pontosAtleta2) ? 0 : pontosAtleta2,
-              vencedor_id:
+        const match = partidaSelected;
+        if (!match) {
+            setModalOpen(false);
+            return;
+        }
+        const pontosAtleta1 = parseInt(
+            values.partidas[match.id]?.pontos_atleta_1 || "",
+            10
+        );
+        const pontosAtleta2 = parseInt(
+            values.partidas[match.id]?.pontos_atleta_2 || "",
+            10
+        );
+        const partida = await getPartidaById(match.id);
+
+        const partidaChanges: PartidaData = {
+            id: match.id,
+            pontos_atleta_1: isNaN(pontosAtleta1) ? 0 : pontosAtleta1,
+            pontos_atleta_2: isNaN(pontosAtleta2) ? 0 : pontosAtleta2,
+            vencedor_id:
                 pontosAtleta1 > pontosAtleta2
-                  ? match.participants[0].id
-                  : match.participants[1].id,
-              concluida: 1,
-            };
-            partida.pontos_atleta_1 = partidaChanges.pontos_atleta_1;
-            partida.pontos_atleta_2 = partidaChanges.pontos_atleta_2;
-            partida.concluida = partidaChanges.concluida;
+                    ? match.participants[0].id
+                    : match.participants[1].id,
+            concluida: 1,
+        };
+        partida.pontos_atleta_1 = partidaChanges.pontos_atleta_1;
+        partida.pontos_atleta_2 = partidaChanges.pontos_atleta_2;
+        partida.concluida = partidaChanges.concluida;
 
         await updatePartida(partida).finally(() => {
             fetchTorneio();
@@ -118,9 +124,9 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         setPartidaSelected(event.match);
         const participant_1_is_null = !event.match.participants[0].id || event.match.participants[0].id === 0;
         const participant_2_is_null = !event.match.participants[1].id || event.match.participants[1].id === 0;
-        if(participant_1_is_null || participant_2_is_null)
+        if (participant_1_is_null || participant_2_is_null)
             return;
-        if (identity.isAdmin ) {
+        if (identity.isAdmin) {
             setModalOpen(true);
         }
     }
