@@ -26,7 +26,7 @@ def atualizar_id_proxima_partida(torneio_id, fase):
         "SEMIFINALS": 2
     }
 
-    partidas_todas = partida_service.get_all_partidas_by_torneio_id(torneio_id)
+    partidas_todas = partida_repository.get_all_partidas_by_torneio_id(torneio_id)
     partidas = []
     dicionario_info = {}
     chaves = []
@@ -36,23 +36,31 @@ def atualizar_id_proxima_partida(torneio_id, fase):
         if partida.etapa.value != "Primeira fase":
             partidas.append(partida)
     
+    for i in partidas:
+        print(i.id)
+        print(i.partida_origem_id_atleta_1)
+        print(i.partida_origem_id_atleta_2)
+        print(i.id_proxima_partida)
+        print(i.etapa.value)
+        print("")
+
     # criar um dicionario com as chaves e os ids dos atletas
     for p in partidas:
         dicionario_info[p.id] = [p.partida_origem_id_atleta_1, p.partida_origem_id_atleta_2]
 
     # pegar as chaves
     chaves_next_fase = criar_dicionario_id_proxima_partida(dicionario_info)
-    
+    print(chaves_next_fase)
     # atualizar as partidas
     for p in partidas:
         # atualizar as partidas
         partidas_para_atualizar = {
             "id_proxima_partida": chaves_next_fase[p.id]
         }
-        partida_service.update(p.id, partidas_para_atualizar)
+        partida_repository.update(p.id, partidas_para_atualizar)
     
     # Referenciar partidas criadas para completar a biblioteca
-    partidas_todas = partida_service.get_all_partidas_by_torneio_id(torneio_id)
+    partidas_todas = partida_repository.get_all_partidas_by_torneio_id(torneio_id)
     partidas = []
 
     for partida in partidas_todas:
@@ -86,7 +94,7 @@ def atualizar_id_proxima_partida(torneio_id, fase):
                 "id_proxima_partida": ids_final_para_referenciar2[indice]
             }
             indice += 1
-            partida_service.update(p.id, partidas_para_atualizar)
+            partida_repository.update(p.id, partidas_para_atualizar)
         
     
 

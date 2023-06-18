@@ -29,18 +29,23 @@ def calcular_partidas_jogadores(num_jogadores):
     
     return int(partidas_fase_atual), jogadores_fase_seguinte, fase
 
-def criar_partidas_ate_a_final(proxima_fase, torneio_id):
+def criar_partidas_ate_a_final(proxima_fase, torneio_id, jogadores_fase_seguinte):
     global partida_service
     print("Proxima fase", proxima_fase)
-    if proxima_fase == "QUARTA_FINAL":
-        proxima_fase = "SEMIFINALS"
-    elif proxima_fase == "OITAVAS_FINAL":
-        proxima_fase = "QUARTAS_FINAL"
-    elif proxima_fase == "DECIMA_SEXTAS_FINAL":
-        proxima_fase = "OITAVAS_FINAL"
-
 
     if proxima_fase == "SEMIFINALS":
+        proxima_fase = "FINAL"
+
+    if proxima_fase == "QUARTAS_FINAL":
+        proxima_fase = "SEMIFINALS"
+
+    if proxima_fase == "OITAVAS_FINAL":
+        proxima_fase = "QUARTAS_FINAL"
+
+    if proxima_fase == "DECIMA_SEXTAS_FINAL":
+        proxima_fase = "OITAVAS_FINAL"
+
+    if proxima_fase == "FINAL":
         partida_para_criar = {
             'inscricao_atleta1_id': None,
             'inscricao_atleta2_id': None,
@@ -49,10 +54,39 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
         }
         print(partida_para_criar)
         partida_service.create(partida_para_criar)
+
+    elif proxima_fase == "SEMIFINALS":
+        for i in range(2):
+            partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': "SEMIFINALS",
+                'torneio_id': torneio_id
+            }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
+        
+        partida_final = {
+            'inscricao_atleta1_id': None,
+            'inscricao_atleta2_id': None,
+            'etapa': "FINAL",
+            'torneio_id': torneio_id
+        }
+        print(partida_final)
+        partida_service.create(partida_final)
+
     elif proxima_fase == "QUARTAS_FINAL":
-        jogadores_fase_seguinte = 4
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(4):
+            partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': "QUARTAS_FINAL",
+                'torneio_id': torneio_id
+            }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
+
+        for i in range(2):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -72,9 +106,17 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
         partida_service.create(partida_final)
         
     elif proxima_fase == "OITAVAS_FINAL":
-        jogadores_fase_seguinte = 8
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(8):
+            partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': "OITAVAS_FINAL",
+                'torneio_id': torneio_id
+            }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
+
+        for i in range(4):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -84,9 +126,7 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
             print(partida_para_criar)
             partida_service.create(partida_para_criar)
         
-        jogadores_fase_seguinte = 4
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(2):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -106,9 +146,17 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
         partida_service.create(partida_final)
         
     elif proxima_fase == "DECIMA_SEXTAS_FINAL":
-        jogadores_fase_seguinte = 16
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(16):
+            partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': "DECIMA_SEXTAS_FINAL",
+                'torneio_id': torneio_id
+            }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
+
+        for i in range(8):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -118,9 +166,7 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
             print(partida_para_criar)
             partida_service.create(partida_para_criar)
         
-        jogadores_fase_seguinte = 8
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(4):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -130,9 +176,7 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id):
             print(partida_para_criar)
             partida_service.create(partida_para_criar)
         
-        jogadores_fase_seguinte = 4
-        partidas = int(jogadores_fase_seguinte / 2)
-        for i in range(partidas):
+        for i in range(2):
             partida_para_criar = {
                 'inscricao_atleta1_id': None,
                 'inscricao_atleta2_id': None,
@@ -169,6 +213,7 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
     info_fase = fases[fase_atual]
     partidas_a_criar = info_fase["partidas"]
     proxima_fase = info_fase["proxima_fase"]
+
     if partidas_ja_criadas_na_proxima_fase != 0:
         for _ in range(partidas_a_criar):
             partida_para_criar = {
@@ -181,8 +226,9 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
             partida_service.create(partida_para_criar)
             
             fase_atual = proxima_fase
+
     if fase != "FINAL":
-        criar_partidas_ate_a_final(fase, torneio_id)
+        criar_partidas_ate_a_final(proxima_fase, torneio_id, jogadores_fase_seguinte)
 
 def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte):
     global partida_service
@@ -287,6 +333,7 @@ def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase
         }
         print(partida_para_criar)
         partida_service.create(partida_para_criar)
+
     # CRIAR RESTANTES DAS FASES
     criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte)
     print("------------------")

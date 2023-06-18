@@ -1,5 +1,5 @@
+import random
 from typing import List, Union
-
 from dependency_injector.wiring import inject
 from model.Enums import EtapaEnum
 from model import InscricaoModel
@@ -60,6 +60,7 @@ class InscricaoService(GenericService[InscricaoModel]):
             return {'message': 'Nenhuma inscrição encontrada para este torneio'}, 404
 
         inscricao_dicts = [inscricao.to_dict() for inscricao in inscricoes]
+        inscricao_dicts = random.sample(inscricao_dicts, len(inscricao_dicts))
         informacoes = self.get_classificados(len(inscricao_dicts))
         jogadores = [inscricao['id'] for inscricao in inscricao_dicts]
 

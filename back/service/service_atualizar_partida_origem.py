@@ -255,5 +255,7 @@ def atualizar_registro(id_partida, partida_origem_id_atleta_1, partida_origem_id
         "partida_origem_id_atleta_2": partida_origem_id_atleta_2,
     }
 
+    print("Atualizando registro...")
     # atualizar registro no banco
-    partida_service.update(id_partida, partida_para_atualizar)
+    partida_repository.update(id_partida, partida_para_atualizar)
+    print("Registro atualizado com sucesso!")
