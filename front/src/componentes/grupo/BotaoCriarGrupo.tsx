@@ -1,4 +1,4 @@
-import { Button, Form, Modal, Radio, message } from "antd";
+import { Button, Form, Modal, Radio, Typography, message } from "antd";
 import { getInscricaoById, getNumeroClassificados, montarGrupos } from "../../servicos/InscricaoServico";
 import { useState } from "react";
 import { updateTournament } from "../../servicos/TorneioServico";
@@ -90,30 +90,47 @@ export const BotaoCriarGrupo: React.FC<Props> = ({
                 cancelText="Cancelar"
                 title="Definição de Regras"
             >
+                {/* <Typography>Quantidade de jogadores: {grupos}</Typography> */}
+                <Typography><pre>Quantidade de grupos: {grupos?.numero_grupos}</pre></Typography>
+                <Typography><pre>Quantidade de jogadores por grupo: {grupos?.minimo_jogadores}</pre></Typography>
+                {grupos?.jogadores_extras! > 0 && (
+                    <Typography><pre>Quantidade de jogadores extras por grupo: {grupos?.jogadores_extras}</pre></Typography>
+                )}
                 <Form
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     onFinish={onFinish}
                     form={form}
                 >
-                    <Form.Item name="formato" label="Formato" rules={[{ required: true, message: "Campo obrigatório" }]}>
+                    <Form.Item name="formato" label="Tipo de distribuição" rules={[{ required: true, message: "Campo obrigatório" }]}>
                         <Radio.Group>
-                            <Radio value="RANKING">Ordem de RANKING</Radio>
+                            <Radio value="RANKING">Ranking</Radio>
                             <Radio value="ALEATORIO">Sorteio</Radio>
                         </Radio.Group>
                     </Form.Item>
-                    {grupos?.minimo_jogadores! >= 4 && (
-                        <Form.Item
-                            name="quantidade_classificados"
-                            label="Classificações"
-                            rules={[{ required: true, message: "Campo obrigatório" }]}
-                        >
-                            <Radio.Group>
-                                <Radio value={2}>Dois</Radio>
-                                <Radio value={3}>Três</Radio>
-                            </Radio.Group>
-                        </Form.Item>
-                    )}
+                    <Form.Item
+                        name="quantidade_classificados"
+                        label="Classificações"
+                        rules={[{ required: true, message: "Campo obrigatório" }]}
+                    >
+                        <Radio.Group>
+                            {grupos?.minimo_jogadores! >= 1 && (
+                                <Radio value={1}>1</Radio>
+                            )}
+                            {grupos?.minimo_jogadores! >= 2 && (
+                                <Radio value={2}>2</Radio>
+                            )}
+                            {grupos?.minimo_jogadores! >= 3 && (
+                                <Radio value={3}>3</Radio>
+                            )}
+                            {grupos?.minimo_jogadores! >= 4 && (
+                                <Radio value={4}>4</Radio>
+                            )}
+                            {grupos?.minimo_jogadores! >= 5 && (
+                                <Radio value={5}>5</Radio>
+                            )}
+                        </Radio.Group>
+                    </Form.Item>
                 </Form>
             </Modal>
         </>
