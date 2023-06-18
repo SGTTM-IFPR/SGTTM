@@ -49,7 +49,7 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
         // transition: "transform 0.3s ease-in-out",
         backgroundColor: isButtonHovered ? green[7] : green[5],
         color: "white",
-        // borderRadius: "4px",
+        borderRadius: "0px",
         // maxWidth: "100%",
         ":hover": {
             // transform: "scale(0.1)",
@@ -63,10 +63,12 @@ export const TorneioCard = ({ torneio }: TorneioCardProps) => {
             hoverable
             style={{ ...cardStyle }}
             cover={<div>
-                <img alt="example"
-                    src="src\assets\image-card.jpg"
-                    style={{ ...imageStyle }}
-                />
+                <div style={{ border: "solid", borderColor: "gray", borderRadius: 3 }}>
+                    <img alt="example"
+                        src="src\assets\ping.gif"
+                        style={{ ...imageStyle, width: "100%" }}
+                    />
+                </div>
                 {isHovered && (
                     <Link to={`/torneio/${torneio?.id}`}>
                         <Button
