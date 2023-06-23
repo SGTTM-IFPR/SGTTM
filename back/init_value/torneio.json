@@ -1,10 +1,127 @@
 [
     {
         "id": "1",
-        "nome": "IFPR",
-        "data_inicio": "2024-02-01",
-        "data_final": "2024-02-01",
+        "nome": "IFPR 4",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
         "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "2",
+        "nome": "IFPR 5",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "3",
+        "nome": "IFPR 6",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "4",
+        "nome": "IFPR 7",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "5",
+        "nome": "IFPR 8",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "6",
+        "nome": "IFPR 9",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "7",
+        "nome": "IFPR 10",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "8",
+        "nome": "IFPR 11",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "9",
+        "nome": "IFPR 12",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Curitiba",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "10",
+        "nome": "IFPR 13",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Londrina",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "11",
+        "nome": "IFPR 14",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Londrina",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "12",
+        "nome": "IFPR 15",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "Londrina",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "13",
+        "nome": "IFPR 16",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "",
+        "status": "ABERTO",
+        "tipo_torneio": "COPA"
+    },
+    {
+        "id": "14",
+        "nome": "IFPR 17",
+        "data_inicio": "2023-02-01",
+        "data_final": "2023-02-01",
+        "local": "",
         "status": "ABERTO",
         "tipo_torneio": "COPA"
     }

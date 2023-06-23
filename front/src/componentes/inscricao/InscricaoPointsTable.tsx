@@ -13,8 +13,8 @@ interface IInscricaoPointsTableProps {
 export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps) => {
 
     useEffect(() => {
-        if(!inscricoes)
-         return;
+        if (!inscricoes)
+            return;
     }, [inscricoes])
 
     if (!inscricoes || inscricoes.length === 0)
@@ -29,18 +29,22 @@ export const InscricaoPointsTable = ({ inscricoes }: IInscricaoPointsTableProps)
     const columns = [
         { title: 'N.º Inscrição', dataIndex: 'id', key: 'id', align: 'center' as AlignType },
         { title: 'Nome', dataIndex: 'usuario', key: 'usuario', align: 'center', render: renderNome },
-        { title: 'Condição', dataIndex: 'condicao', key: 'condicao', align: 'center'},
+        { title: 'Condição', dataIndex: 'condicao', key: 'condicao', align: 'center' },
         { title: 'Jogadas', dataIndex: 'partidas_jogadas', key: 'partidas_jogadas', align: 'center' as AlignType },
-        { title:  (
-            <span style={{ color: "green" }}>
-              <CheckCircleOutlined /> Vitorias
-            </span>
-          ), dataIndex: 'vitorias', align: 'center' as AlignType},
-        { title: (
-            <span style={{ color: "red" }}>
-              <CloseCircleOutlined /> Derrotas
-            </span>
-          ), dataIndex: 'derrotas', align: 'center' as AlignType},
+        {
+            title: (
+                <span style={{ color: "green" }}>
+                    <CheckCircleOutlined /> Vitorias
+                </span>
+            ), dataIndex: 'vitorias', align: 'center' as AlignType
+        },
+        {
+            title: (
+                <span style={{ color: "red" }}>
+                    <CloseCircleOutlined /> Derrotas
+                </span>
+            ), dataIndex: 'derrotas', align: 'center' as AlignType
+        },
     ];
 
     return (

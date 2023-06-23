@@ -79,13 +79,17 @@ export const TorneioPage = () => {
 
 
     const nextFaseTournament = async () => {
-        if (current + 1 > 1)
+        if (current + 1 > 1) {
             return;
-        if (!torneio || !torneio.id)
+        }
+        if (!torneio || !torneio.id) {
             return;
+        }
         nextFaseService(torneio.id);
-        await fetchTorneio();
         setCurrent(torneio.fase_grupo_concluida ? 1 : 0);
+        // esperar 2 segundos
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await fetchTorneio();
     };
 
     const finalizarTorneio = async () => {
@@ -201,7 +205,7 @@ export const TorneioPage = () => {
                                 onClick={nextFaseTournament}
                             >
 
-                                <span>Proxima fase</span>
+                                <span>Próxima fase</span>
                                 <StepForwardOutlined />
                             </Button>
                         }
@@ -233,7 +237,7 @@ export const TorneioPage = () => {
                     <Descriptions labelStyle={{ fontSize: '20px' }} contentStyle={{ fontSize: '22px' }}>
                         <Descriptions.Item label="Tipo">{torneio?.tipo_torneio}</Descriptions.Item>
                         <Descriptions.Item label="Status">{torneio?.status === "EM_ANDAMENTO" ? "Em andamento" : torneio?.status}</Descriptions.Item>
-                        <Descriptions.Item label="Fase">{torneio.fase_atual}</Descriptions.Item>
+                        <Descriptions.Item label="Fase">{torneio?.fase_atual}</Descriptions.Item>
                     </Descriptions>
 
                 </div>

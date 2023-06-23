@@ -66,7 +66,6 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
     const { identity } = useAuth();
     const [form] = Form.useForm();
 
-
     useEffect(() => {
         const fetchPartidas = async () => {
             if (!torneio?.id) return;

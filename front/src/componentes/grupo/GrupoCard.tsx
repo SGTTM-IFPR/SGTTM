@@ -21,14 +21,14 @@ export const GrupoCard = ({ grupo }: IGrupoCardProps) => {
         };
         fetchInscricoes();
     }, [grupo]);
-    
+
 
     if (!grupo)
         return (
             <div>t</div>
         )
     return (
-        <Card style={{ width: '100%'}} title={<div>{grupo.nome}</div>}>
+        <Card style={{ width: '100%' }} title={<div>{grupo.nome}</div>}>
             <div>
                 <InscricaoPointsTable inscricoes={inscricoes} />
             </div>

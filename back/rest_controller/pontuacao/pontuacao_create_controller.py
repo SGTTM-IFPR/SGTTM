@@ -134,7 +134,7 @@ class PontuacaoCreateController(AbstractPontuacaoRestController):
                 pontos = 45
             elif etapa_nome == "Oitavas de final":
                 pontos = 30
-            elif etapa_nome == "Décimas sextas de final":
+            elif etapa_nome == "Décima sextas de final":
                 pontos = 20
             elif etapa_nome == "Primeira fase":
                 pontos = 10

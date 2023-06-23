@@ -201,6 +201,7 @@ def criar_partidas_ate_a_final(proxima_fase, torneio_id, jogadores_fase_seguinte
 def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
     global partida_service
     partidas_ja_criadas_na_proxima_fase = math.ceil(jogadores_fase_seguinte / 2)
+    print(partidas_ja_criadas_na_proxima_fase)
 
     fases = {
         "SEMIFINALS": {"partidas": 1 - partidas_ja_criadas_na_proxima_fase, "proxima_fase": "FINAL"},
@@ -208,8 +209,17 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
         "OITAVAS_FINAL": {"partidas": 4 - partidas_ja_criadas_na_proxima_fase, "proxima_fase": "QUARTAS_FINAL"},
         "DECIMA_SEXTAS_FINAL": {"partidas": 8 - partidas_ja_criadas_na_proxima_fase, "proxima_fase": "OITAVAS_FINAL"}
     }
+
+    jogos = {
+        "FINAL": 1,
+        "SEMIFINALS": 2,
+        "QUARTAS_FINAL": 4,
+        "OITAVAS_FINAL": 8,
+        "DECIMA_SEXTAS_FINAL": 16
+    }
     
     fase_atual = fase
+    print(fase)
     info_fase = fases[fase_atual]
     partidas_a_criar = info_fase["partidas"]
     proxima_fase = info_fase["proxima_fase"]
@@ -226,8 +236,20 @@ def criar_partidas_da_proxima_fase(fase, torneio_id, jogadores_fase_seguinte):
             partida_service.create(partida_para_criar)
             
             fase_atual = proxima_fase
+    if partidas_ja_criadas_na_proxima_fase == 0 and fase_atual != "FINAL":
+        fase_atual = proxima_fase
+        for _ in range(jogos[fase_atual]):
+            partida_para_criar = {
+                'inscricao_atleta1_id': None,
+                'inscricao_atleta2_id': None,
+                'etapa': fase_atual,
+                'torneio_id': torneio_id
+            }
+            print(partida_para_criar)
+            partida_service.create(partida_para_criar)
+        
 
-    if fase != "FINAL":
+    if fase_atual != "FINAL":
         criar_partidas_ate_a_final(proxima_fase, torneio_id, jogadores_fase_seguinte)
 
 def criar_partidas_da_fase_atual(inscricoes_ordenadas, partidas_fase_atual, fase, torneio_id, jogadores_fase_seguinte):
