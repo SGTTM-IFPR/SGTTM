@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { criarPontuacao, nextFaseTournament as nextFaseService } from '../../servicos/TorneioServico';
+import { criarPontuacao, nextFaseTournament as nextFaseService, updateTournament } from '../../servicos/TorneioServico';
 import { getInscricaoByTorneioId } from '../../servicos/InscricaoServico';
 import { getGruposByTorneioId } from '../../servicos/GrupoServico';
 import { TorneioData } from '../../datas/TorneioData';
 import { useState, useEffect, SetStateAction } from 'react';
-import { Button, Col, Descriptions, Layout, Row } from 'antd';
+import { Button, Col, Descriptions, Layout, Row, message } from 'antd';
 import { InscricaoData } from '../../datas/InscricaoData';
 import { InscricaoTable } from '../../componentes/inscricao/InscricaoTable';
 import { Collapse } from 'antd';
@@ -74,6 +74,9 @@ export const TorneioPage = () => {
 
 
     const onChange = (value: number) => {
+        if (value === 1 && !torneio?.fase_grupo_concluida) {
+            return; // Impede a transição para a próxima etapa
+        }
         setCurrent(value);
     };
 
@@ -95,8 +98,19 @@ export const TorneioPage = () => {
     const finalizarTorneio = async () => {
         if (!torneio || !torneio.id)
             return;
-        await criarPontuacao(torneio.id);
-        await fetchTorneio();
+        try {
+            await criarPontuacao(torneio.id);
+            torneio.fase_atual = "FASE_ELIMINATORIA"
+            torneio.status = "CONCLUIDO"
+            await updateTournament(torneio.id, torneio)
+            await fetchTorneio();
+            message.success("Torneio finalizado com sucesso!")
+            message.info("Pontuação criada com sucesso!")
+        } catch (error) {
+            message.success("Não foi possível finalizar o torneio!")
+        }
+
+
     };
 
     const description = '';
@@ -211,7 +225,7 @@ export const TorneioPage = () => {
                         }
                     </Col>
                     <Col>
-                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin && torneio.fase_atual != "Fase de grupos") &&
+                        {(torneio.tipo_torneio === "Copa" && torneio.fase_grupo_concluida && identity.isAdmin && torneio.fase_atual != "Fase de grupos" && torneio.status != "Concluído") &&
                             <Button size='middle'
                                 type="default"
                                 className="hover-effect"

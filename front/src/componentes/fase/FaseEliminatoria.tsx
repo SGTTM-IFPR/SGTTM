@@ -10,13 +10,6 @@ import { useAuth } from '../../autenticacao/context/AuthenticationContext';
 import { PartidaData } from "../../datas/PartidaData";
 import { Match as MathType } from "@g-loot/react-tournament-brackets/dist/src/types";
 
-const currentDate = new Date();
-const day = String(currentDate.getDate()).padStart(2, '0');
-const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-const year = currentDate.getFullYear();
-const formattedDate = `${day}/${month}/${year}`;
-
-
 function montar_partida(partidas: any[]) {
     const matches = [];
 
@@ -24,12 +17,18 @@ function montar_partida(partidas: any[]) {
         const partida = partidas[i];
 
         if (partida.etapa.toUpperCase() !== "PRIMEIRA FASE") {
+            const minhaData = new Date(partida.data_partida);
+            const dataFormatada = minhaData.toLocaleDateString('pt-BR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+            });
             const match: MathType = {
                 id: partida.id,
                 name: partida.etapa.toUpperCase(),
                 nextMatchId: partida.id_proxima_partida ?? null,
                 tournamentRoundText: partida.etapa,
-                startTime: formattedDate,
+                startTime: dataFormatada ?? null,
                 state: "DONE",
                 participants: [
                     {
@@ -178,12 +177,21 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
 
                         )}
                         onMatchClick={clickMatch}
+
                     />
                 ) : (
                     <Spin size="large" />
                 )}
             </div >
-            <Modal open={modalOpen} onCancel={closeModal} onOk={onConfirmResultMatch} width={700}>
+            <Modal
+                open={modalOpen}
+                onCancel={closeModal}
+                onOk={onConfirmResultMatch}
+                width={700}
+                cancelText="Cancelar"
+                okButtonProps={{ disabled: torneio?.status == 'Concluído' }}
+                cancelButtonProps={{ disabled: torneio?.status == 'Concluído' }}
+            >
                 <div style={{ width: '100%' }}>
                     <Form form={form}>
                         {partidaSelected &&
@@ -204,6 +212,7 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                                                 min={0}
                                                 max={4}
                                                 size="small"
+                                                disabled={torneio?.status == 'Concluído'}
                                             />
                                         </Form.Item>
                                         <Form.Item>
@@ -218,6 +227,7 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                                                 min={0}
                                                 max={4}
                                                 size="small"
+                                                disabled={torneio?.status == 'Concluído'}
                                             // disabled={!identity.isAdmin || torneio?.fase_atual != 'Fase de grupos'}
                                             />
                                         </Form.Item>

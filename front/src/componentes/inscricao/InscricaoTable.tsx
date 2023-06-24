@@ -16,8 +16,8 @@ export const InscricaoTable = ({ }: IInscricaoTableProps) => {
     const { torneio } = useTorneioContext();
     const [canDelete, setCanDelete] = useState(true);
 
-    useEffect(() => {  
-        if(torneio?.status === 'Em andamento')
+    useEffect(() => {
+        if (torneio?.status === 'Em andamento' || torneio?.status === 'Concluído')
             setCanDelete(false);
     }, [torneio]);
 

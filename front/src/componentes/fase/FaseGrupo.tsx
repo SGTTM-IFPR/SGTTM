@@ -74,7 +74,7 @@ export const FaseGrupo = ({ }: IFaseGrupoProps) => {
                 </Row>
             </div>
             <Drawer closable={false} onClose={onClose} open={open} width={'50%'}
-                title="Partidas"
+                title={"Partidas do grupo"}
                 extra={
                     identity.isAdmin ?
                         <Button type="primary" onClick={form.submit} disabled={torneio?.fase_atual != 'Fase de grupos'}>

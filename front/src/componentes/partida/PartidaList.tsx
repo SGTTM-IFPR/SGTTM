@@ -5,6 +5,7 @@ import { useAuth } from "../../autenticacao/context/AuthenticationContext";
 import { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useTorneioContext } from "../../paginas/torneio/context/TorneioContext";
+import moment from 'moment';
 
 export interface IPartidaListProps {
     partidas?: PartidaData[] | null;
@@ -45,10 +46,9 @@ export const PartidaList = (props: IPartidaListProps) => {
                             <Space wrap>
                                 <div style={{ paddingTop: "15px" }}>
                                     <strong>ID:</strong> {partida.id}
+                                    <span> | </span>
+                                    <strong>Data de Início:</strong> {moment(partida.data_partida).format('DD/MM/YYYY')}
                                 </div>
-                                {/* <div>
-                                        <strong>Data de Início:</strong> {partida.data_partida?.toString()}
-                                    </div> */}
                             </Space>
                             {/* </Card> */}
                         </Col>

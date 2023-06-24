@@ -1,4 +1,5 @@
 import random
+import datetime
 from typing import List, Union
 from dependency_injector.wiring import inject
 from model.Enums import EtapaEnum
@@ -11,6 +12,9 @@ from service.partida_service import PartidaService
 from service.service_tabela_grupo import *
 from service.service_distribuir_jogadores import *
 
+
+data_atual = datetime.datetime.now()
+data_formatada = data_atual.strftime("%Y-%m-%d")
 
 class InscricaoService(GenericService[InscricaoModel]):
 
@@ -140,6 +144,7 @@ class InscricaoService(GenericService[InscricaoModel]):
             for partida in partidas:
                 print(partida)
                 partida_para_criar = {
+                    'data_partida': data_formatada,
                     'inscricao_atleta1_id': partida[0],
                     'inscricao_atleta2_id': partida[1],
                     'grupo_id': partida[2],
