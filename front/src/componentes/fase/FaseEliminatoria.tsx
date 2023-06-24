@@ -1,5 +1,5 @@
 import { Card, Col, Divider, Form, InputNumber, Modal, Row, Space, Spin } from "antd";
-import { SingleEliminationBracket, Match, SVGViewer } from '@g-loot/react-tournament-brackets';
+import { SingleEliminationBracket, Match, SVGViewer, createTheme } from '@g-loot/react-tournament-brackets';
 import { getAllPartidasByTorneioId, getPartidaById, updateAllPartidas, updatePartida } from "../../servicos/PartidaService";
 import { useEffect, useState } from "react";
 import { useWindowSize } from 'usehooks-ts';
@@ -134,6 +134,10 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
         setModalOpen(false);
     }
 
+    const WhiteTheme = createTheme({
+        textColor: { main: '#fff', highlighted: '#fff', dark: '#fff' },
+    });
+
     return (
         <>
             <div
@@ -149,13 +153,12 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
 
                 {match_todas.length > 0 ? (
                     <SingleEliminationBracket
+                        theme={WhiteTheme}
                         options={{
                             style: {
                                 spaceBetweenRows: -10,
                                 spaceBetweenColumns: 50,
                                 width: 250,
-                                // usar connectorColor: "#fff" como segunda opcao
-                                // connectorColor: "#fff",
                             }
                         }}
                         matches={match_todas}
@@ -164,9 +167,12 @@ export const FaseEliminatoria = ({ }: IFaseEliminatoriaProps) => {
                             children,
                             ...props
                         }) => (
-                            // console.log("props", props),
-                            // background={'#0b0d12'} SVGBackground={'#0b0d12'} para mudar cor de fundo
-                            <SVGViewer width={width} height={height} {...props}>
+                            <SVGViewer
+                                width={width}
+                                height={height}
+                                {...props}
+                                background={"#001529"}
+                                SVGBackground={"#001529"}>
                                 {children}
                             </SVGViewer>
 

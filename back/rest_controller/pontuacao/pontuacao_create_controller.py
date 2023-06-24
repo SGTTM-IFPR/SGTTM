@@ -29,7 +29,7 @@ class PontuacaoCreateController(AbstractPontuacaoRestController):
             if i["etapa"] == "Primeira fase":
                 ids_primeira_fase.append(i['inscricao_atleta1_id'])
                 ids_primeira_fase.append(i['inscricao_atleta2_id'])
-            elif i["etapa"] == "Décimas sextas de final":
+            elif i["etapa"] == "Décima sextas de final":
                 ids_decimas_sextas.append(i['inscricao_atleta1_id'])
                 ids_decimas_sextas.append(i['inscricao_atleta2_id'])
             elif i["etapa"] == "Oitavas de final":
@@ -101,7 +101,7 @@ class PontuacaoCreateController(AbstractPontuacaoRestController):
             "ids": list(filter(lambda valor: valor is not None, ids_primeira_fase)) 
         },
         {
-            "etapa": "Décimas sextas de final",
+            "etapa": "Décima sextas de final",
             "ids": list(filter(lambda valor: valor is not None, ids_decimas_sextas))
         },
         {

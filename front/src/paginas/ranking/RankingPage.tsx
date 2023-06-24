@@ -124,6 +124,7 @@ export const RankingPage = () => {
             {rankings.map((torneioRanking) => (
               <Panel header={torneioRanking.torneio.nome} key={torneioRanking.torneio.id}>
                 <Table
+                  locale={{ emptyText: 'Não há dados' }}
                   dataSource={torneioRanking.rankings}
                   pagination={false}
                   rowKey={(record) => record.nome}

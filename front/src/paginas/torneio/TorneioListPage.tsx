@@ -71,7 +71,8 @@ export const TorneioListPage = () => {
                 <BotaoCriarTorneio setData={setData} />
             </Header>
             <Content>
-                <Table dataSource={data} size="small">
+                <Table dataSource={data} size="small" locale={{ emptyText: 'Não há dados' }}>
+
                     {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
 
                     <Column key="nome" align="center" title="Nome" dataIndex="nome" />

@@ -64,7 +64,7 @@ export const UsuarioListPage = () => {
         <BotaoCriarUsuario setData={setData} local="lista_usuario" />
       </Header>
       <Content>
-        <Table dataSource={data} size="small">
+        <Table dataSource={data} size="small" locale={{ emptyText: 'Não há dados' }}>
           {/* <Column align="center" title="ID" dataIndex="id" key="id" /> */}
           <Column align="center" title="CPF" dataIndex="cpf" key="cpf" />
           <Column align="center" title="Nome" dataIndex="nome" key="nome" />

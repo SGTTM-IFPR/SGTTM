@@ -15,7 +15,7 @@ type Props = {
 
 export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
     let id_usuario: Promise<number>;
-    const { torneio,  findInscricoes } = useTorneioContext();
+    const { torneio, findInscricoes } = useTorneioContext();
     const [searchText, setSearchText] = useState('');
     const [results, setResults] = useState<string[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +35,7 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
     };
 
     const performSearch = async (text: string): Promise<string[]> => {
-        if(!torneio)
+        if (!torneio)
             return [];
 
         const lista_inscritos = await getInscricaoByTorneioId(torneio.id!);
@@ -67,7 +67,7 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
     };
 
     const handleOk = async () => {
-        if(!torneio || !torneio.id)
+        if (!torneio || !torneio.id)
             return;
         try {
             const usuario = buscarIdPorNome(searchText);
@@ -91,9 +91,9 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
     if (!visibleButton) {
         return (
             <Button size='middle'
-            type="primary"
-            style={{ background: "red", color: "white", fontWeight: "bold" }}
-            disabled>
+                type="primary"
+                style={{ background: "red", color: "white", fontWeight: "bold" }}
+                disabled>
                 Incluir usuários indisponível
             </Button>
         );
@@ -135,6 +135,7 @@ export const BotaoSelecionarUsuario: React.FC<Props> = ({ visibleButton }) => {
                     },
                 ]}>
                     <Select
+                        notFoundContent="Sem dados"
                         showSearch
                         style={{ width: 200 }}
                         value={searchText}
