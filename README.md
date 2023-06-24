@@ -1,17 +1,18 @@
-# Sistema de Tabelas de Campeonato de Tênis de Mesa
-Este projeto é um sistema para gerar tabelas de campeonato de tênis de mesa.
+# SGTTM: Sistema para Gerenciamento de Torneio de Tênis de Mesa
+## Seja bem-vindo ao SGTTM - o futuro do gerenciamento de torneios de tênis de mesa!
+
+O SGTTM é um sistema desenvolvido para facilitar a organização e gestão de torneios de tênis de mesa. Com uma interface intuitiva e recursos avançados, o SGTTM oferece uma solução completa para o gerenciamento de competições, permitindo aos organizadores e participantes uma experiência fluida e eficiente.
 
 ## Documentação do projeto
-  - [TRELLO](https://trello.com/b/mU71PTrB/projeto-integrador-i)
-  - [DOCUMENTAÇÃO](https://docs.google.com/document/d/1k-ytTY66GrIKyVa3HLf-7Y_XAdcp1ptwC0FdG_eta2w/edit?usp=sharing)
+  - Em breve sera adicionado o PDF da documentação do projeto.
 
 ## Tecnologias utilizadas
   - Python com Flask
   - React com Vite
-  - MySQL
+  - Banco de dados MySQL
 
 ## Instalação
-Para executar este sistema, você precisará ter o Python, o Node.js e o Firebase instalados em sua máquina.
+Para executar este sistema, você precisará ter o Python, o Node.js e o MySQL instalados em sua máquina.
 
 1. Clone este repositório em sua máquina local.
 ```bash
@@ -39,14 +40,9 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-6. Execute o servidor:
+6. Execute o sistema:
 ```bash
-flask --app app run
-```
-
-7. Para manter o servidor acessível externamente:
-```bash
-flask --app app run --host=0.0.0.0
+python3 startup.py
 ```
 
 ### Frontend
@@ -67,10 +63,15 @@ npm run dev
 
 ## Funcionalidades
 O sistema possui as seguintes funcionalidades:
-  - Cadastro de usuários.
-  - Criação de torneios.
-  - Registro de partidas.
-  - Visualização de tabelas de classificação.
+  - Autenticação de usuários.
+  - Gerenciamento de Usuários.
+  - Gerenciamento de Torneios.
+  - Gerenciamento de Inscrições.
+  - Gerenciamento de Grupos.
+  - Gerenciamento de Partidas.
+  - Gerenciamento de Pontuação.
+  - Geração de Tabela de Confronto
+  - Tabela de Classificação.
 
 ## Uso
-Este sistema permite que você crie uma tabela de campeonato de tênis de mesa e a atualize em tempo real. Você pode adicionar jogadores, inserir resultados de jogos e ver a classificação atualizada da tabela em tempo real.
+O SGTTM (Sistema de Gerenciamento de Torneios de Tênis de Mesa) oferece uma solução completa para criar e atualizar tabelas de campeonatos de tênis de mesa em tempo real. Com o SGTTM, você pode facilmente cadastrar jogadores, inserir resultados de partidas e acompanhar a classificação atualizada dos participantes. Além disso, os recursos de autenticação de usuários e recuperação de senha garantem a segurança e a praticidade no acesso ao sistema. Através do SGTTM, você terá em mãos uma poderosa ferramenta para organizar e gerenciar torneios de tênis de mesa de forma eficiente e intuitiva.
